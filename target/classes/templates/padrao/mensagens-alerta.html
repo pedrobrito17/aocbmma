@@ -1,0 +1,13 @@
+<div th:fragment="mensagem-sucesso">
+    <div class="alert alert-success alert-dismissible" th:if="${mensagem} != null">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span th:text="${mensagem}"></span>
+    </div>
+</div>
+
+<div th:fragment="mensagem-erro">
+    <div class="alert alert-danger alert-dismissible" th:if="${erro} != null">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span th:text="${erro}"></span>
+    </div>
+</div>

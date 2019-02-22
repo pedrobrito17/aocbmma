@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <style>
+        #conteudo a {
+            color: inherit;
+        }
+
+        #conteudo a:hover {
+            text-decoration: none;
+            color: #f43340;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>ATENDIMENTO DA ASSESSORIA JURÍDICA</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-10 offset-1" id="conteudo">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <a href="http://hugoassis.jur.adv.br" target="_blank">
+                                <img class="img-fluid" th:src="@{/img/assis_passos.png}" alt="Assis Passos Advogados">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-sm-12 col-lg-6">
+                            <i class="fas fa-map-marker-alt"></i><b> Endereço</b>
+                            <address>
+                                Avenida Colares Moreira 444 salas 612/614<br>
+                                Jardim Renascença<br>
+                                São Luís / MA<br>
+                                CEP: 65075-441
+                            </address>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <i class="fas fa-phone"></i><b> Telefone</b>
+                            <p>
+                                (98) 3181-8856<br>
+                                (98) 98209-9999<br>
+                                (98) 98897-9172
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-lg-6">
+                            <i class="fas fa-envelope"></i><b> E-mail</b>
+                            <p>
+                                assispassos@assispassos.adv.br<br>
+                                hugopassos@assispassos.adv.br
+                            </p>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <i class="fas fa-globe"></i><b> Site</b>
+                            <a href="http://hugoassis.jur.adv.br" target="_blank">
+                                <p>assispassos.adv.br</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-lg-6">
+                                <i class="fas fa-clock"></i><b> Horário de atendimento</b>
+                            <p>
+                                08:00 às 18:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

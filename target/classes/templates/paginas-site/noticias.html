@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <style>
+        .miniTexto span {
+            color: inherit !important;
+            font-family: inherit !important;
+            font-size: .9em !important;
+            text-align: justify !important;
+            line-height: 1.1 !important;
+        }
+
+        .card a {
+            color: inherit;
+        }
+
+        .card a:hover {
+            text-decoration: none;
+            color: #f43340;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Notícias</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-10 offset-1" id="conteudo">
+
+                    <div class="card mb-3" th:each="noticia : ${noticias}">
+                        <div class="card-body">
+                            <article class=news>
+                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                    <h6 class="font-weight-bold" th:text="${noticia.titulo}"></h6>
+                                </a>
+                                <small th:text="${#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></small>
+                                <div class="miniTexto" th:utext="${noticia.noticia}"></div>
+                            </article>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(".miniTexto > p + p").hide();
+        </script>
+    </main>
+
+</body>
+
+</html>

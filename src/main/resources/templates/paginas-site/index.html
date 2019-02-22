@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <a href="https://www.extramed.com.br/entidade/cbmma" target="_blank"><img class="img-fluid" th:src="@{/img/banner.jpg}"
+                            alt="banner sul américa"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid div-conteudo">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2" id="noticias">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6" th:object="${principal}">
+
+                            <a th:href="@{/noticia/{id}(id=${principal.id})}">
+                                <img class="img-fluid img-destaque" th:src="@{'data:image/png;base64,'+${principal.generateBase64Image()}}"
+                                    alt="foto">
+                            </a>
+                            <article class="news">
+                                <a th:href="@{/noticia/{id}(id=${principal.id})}">
+                                    <h4 class="mt-4" th:text="${principal.titulo}">TITULO DA NOTICIA</h4>
+                                </a>
+                                <span th:text="${'Postado em '+#dates.format(principal.data_postagem, 'dd/MM/yyyy')}">POSTADO
+                                    EM 01/02/2019</span>
+                                <div th:utext="${principal.noticia}">TEXTO DA NOTÍCIA</div>
+                            </article>
+                        </div>
+                        <div class="col-sm-12 col-lg-6 sub-article">
+                            <div class="clearfix mb-lg-3" th:each="noticia : ${ultimasNoticias}">
+                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                    <img class="img-mini img-fluid" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
+                                </a>
+                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                    <h6 th:text="${noticia.titulo}">Previdência: o que pode mudar na aposentadoria dos militares</h6>
+                                </a>
+                                <span class="ml-4" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}">Postado em 01/02/2019</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a th:href="@{/noticias}">
+                        <button class="btn btn-danger btn-noticias mt-4 mb-4">VER TODAS AS NOTÍCIAS</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid div-conteudo">
+            <div class="row">
+                <div class="col-lg-12 parallax">
+                    <p>ASSESSORIA JURÍDICA 24 HORAS POR DIA </br>7 DIAS POR SEMANA</p>
+                </div>
+            </div>
+        </div>
+        <div class="container mb-4" id="convenios">
+            <h2 class="text-center mt-2"><b>CONVÊNIOS DA ASSOCIAÇÃO</b></h2>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Galeria 1 -->
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/colegio_educalis.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/sesc.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/divicom.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/valparaiso.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Galeria 2 -->
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/colegio_adventista.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/amil.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/corretora_champoudry.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/hapvida.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Galeria 3 -->
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/assego.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/iel.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/pousada_porto_dos_ventos.jpg}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/uni_estacio.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Galeria 4 -->
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-12 text-center">
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/allcare.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/senac.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/wizard.png}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="galeria-item">
+                                            <div class="card">
+                                                <div class="card-body card-convenios">
+                                                    <img class="img-fluid" th:src="@{/img/convenios/unicesumar.jpg}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Container Convênios-->
+
+        <div class="container-fluid" id="associe-se">
+            <div class="row">
+                <div class="col-sm-12 col-lg-8 offset-lg-2 associe-se">
+                    <h1>SEJA UM ASSOCIADO</h1>
+                    <p>Oficial do CBMMA aproveite as diversas vantagens oferecidas pela Associação.</p>
+                    <p>Você poderá usurfruir de todas as instalações da sede social para fazer eventos, contar com
+                        assessoria jurídica e aproveitar os descontos em várias empresas conveniadas.</p>
+                    <button type="button" class="btn btn-outline-dark btn-lg mt-4">QUERO SER SÓCIO</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/contato.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Contato</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-8 offset-2" id="conteudo">
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <form>
+                                <section class="form-gradient mb-5">
+                                    <div class="card">
+                                        <div class="card-body mx-4">
+
+                                            <div class="md-form">
+                                                <i class="fas fa-user prefix grey-text"></i>
+                                                <input type="text" id="form104" class="form-control" required>
+                                                <label for="form104">Seu nome</label>
+                                            </div>
+
+                                            <div class="md-form">
+                                                <i class="fas fa-envelope prefix grey-text"></i>
+                                                <input type="text" id="form105" class="form-control" required>
+                                                <label for="form105">Seu e-mail</label>
+                                            </div>
+
+                                            <div class="md-form">
+                                                <i class="fas fa-tag prefix grey-text"></i>
+                                                <input type="text" id="form106" class="form-control" required>
+                                                <label for="form106">Assunto</label>
+                                            </div>
+
+                                            <div class="md-form">
+                                                <i class="fas fa-pencil-alt prefix grey-text"></i>
+                                                <textarea type="text" id="form107" class="md-textarea form-control"
+                                                    rows="5" required></textarea>
+                                                <label for="form107">Sua mensagem</label>
+                                            </div>
+
+
+                                            <!--Grid row-->
+                                            <div class="row d-flex align-items-center mb-3 mt-4">
+
+                                                <!--Grid column-->
+                                                <div class="col-md-12">
+                                                    <div class="text-center">
+                                                        <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ENVIAR</button>
+                                                    </div>
+                                                </div>
+                                                <!--Grid column-->
+
+                                            </div>
+                                            <!--Grid row-->
+                                        </div>
+                                    </div>
+                                </section>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script th:src="@{/js/mdb.min.js}"></script>
+
+    </main>
+
+</body>
+
+</html>

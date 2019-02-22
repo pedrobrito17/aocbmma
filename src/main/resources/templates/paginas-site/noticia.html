@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <style>
+        .news p {
+            color: inherit !important;
+            font-family: inherit !important;
+            font-size: 1.1em !important;
+            text-align: justify !important;
+            line-height: 1.4 !important;
+        }
+
+        span {
+            top: -10px;
+        }
+
+        #share a{
+            color: white;
+            font-size: .8em;
+        }
+
+        .post {
+            font-size: .8em;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+            <br><br>
+            <div class="container titulo-conteudo">
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Notícia</h4>
+                    </div>
+                </div>
+            </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-8 offset-2" id="conteudo" th:object="${noticia}">
+                    <div class="text-center">
+                        <img class="img-fluid" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
+                    </div>
+                    <br>
+                    <h2 th:text="${noticia.titulo}"></h2>
+                    <span class="post position-relative" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></span>
+                    <div id="share">
+                        <a href="javascript:shareFacebook()" class="btn btn-social-icon btn-sm btn-facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="javascript:shareTwitter()" class="btn btn-social-icon btn-sm btn-twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="javascript:sendEmail()" target="_blank" class="btn btn-social-icon btn-sm btn-github">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <br>
+                    <div class="news" th:utext="${noticia.noticia}"></div>
+                </div>
+            </div>
+            <br>
+
+            <script>
+                function shareFacebook() {
+                    var share = 'https://www.facebook.com/sharer/sharer.php?u=';
+                    var link = document.URL;
+                    window.open(share+link, '_blank', 'width=600, height=450');
+                }
+
+                function shareTwitter(){
+                    var share = 'http://twitter.com/share?text=AOCBMMA&amp;url=';
+                    var link = document.URL;
+                    window.open(share+link, '_blank', 'width=600, height=450');
+                }
+
+                function sendEmail(){
+                    var link = document.URL;
+                    var email = 'mailto:?subject=AOCBMMA&body='+link;
+                    window.open(email, '_blank', 'width=600, height=450');
+                }
+            </script>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <style>
+        .img-custom{
+            max-height: 300px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Convênios</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-10 offset-1" id="conteudo">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="float-right">
+                                <select id="filtro" class="custom-select custom-select-sm">
+                                    <option value="Todos" selected>Todos</option>
+                                    <option th:each="categoria : ${categorias}" th:value="${categoria.categoria}"
+                                        th:text="${categoria.categoria}">Todos</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card-columns">
+                                <div th:each="convenio : ${convenios}" th:class="'card '+${convenio.categoria.categoria}">
+                                    <img class="card-img-top img-custom" th:src="${convenio.path_logo}" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${convenio.nome_empresa}"></h5>
+                                        <span class="card-text" th:text="${convenio.beneficio}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $('#filtro').change(function () {
+
+                $("select option:selected").each(function () {
+                    var categoria = $(this).text();
+                    filtro(categoria);             
+                });
+
+            });
+
+            function filtro(categoria){
+                if(categoria == 'Todos'){
+                    $('.card').show();
+                }
+                else{
+                    $('.card').hide();
+                    $('.'+categoria).show();
+                }
+            }
+        </script>
+    </main>
+
+</body>
+
+</html>

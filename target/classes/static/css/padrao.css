@@ -1,0 +1,382 @@
+body {
+    color: #333;
+    background-color: white;
+    font-family: "Open Sans", sans-serif
+}
+
+/* ################ CABEÇALHO ################ */
+header {
+    font-family: 'Open Sans', sans-serif;
+    background-color: white;
+    font-size: .9em;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0px 2px 27px 0px rgba(235, 235, 235, 1);
+    -moz-box-shadow: 0px 2px 27px 0px rgba(235, 235, 235, 1);
+    box-shadow: 0px 2px 27px 0px rgba(235, 235, 235, 1);
+}
+
+header>a,
+header a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Título da logo */
+.titulo {
+    display: inline-block;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.titulo h2 {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 2.2em;
+}
+
+.titulo h5 {
+    font-family: 'Questrial', sans-serif;
+    font-size: 1em;
+}
+
+.titulo span {
+    font-family: 'Questrial', sans-serif;
+    color: #f43340;
+    font-size: 1em;
+}
+
+.titulo h6 {
+    position: relative;
+    top: -10px;
+}
+
+.titulo>p {
+    text-align: center;
+    position: relative;
+    color: #333;
+    top: -20px;
+}
+
+.topo-div {
+    background-color: #f43340;
+    width: 100%;
+    display: block;
+    height: 40px;
+    position: relative;
+}
+
+.topo-div a {
+    color: white;
+}
+
+.topo-div a:hover {
+    text-decoration: none;
+    opacity: .6;
+}
+
+.topo-div-end {
+    height: 100%;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 40px;
+}
+
+.topo-div-end * {
+    display: inline-block;
+    height: 100%;
+}
+
+/* INPUT */
+.myinput,
+.myinput:focus {
+    height: 100%;
+    width: 60%;
+    color: white;
+    font-size: 1em;
+    border: none;
+    box-shadow: none;
+    background-color: rgba(3, 3, 3, .1);
+    padding: 10px;
+    outline: none;
+}
+
+::-webkit-input-placeholder {
+    color: white;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: white;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: white;
+}
+
+:-ms-input-placeholder {
+    color: white;
+}
+
+.input-container {
+    height: 100%;
+}
+
+.btn-icon {
+    color: white;
+    width: 30px;
+    box-sizing: border-box;
+    height: 100%;
+    text-align: center;
+    vertical-align: center;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    background-color: rgba(3, 3, 3, .1);
+    position: absolute;
+}
+
+.btn-icon:hover,
+.btn-icon:focus {
+    background-color: rgba(3, 3, 3, .2);
+    outline: none;
+}
+
+.btn-icon *{
+    display: block;
+    height: min-content;
+}
+
+.brasao {
+    display: inline-block;
+    padding: 1.1em;
+    margin-left: 20px;
+    -webkit-transform: translateZ(2px);
+    -moz-transform: translateZ(2px);
+    transform: translateZ(2px);
+    padding: 10px;
+}
+
+header h2 {
+    display: inline-block;
+    font-weight: 600;
+    vertical-align: middle;
+    position: relative;
+    margin-top: 15px;
+}
+
+/* MENU NAV  */
+@media screen and (max-width: 992px) {
+    nav {
+        display: none;
+    }
+
+    header {
+        text-align: center;
+    }
+
+    .brasao {
+        margin: 0px;
+    }
+
+    .titulo {
+        display: block;
+    }
+
+    body {
+        font-size: 80%;
+    }
+
+    .topo-div {
+        height: auto;
+    }
+
+    .topo-div-end{
+        right: 15px;
+    }
+
+    header h2 {
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 1250px) and (min-width:992px) {
+    .titulo {
+        display: none;
+    }
+}
+
+nav {
+    position: absolute;
+    right: 30px;
+    bottom: 15px;
+}
+
+nav span{
+    padding: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: inherit;
+}
+
+nav a{
+    color: inherit;
+}
+
+nav span:hover {
+    color: #f43340;
+    cursor: pointer;
+}
+
+.menu {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    background-color: rgb(26, 26, 26);
+    text-align: left;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    -moz-animation: menu-aparece 0.5s ease-in;
+    -webkit-animation: menu-aparece 0.5s ease-in;
+    animation: menu-aparece 0.5s ease-in;
+}
+
+@keyframes menu-aparece {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.menu-dropdown a {
+    display: block;
+    text-decoration: none;
+    padding: .8em;
+    font-size: .8em;
+    color: white;
+    text-transform: uppercase;
+}
+
+.menu-dropdown a:hover {
+    color: #f43340;
+    font-weight: 600;
+    -moz-transform: translateX(8px);
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+}
+
+.menu:hover .menu-dropdown {
+    display: block;
+}
+
+.menu:hover span {
+    color: #f43340;
+}
+
+/* MENU MOBILE */
+  .icon-menu-mobile {
+    color: white;
+    border:none;
+    height: 100%;
+    width: 50px;
+}
+
+.nav-mobile{
+    display: none;
+}
+
+#mobileLinks {
+    display: none;
+    background-color: rgba(0, 0, 0, .8);
+    margin-top: 0px;
+}
+
+@media screen and (max-width: 992px) {
+    .nav-mobile {
+        display: block;
+    }
+}
+
+.nav-mobile a,
+.nav-mobile span {
+    color: white;
+    padding: 10px 12px;
+    text-decoration: none;
+    font-size: 1em;
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.nav-mobile a:hover,
+.nav-mobile span:hover {
+    background-color: #f43340;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-dropdown-mobile {
+    font-size: .8em;
+    padding-left: 30px;
+    display: none;
+}
+
+footer {
+    background-color: #485460;
+    padding: 50px 0px 0px 0px;
+    color: white;
+    font-size: .9em;
+}
+
+footer a{
+    color: white;
+}
+
+footer a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+footer ul{
+    list-style: none;
+    line-height: 1.6em;
+}
+
+.ult-footer{
+    font-size: .8em;
+}
+
+.myfacebook{
+    position: absolute;
+    right: 20px;
+    bottom: 10%;
+    color: white;
+}
+
+.myfacebook:hover{
+    color: #3498db;
+}
+
+@media screen and (max-width: 992px) {
+    .ul-footer{
+        float: left !important;
+    }
+}
+
+.news span{
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: .8em !important;
+    text-align: justify;
+}
