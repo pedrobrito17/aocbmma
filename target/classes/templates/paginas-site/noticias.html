@@ -14,12 +14,18 @@
 
         .card a {
             color: inherit;
+            display: block;
         }
 
         .card a:hover {
             text-decoration: none;
             color: #f43340;
             cursor: pointer;
+        }
+        .img-mini-news{
+            width: 135px;
+            height: 100px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -30,7 +36,8 @@
         <div class="container titulo-conteudo">
             <div class="row">
                 <div class="col-12">
-                    <h4>Notícias</h4>
+                    <h4 th:if="${pesquisa} == null">Notícias</h4>
+                    <h4 th:if="${pesquisa} == true">Resultado da pesquisa <span th:text="'(' + ${qtd} +')'"></span></h4>
                 </div>
             </div>
         </div>
@@ -38,14 +45,34 @@
             <div class="row">
                 <div class="col-10 offset-1" id="conteudo">
 
+                    <div th:if="${qtd} == 0" class="text-center">
+                        <br>
+                        <h5>DESCULPE, NADA FOI ENCONTRADO COM OS TERMOS DA SUA PESQUISA. TENTE NOVAMENTE COM TERMOS
+                            DIFERENTES.</h5>
+                        <br>
+                        <form th:action="@{/pesquisar}" th:method="GET">
+                            <input class="form-control form-custom d-inline-block w-25" type="text" name="busca"
+                                placeholder="Pesquisar">
+                            <button type="submit" class="btn btn-danger btn-noticias d-inline-block"><i class="fas fa-search"></i></button>
+                        </form>
+                        <br><br><br><br>
+                    </div>
+
                     <div class="card mb-3" th:each="noticia : ${noticias}">
                         <div class="card-body">
                             <article class=news>
-                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                    <h6 class="font-weight-bold" th:text="${noticia.titulo}"></h6>
-                                </a>
-                                <small th:text="${#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></small>
-                                <div class="miniTexto" th:utext="${noticia.noticia}"></div>
+                                <div class="d-lg-inline-block">
+                                    <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                        <img class="img-fluid img-mini-news" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}"
+                                            alt="foto">
+                                    </a>
+                                </div>
+                                <div class="d-lg-inline-block ml-lg-3 ml-sm-0 mt-2">
+                                    <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                        <h6 class="font-weight-bold" th:text="${noticia.titulo}"></h6>
+                                    </a>
+                                    <small th:text="'Postado em '+ ${#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></small>
+                                </div>
                             </article>
                         </div>
                     </div>
@@ -53,10 +80,6 @@
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript">
-            $(".miniTexto > p + p").hide();
-        </script>
     </main>
 
 </body>

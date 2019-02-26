@@ -28,22 +28,23 @@
                             </a>
                             <article class="news">
                                 <a th:href="@{/noticia/{id}(id=${principal.id})}">
-                                    <h4 class="mt-4" th:text="${principal.titulo}">TITULO DA NOTICIA</h4>
+                                    <h3 class="mt-2" th:text="${principal.titulo}">TITULO DA NOTICIA</h3>
                                 </a>
                                 <span th:text="${'Postado em '+#dates.format(principal.data_postagem, 'dd/MM/yyyy')}">POSTADO
                                     EM 01/02/2019</span>
-                                <div th:utext="${principal.noticia}">TEXTO DA NOTÍCIA</div>
                             </article>
                         </div>
                         <div class="col-sm-12 col-lg-6 sub-article">
-                            <div class="clearfix mb-lg-3" th:each="noticia : ${ultimasNoticias}">
+                            <div class="clearfix mb-lg-4" th:each="noticia : ${ultimasNoticias}">
                                 <a th:href="@{/noticia/{id}(id=${noticia.id})}">
                                     <img class="img-mini img-fluid" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
                                 </a>
                                 <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                    <h6 th:text="${noticia.titulo}">Previdência: o que pode mudar na aposentadoria dos militares</h6>
+                                    <h6 th:text="${noticia.titulo}">Previdência: o que pode mudar na aposentadoria dos
+                                        militares</h6>
                                 </a>
-                                <span class="ml-4" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}">Postado em 01/02/2019</span>
+                                <span class="ml-4" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}">Postado
+                                    em 01/02/2019</span>
                             </div>
                         </div>
                     </div>
@@ -226,7 +227,9 @@
                     <p>Oficial do CBMMA aproveite as diversas vantagens oferecidas pela Associação.</p>
                     <p>Você poderá usurfruir de todas as instalações da sede social para fazer eventos, contar com
                         assessoria jurídica e aproveitar os descontos em várias empresas conveniadas.</p>
-                    <button type="button" class="btn btn-outline-dark btn-lg mt-4">QUERO SER SÓCIO</button>
+                    <a th:href="@{/associese}">
+                        <button type="button" class="btn btn-outline-dark btn-lg mt-4">QUERO SER SÓCIO</button>
+                    </a>
                 </div>
             </div>
         </div>

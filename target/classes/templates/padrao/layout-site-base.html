@@ -38,12 +38,12 @@
             </div>
             <div class="topo-div-end">
                 <div class="input-container">
-                    <form class="" action="@{/teste}">
-                        <input class="myinput" type="text" name="search" placeholder="Search">
+                    <form th:action="@{/pesquisar}" th:method="GET">
+                        <input class="myinput" type="text" name="busca" placeholder="Pesquisar">
                         <button type="submit" class="btn-icon"><i class="fas fa-search"></i></button>
                     </form>
                 </div>
-                <a th:href="@{/sisaocbmma/login}" target="__blank"><span><i class='fas fa-lock'></i> Área do associado</span></a>
+                <a th:href="@{/sisaocbmma}" target="__blank"><span><i class='fas fa-lock'></i> Área do associado</span></a>
             </div>
         </div>
         <a class="logo-topo" th:href="@{/}">
@@ -156,7 +156,7 @@
                     <p class="">Vila Rio São João, Paço do Lumiar - MA, <br>65110-000</p>
                     <h6 class="mt-4"><b>Administração</b></h6>
                     <p>Ten Cel Islandy Matões <u>Amaral</u> <br><i class="fas fa-phone"></i> (98) 98912-7666 <br><i
-                            class="fa fa-envelope"></i> presidente@aocbmma.com.br</p>
+                            class="fa fa-envelope"></i> administracao@aocbmma.com.br</p>
                     <a class="myfacebook" href="http://www.facebook.com/cobm.ma" target="__blank"><i class="fab fa-facebook-square fa-4x"
                             aria-hidden="true"></i></a>
                 </div>

@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - AocbmmaApplication",
+            "request": "launch",
+            "mainClass": "br.com.aocbmma.AocbmmaApplication",
+            "projectName": "aocbmma"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - AocbmmaApplication",
+            "request": "launch",
+            "mainClass": "br.com.aocbmma.aocbmma.AocbmmaApplication",
+            "projectName": "aocbmma"
+        }
+    ]
+}

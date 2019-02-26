@@ -1,7 +1,7 @@
 body {
     color: #333;
     background-color: white;
-    font-family: "Open Sans", sans-serif
+    font-family: "Open Sans", sans-serif;
 }
 
 /* ################ CABEÇALHO ################ */
@@ -19,7 +19,7 @@ header {
 header>a,
 header a:hover {
     text-decoration: none;
-    color: #333;
+    color: #333 !important;
 }
 
 /* Título da logo */
@@ -222,7 +222,7 @@ nav span{
 }
 
 nav a{
-    color: inherit;
+    color: inherit !important;
 }
 
 nav span:hover {
@@ -264,12 +264,12 @@ nav span:hover {
     text-decoration: none;
     padding: .8em;
     font-size: .8em;
-    color: white;
+    color: white !important;
     text-transform: uppercase;
 }
 
 .menu-dropdown a:hover {
-    color: #f43340;
+    color: #f43340 !important;
     font-weight: 600;
     -moz-transform: translateX(8px);
     -webkit-transform: translateX(8px);
@@ -286,7 +286,7 @@ nav span:hover {
 
 /* MENU MOBILE */
   .icon-menu-mobile {
-    color: white;
+    color: white !important;
     border:none;
     height: 100%;
     width: 50px;
@@ -310,7 +310,7 @@ nav span:hover {
 
 .nav-mobile a,
 .nav-mobile span {
-    color: white;
+    color: white !important;
     padding: 10px 12px;
     text-decoration: none;
     font-size: 1em;
@@ -321,8 +321,8 @@ nav span:hover {
 
 .nav-mobile a:hover,
 .nav-mobile span:hover {
-    background-color: #f43340;
-    color: white;
+    background-color: #f43340 !important;
+    color: white !important;
     cursor: pointer;
 }
 
@@ -340,11 +340,11 @@ footer {
 }
 
 footer a{
-    color: white;
+    color: white !important;
 }
 
 footer a:hover{
-    color: white;
+    color: white !important;
     text-decoration: underline;
 }
 

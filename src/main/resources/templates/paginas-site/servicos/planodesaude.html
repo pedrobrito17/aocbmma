@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Plano de saúde</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-8 offset-2" id="conteudo">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            
+                            <a class="d-inline-block" th:href="@{/files/tabela_divicom.pdf}" target="_blank">
+                                <h3>Clique aqui</h3>
+                            </a>
+                            <h3 class="d-inline-block mb-4">e conheça os planos oferecidos pela HapVida</h3>
+                            <br>
+                            <img class="img-fluid text-center" th:src="@{/img/plano_saude.png}" alt="plano de saúde">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

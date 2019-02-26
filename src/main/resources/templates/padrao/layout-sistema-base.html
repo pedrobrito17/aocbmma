@@ -27,10 +27,91 @@
 
 <body>
     <header>
-        <div class="titulo align-middle">
-            <h2 class=""><b>AOCBMMA</b></h2>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4">
+                    <div class="titulo">
+                        <img class="d-inline-block" th:src="@{/img/brasao-sistema.png}" alt="brasao">
+                        <h2 class="d-inline-block ml-2"><b>AOCBMMA</b></h2>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-8">
+                    <div class="position-navbar">
+
+                    
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light nav-custom">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/sisaocbmma}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Meus dados</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Atas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Financeiro</a>
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Associados
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Novo sócio</a>
+                                        <a class="dropdown-item" href="#">Relação dos associados</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Eventos
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Agendar evento</a>
+                                        <a class="dropdown-item" href="#">Meus eventos</a>
+                                        <a class="dropdown-item" href="#">Eventos do clube</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Notícias
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" th:href="@{/sisaocbmma/add-noticia}">Nova notícia</a>
+                                        <a class="dropdown-item" th:href="@{/sisaocbmma/listar-noticias}">Todas as notícias</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Convênios
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" th:href="@{/sisaocbmma/add-convenio}">Novo convênio</a>
+                                        <a class="dropdown-item" th:href="@{/sisaocbmma/listar-convenios}">Todos os convênios</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                </div>
+            </div>
         </div>
-    </header>
+
+
+    </header><br>
     <main layout:fragment="conteudo">
 
 

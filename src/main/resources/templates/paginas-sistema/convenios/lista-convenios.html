@@ -25,13 +25,13 @@
 
                     <table class="table table-striped">
                         <tr class="table-header">
+                            <th>#</th>
                             <th>Empresa</th>
-                            <th>Benefício</th>
                             <th></th>
                         </tr>
-                        <tr th:each="convenio : ${convenios}">
+                        <tr th:each="convenio, id : ${convenios}">
+                            <td th:text="${id.count}">1</td>
                             <td th:text="${convenio.nome_empresa}"></td>
-                            <td th:text="${convenio.beneficio}"></td>
                             <td class="text-right">
                                 <a th:href="@{/sisaocbmma/editar-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
                                 <a th:href="@{/sisaocbmma/excluir-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>

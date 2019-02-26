@@ -6,9 +6,13 @@
     text-shadow: 1px 1px 5px #333;
     padding: .5em;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+header{
+    background-color: #f43340;
 }
 
 footer{
@@ -18,4 +22,67 @@ footer{
 .table-header{
     background-color: #f43340 !important;
     color: white;
+}
+
+.form-custom:focus{
+    border-color: red !important;
+    box-shadow: 0px 0px 0px white !important;
+}
+
+.btn-noticias {
+    color: #fff;
+    background-color: #f43340;
+    border-color: #f43340;
+    font-size: .9em !important;
+}
+
+.btn-noticias:hover {
+    background-color: #f43340;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0px 0px 6px #666;
+}
+
+a{
+    /* color: #666; */
+}
+
+a:hover {
+    color: #f43340;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.nav-custom{
+    background-color: #f43340 !important;
+}
+
+.position-navbar{
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.navbar a{
+    color: white !important;
+    font-weight: bold;
+    font-size: .9em;
+}
+
+.navbar li{
+    margin-right: 5px;
+}
+
+.navbar a:hover, .active{
+    background-color: #343d47;
+    border-radius: 5px;
+}
+
+.dropdown-menu{
+    background-color: #343d47 !important;
+}
+
+.dropdown-item:hover{
+    background-color: #f43340 !important;
 }

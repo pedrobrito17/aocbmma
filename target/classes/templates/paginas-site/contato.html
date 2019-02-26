@@ -4,7 +4,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/contato.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb-custom.css}">
 </head>
 
 <body>
@@ -17,66 +17,103 @@
                 </div>
             </div>
         </div>
+
+        <br>
+        <div class="container">
+            <div th:replace="padrao/modal :: email-enviado"></div>
+        </div>
+
         <div class="container div-conteudo">
             <div class="row">
                 <div class="col-8 offset-2" id="conteudo">
                     <div class="row mt-2">
                         <div class="col-12">
 
-                            <form>
-                                <section class="form-gradient mb-5">
-                                    <div class="card">
-                                        <div class="card-body mx-4">
+                            <p class="text-center">
+                                Você tem alguma pergunta? Por favor, não hesite em nos contatar diretamente.
+                                Nossa equipe retornará a você em questão de horas para ajudá-lo.
+                            </p>
+                            <br>
 
-                                            <div class="md-form">
-                                                <i class="fas fa-user prefix grey-text"></i>
-                                                <input type="text" id="form104" class="form-control" required>
-                                                <label for="form104">Seu nome</label>
-                                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4 text-center">
+                                    <ul class="list-unstyled mb-0">
+                                        <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                                            <p>Vila Rio São João, Paço do Lumiar - MA,
+                                                65110-000</p>
+                                        </li>
 
-                                            <div class="md-form">
-                                                <i class="fas fa-envelope prefix grey-text"></i>
-                                                <input type="text" id="form105" class="form-control" required>
-                                                <label for="form105">Seu e-mail</label>
-                                            </div>
+                                        <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                                            <p>+55 98 98912-7666 </p>
+                                        </li>
 
-                                            <div class="md-form">
-                                                <i class="fas fa-tag prefix grey-text"></i>
-                                                <input type="text" id="form106" class="form-control" required>
-                                                <label for="form106">Assunto</label>
-                                            </div>
+                                        <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                                            <p>administracao@aocbmma.com.br</p>
+                                        </li>
+                                    </ul>
 
-                                            <div class="md-form">
-                                                <i class="fas fa-pencil-alt prefix grey-text"></i>
-                                                <textarea type="text" id="form107" class="md-textarea form-control"
-                                                    rows="5" required></textarea>
-                                                <label for="form107">Sua mensagem</label>
-                                            </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-8">
+                                    <form th:action="@{/enviar-email}" th:method="POST" th:object="${mensagem}">
+                                        <section class="form-gradient mb-5">
+                                            <div class="card">
+                                                <div class="card-body mx-4">
 
-
-                                            <!--Grid row-->
-                                            <div class="row d-flex align-items-center mb-3 mt-4">
-
-                                                <!--Grid column-->
-                                                <div class="col-md-12">
-                                                    <div class="text-center">
-                                                        <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ENVIAR</button>
+                                                    <div class="md-form">
+                                                        <i class="fas fa-user prefix grey-text"></i>
+                                                        <input type="text" id="form104" class="form-control" name="nome"
+                                                            th:field="*{remetente}" required>
+                                                        <label for="form104">Seu nome</label>
                                                     </div>
-                                                </div>
-                                                <!--Grid column-->
 
+                                                    <div class="md-form">
+                                                        <i class="fas fa-envelope prefix grey-text"></i>
+                                                        <input type="text" id="form105" class="form-control" name="email"
+                                                            th:field="*{email}" required>
+                                                        <label for="form105">Seu e-mail</label>
+                                                    </div>
+
+                                                    <div class="md-form">
+                                                        <i class="fas fa-tag prefix grey-text"></i>
+                                                        <input type="text" id="form106" class="form-control" name="assunto"
+                                                            th:field="*{assunto}" required>
+                                                        <label for="form106">Assunto</label>
+                                                    </div>
+
+                                                    <div class="md-form">
+                                                        <i class="fas fa-pencil-alt prefix grey-text"></i>
+                                                        <textarea type="text" id="form107" class="md-textarea form-control"
+                                                            name="mensagem" th:field="*{mensagem}" rows="5" required></textarea>
+                                                        <label for="form107">Sua mensagem</label>
+                                                    </div>
+
+
+                                                    <!--Grid row-->
+                                                    <div class="row d-flex align-items-center mb-3 mt-4">
+
+                                                        <!--Grid column-->
+                                                        <div class="col-md-12">
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4" id="btn-enviar">ENVIAR</button>
+                                                            </div>
+                                                        </div>
+                                                        <!--Grid column-->
+
+                                                    </div>
+                                                    <!--Grid row-->
+                                                </div>
                                             </div>
-                                            <!--Grid row-->
-                                        </div>
-                                    </div>
-                                </section>
-                            </form>
+                                        </section>
+                                    </form>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
             <script th:src="@{/js/mdb.min.js}"></script>
-
     </main>
 
 </body>

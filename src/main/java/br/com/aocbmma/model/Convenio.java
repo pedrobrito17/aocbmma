@@ -22,7 +22,7 @@ public class Convenio{
     @NotNull
     private String nome_empresa;
 
-    @Column
+    @Column(columnDefinition = "longtext")
     @NotNull
     private String beneficio;
 

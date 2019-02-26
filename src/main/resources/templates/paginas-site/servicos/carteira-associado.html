@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Carteira do associado</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row">
+                <div class="col-8 offset-2" id="conteudo">
+                    <div class="row mt-2">
+                        <div class="col-12">
+
+                            <p>Associado, para solicitar sua carteira de identificação, basta acessar o sistema de gerenciamento da AOCBMMA,
+                                atualizar seu cadastro e enviar uma foto.
+                                O porte da carteira é essencial para que você possa usufruir de nossos convênios e instalações.
+                            </p>
+
+                            <img class="img-fluid mt-4" th:src="@{/img/carteira-frente.png}" alt="carteira do sócio - frente">
+                            <img class="img-fluid mt-4 mb-4" th:src="@{/img/carteira-costas.png}" alt="carteira do sócio - frente">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+</body>
+
+</html>

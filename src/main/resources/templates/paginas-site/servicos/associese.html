@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-site-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb-custom.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <br><br>
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Associe-se</h4>
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo">
+            <div class="row mt-2">
+                <div class="col-8 offset-2" id="conteudo">
+
+                    <div>
+                        <h5>TAXAS COBRADAS</h5>
+                        <p>JÓIA: 01 salário mínimo nacional vigente (R$ 998,00) <br> MENSALIDADE: 1,2% do subsídio do 2º Tenente BM (R$ 85,00)</p>
+                        <p>O pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o pagamento da mensalidade.</p>
+                    </div>
+                    <br>
+
+                    <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A AOCBMMA.</h5><br>
+                    <fieldset>
+                        <legend>Dados pessoais</legend>
+                        <div class="row">
+                            <div class="col-12">
+                                <input type="text" class="form-control form-custom" name="nome" placeholder="Nome completo"
+                                    required>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="cpf" placeholder="CPF" required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="date" name="data_nascimento" placeholder="Data de nascimento"
+                                    required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br>
+
+                    <fieldset>
+                        <legend>Dados do oficialato</legend>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="nome_guerra" placeholder="Nome de guerra"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <select class="form-control form-custom">
+                                    <option value="" disabled selected>Posto</option>
+                                    <option value="1">Cadete</option>
+                                    <option value="2">Aspirante a Oficial</option>
+                                    <option value="3">2º Tenente</option>
+                                    <option value="3">1º Tenente</option>
+                                    <option value="3">Capitão</option>
+                                    <option value="3">Major</option>
+                                    <option value="3">Tenente Coronel</option>
+                                    <option value="3">Coronel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                        value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">QOC</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                        value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">QOA</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                        value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">CBMMA</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                        value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">PMMA</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                        value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">Forças Armadas</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="form-control form-custom" type="text" name="lotacao" placeholder="Lotação" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="rg_militar" placeholder="RG Militar"
+                                    required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="matricula" placeholder="Matrícula"
+                                    required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br>
+                    <fieldset>
+                        <legend>Dados bancários</legend>
+                        <div class="row">
+                            <div class="col-12">
+                                <select class="form-control form-custom">
+                                    <option value="" disabled selected>Banco</option>
+                                    <option value="001">001 - Banco do Brasil S.A.</option>
+                                    <option value="341">Banco Itaú S.A.</option>
+                                    <option value="033">Banco Santander S.A.</option>
+                                    <option value="356">Banco Real S.A.</option>
+                                    <option value="237">Banco Bradesco S.A.</option>
+                                    <option value="104">Caixa Econômica Federal</option>
+                                    <option value="453">Banco Rural S.A.</option>
+                                    <option value="422">Banco Safra S.A.</option>
+                                    <option value="633">Banco Rendimento S.A.</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="agencia" placeholder="Agência" required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="conta" placeholder="Conta corrente">
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <br>
+                    <fieldset>
+                        <legend>Endereço</legend>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="form-control form-custom" type="text" name="endereco" placeholder="Endereço" required>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="bairro" placeholder="Bairro" required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="cidade" placeholder="Cidade" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="cep" placeholder="CEP" required>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                    <br>
+
+                    <fieldset>
+                        <legend>Contato</legend>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="WhatsApp" required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="text" name="celular" placeholder="Celular">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="email" name="email" placeholder="E-mail" required>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br>
+
+                    <fieldset>
+                        <legend class="link">
+                            Dependentes
+                            <a href="#">
+                                <i class="fas fa-plus-circle"></i>
+                            </a>
+                        </legend>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-8">
+                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">
+                            </div>
+                            <div class="col-sm-12 col-lg-4">
+                                <select class="form-control form-custom">
+                                    <option value="" disabled selected>Parentesco</option>
+                                    <option value="1">Cônjugue</option>
+                                    <option value="2">Filho(a)</option>
+                                    <option value="3">Sogro(a)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <br>
+
+
+
+                    <fieldset>
+                        <legend>Acesso</legend>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="password" name="senha" placeholder="Senha" required>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <input class="form-control form-custom" type="password" name="conf_senha" placeholder="Confirmar senha">
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <br>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ASSOCIAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+</body>
+
+</html>

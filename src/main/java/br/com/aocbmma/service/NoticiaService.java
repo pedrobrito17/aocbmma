@@ -3,6 +3,7 @@ package br.com.aocbmma.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.aocbmma.model.Noticia;
@@ -43,6 +44,10 @@ public class NoticiaService{
         List<Noticia> ultimasNoticias = noticias.findUltimasNoticias();
         ultimasNoticias.remove(0);
         return ultimasNoticias;
+    }
+
+    public List<Noticia> buscarNoticias(String busca){
+        return noticias.findAllByNoticiaLike(busca);
     }
 
 }

@@ -7,6 +7,15 @@
         .img-custom{
             max-height: 300px !important;
         }
+
+        .card-text p, .card-text{
+            font-family: inherit !important;
+            color: inherit !important;
+            font-size: .9em !important;
+            line-height: 1 !important;
+            margin-bottom: 8px !important;
+        }    
+        
     </style>
 </head>
 
@@ -44,7 +53,7 @@
                                     <img class="card-img-top img-custom" th:src="${convenio.path_logo}" alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title" th:text="${convenio.nome_empresa}"></h5>
-                                        <span class="card-text" th:text="${convenio.beneficio}"></span>
+                                        <div class="card-text" th:utext="${convenio.beneficio}"></div>
                                     </div>
                                 </div>
                             </div>
