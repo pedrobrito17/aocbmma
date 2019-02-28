@@ -41,7 +41,7 @@ public class SiteController {
     public ModelAndView pageIndex() {
         ModelAndView mv = new ModelAndView("paginas-site/index");
         mv.addObject("principal", noticiaService.getNoticiaPrincipal());
-        mv.addObject("ultimasNoticias", noticiaService.getUltimasTresNoticias());
+        mv.addObject("ultimasNoticias", noticiaService.getUltimasDuasNoticias());
 
         // copiando a pasta das imagens dos convenios para o servidor
         String pathDestination = servlet.getRealPath("/");
@@ -151,6 +151,8 @@ public class SiteController {
             model.addAttribute("erro", "Desculpe! Erro ao enviar o e-mail. Tente novamente.");
             return "paginas-site/contato";
         }
+
+        return "";
 
     }
 

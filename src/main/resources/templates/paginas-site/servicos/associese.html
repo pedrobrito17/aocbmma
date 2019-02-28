@@ -23,12 +23,15 @@
 
                     <div>
                         <h5>TAXAS COBRADAS</h5>
-                        <p>JÓIA: 01 salário mínimo nacional vigente (R$ 998,00) <br> MENSALIDADE: 1,2% do subsídio do 2º Tenente BM (R$ 85,00)</p>
-                        <p>O pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o pagamento da mensalidade.</p>
+                        <p>JÓIA: 01 salário mínimo nacional vigente (R$ 998,00) <br> MENSALIDADE: 1,2% do subsídio do
+                            2º Tenente BM (R$ 85,00)</p>
+                        <p>O pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o
+                            pagamento da mensalidade.</p>
                     </div>
                     <br>
 
-                    <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A AOCBMMA.</h5><br>
+                    <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A
+                        AOCBMMA.</h5><br>
                     <fieldset>
                         <legend>Dados pessoais</legend>
                         <div class="row">
@@ -39,7 +42,8 @@
                         </div><br>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cpf" placeholder="CPF" required>
+                                <input class="form-control form-custom" type="text" name="cpf" placeholder="CPF"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-lg-6">
                                 <input class="form-control form-custom" type="date" name="data_nascimento" placeholder="Data de nascimento"
@@ -106,7 +110,8 @@
                         <br>
                         <div class="row">
                             <div class="col-12">
-                                <input class="form-control form-custom" type="text" name="lotacao" placeholder="Lotação" required>
+                                <input class="form-control form-custom" type="text" name="lotacao" placeholder="Lotação"
+                                    required>
                             </div>
                         </div>
                         <br>
@@ -143,7 +148,8 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="agencia" placeholder="Agência" required>
+                                <input class="form-control form-custom" type="text" name="agencia" placeholder="Agência"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-lg-6">
                                 <input class="form-control form-custom" type="text" name="conta" placeholder="Conta corrente">
@@ -157,23 +163,27 @@
                         <legend>Endereço</legend>
                         <div class="row">
                             <div class="col-12">
-                                <input class="form-control form-custom" type="text" name="endereco" placeholder="Endereço" required>
+                                <input class="form-control form-custom" type="text" name="endereco" placeholder="Endereço"
+                                    required>
                             </div>
                         </div>
                         <br>
 
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="bairro" placeholder="Bairro" required>
+                                <input class="form-control form-custom" type="text" name="bairro" placeholder="Bairro"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cidade" placeholder="Cidade" required>
+                                <input class="form-control form-custom" type="text" name="cidade" placeholder="Cidade"
+                                    required>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cep" placeholder="CEP" required>
+                                <input class="form-control form-custom" type="text" name="cep" placeholder="CEP"
+                                    required>
                             </div>
                         </div>
 
@@ -184,7 +194,8 @@
                         <legend>Contato</legend>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="WhatsApp" required>
+                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="WhatsApp"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-lg-6">
                                 <input class="form-control form-custom" type="text" name="celular" placeholder="Celular">
@@ -193,7 +204,8 @@
                         <br>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="email" name="email" placeholder="E-mail" required>
+                                <input class="form-control form-custom" type="email" name="email" placeholder="E-mail"
+                                    required>
                             </div>
                         </div>
                     </fieldset>
@@ -202,33 +214,36 @@
                     <fieldset>
                         <legend class="link">
                             Dependentes
-                            <a href="#">
+                            <a href="javascript:addDependente()" data-toggle="popover" id="popover">
                                 <i class="fas fa-plus-circle"></i>
                             </a>
                         </legend>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-8">
-                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">
-                            </div>
-                            <div class="col-sm-12 col-lg-4">
-                                <select class="form-control form-custom">
-                                    <option value="" disabled selected>Parentesco</option>
-                                    <option value="1">Cônjugue</option>
-                                    <option value="2">Filho(a)</option>
-                                    <option value="3">Sogro(a)</option>
-                                </select>
+                        <div id="dependente">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-8">
+                                    <input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">
+                                </div>
+                                <div class="col-sm-12 col-lg-4">
+                                    <select class="form-control form-custom">
+                                        <option value="" disabled selected>Parentesco</option>
+                                        <option value="1">Cônjugue</option>
+                                        <option value="2">Filho(a)</option>
+                                        <option value="3">Pai</option>
+                                        <option value="4">Mãe</option>
+                                        <option value="5">Sogro(a)</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
                     <br>
 
-
-
                     <fieldset>
                         <legend>Acesso</legend>
                         <div class="row">
                             <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="password" name="senha" placeholder="Senha" required>
+                                <input class="form-control form-custom" type="password" name="senha" placeholder="Senha"
+                                    required>
                             </div>
                             <div class="col-sm-12 col-lg-6">
                                 <input class="form-control form-custom" type="password" name="conf_senha" placeholder="Confirmar senha">
@@ -244,6 +259,45 @@
                     </div>
                 </div>
             </div>
+
+            <div class='popover-custom'>
+                <div class="title-popover">
+                    <h5>Quem são dependentes?</h5>
+                </div>
+                <div class="boody-popover">
+                    <ol style="list-style-type: upper-roman; margin: 0px;">
+                        <li>filho(a) solteiro(a) até 21 anos de idade ou 24 anos se estudante universitário;</li>
+                        <li>mãe, pai ou sogro(a), viúvo(a), desquitada ou divorciada que viva sob dependência financeira e mesmo teto do associado.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <script>    
+                function addDependente() {
+                    $('#dependente').append('<br><div class="row">' +
+                        '<div class="col-sm-12 col-lg-8">' +
+                        '<input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">' +
+                        '</div>' +
+                        '<div class="col-sm-12 col-lg-4">' +
+                        '<select class="form-control form-custom">' +
+                        '<option value="" disabled selected>Parentesco</option>' +
+                        '<option value="1">Cônjugue</option>' +
+                        '<option value="2">Filho(a)</option>' +
+                        '<option value="3">Pai</option>' +
+                        '<option value="4">Mãe</option>' +
+                        '<option value="5">Sogro(a)</option>' +
+                        '</select>' +
+                        '</div>' +
+                        '</div>');
+                }
+
+                $('#popover').popover({
+                    trigger: 'hover',
+                    placement: 'top',
+                    html: true,
+                    content: $('.popover-custom')
+                })
+            </script>
     </main>
 
 </body>

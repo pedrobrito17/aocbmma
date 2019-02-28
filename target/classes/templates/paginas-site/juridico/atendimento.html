@@ -3,6 +3,7 @@
     layout:decorate="~{padrao/layout-site-base}">
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
     <style>
         #conteudo a {
             color: inherit;
@@ -72,15 +73,66 @@
                     </div>
                     <div class="row mt-2">
                         <div class="col-sm-12 col-lg-6">
-                                <i class="fas fa-clock"></i><b> Horário de atendimento</b>
+                            <i class="fas fa-clock"></i><b> Horário de atendimento</b>
                             <p>
-                                08:00 às 18:00
+                                08:00 às 16:00
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-sm-12 col-lg-6">
+                            <i class="fas fa-calendar-alt"></i><b> Dia de atendimento</b>
+                            <p>
+                                Os atendimentos se darão somente às quartas-feiras, mediante agendamento prévio. Salvo
+                                os casos urgentes.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <!-- Central Modal Medium Danger -->
+        <div class="modal fade right" id="centralModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-notify modal-danger modal-side modal-bottom-right" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <p class="heading lead">Senhor(a) Associado(a)</p>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <i class="fas fa-times-circle fa-4x mb-3 animated rotateIn"></i>
+                            <p>Evite transtornos no acionamento da assessoria jurídica. Matenha o pagamento da sua mensalidade atualizada.</p>
+                        </div>
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-danger btn-noticias" data-dismiss="modal" aria-label="Close">FECHAR</button>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!-- Central Modal Medium Info-->
+
+        <script>
+            $(document).ready(function(){
+                $('#centralModalInfo').modal('show');
+            });
+        </script>
+
+
     </main>
 
 </body>

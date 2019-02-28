@@ -3,63 +3,159 @@
     layout:decorate="~{padrao/layout-site-base}">
 
 <head>
+    <style>
+        aside{
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .links-uteis{
+            width: 100%;
+            display: block;
+        }
+        aside h6{
+            color: white;
+            background-color: #f43340;
+            padding: .5em;
+            font-size: 1em;
+            text-align: center;
+            font-weight: bold;
+        }    
+        aside ul{
+            list-style: none;
+            padding: 0px;
+            width: 95%;
+        }
+        aside ul li{
+            padding: .4em;
+            background-color: white;
+            margin-bottom: .5em;
+            font-size: .8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid #d8dee2;
+            border-radius: 5px;
+            vertical-align: middle;
+        }
+        aside ul li:hover{
+            color: white;
+            background-color: #f43340;
+            cursor: pointer;
+        }
+        aside ul li a:hover{
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body>
     <main layout:fragment="conteudo">
         <div class="container-fluid mt-5">
             <div class="row">
-                <div class="col-8 offset-2">
-                    <a href="https://www.extramed.com.br/entidade/cbmma" target="_blank"><img class="img-fluid" th:src="@{/img/banner.jpg}"
-                            alt="banner sul américa"></a>
+                <div class="col-8 offset-2 text-center">
+                    <a th:href="@{/planodesaude}"><img class="img-fluid" th:src="@{/img/banner-hapvida.jpg}" alt="banner sul américa"></a>
                 </div>
             </div>
         </div>
 
-        <div class="container-fluid div-conteudo">
+        <div class="container-fluid div-conteudo mt-3">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2" id="noticias">
                     <div class="row">
-                        <div class="col-sm-12 col-lg-6" th:object="${principal}">
+                        <div class="col-sm-12 col-lg-9" th:object="${principal}">
 
-                            <a th:href="@{/noticia/{id}(id=${principal.id})}">
-                                <img class="img-fluid img-destaque" th:src="@{'data:image/png;base64,'+${principal.generateBase64Image()}}"
-                                    alt="foto">
-                            </a>
-                            <article class="news">
-                                <a th:href="@{/noticia/{id}(id=${principal.id})}">
-                                    <h3 class="mt-2" th:text="${principal.titulo}">TITULO DA NOTICIA</h3>
-                                </a>
-                                <span th:text="${'Postado em '+#dates.format(principal.data_postagem, 'dd/MM/yyyy')}">POSTADO
-                                    EM 01/02/2019</span>
-                            </article>
-                        </div>
-                        <div class="col-sm-12 col-lg-6 sub-article">
-                            <div class="clearfix mb-lg-4" th:each="noticia : ${ultimasNoticias}">
-                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                    <img class="img-mini img-fluid" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
-                                </a>
-                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                    <h6 th:text="${noticia.titulo}">Previdência: o que pode mudar na aposentadoria dos
-                                        militares</h6>
-                                </a>
-                                <span class="ml-4" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}">Postado
-                                    em 01/02/2019</span>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <a th:href="@{/noticia/{id}(id=${principal.id})}" class="float-left mr-2">
+                                        <img class="img-fluid img-destaque" th:src="@{'data:image/png;base64,'+${principal.generateBase64Image()}}"
+                                            alt="foto">
+                                    </a>
+                                    <article class="news">
+                                        <a th:href="@{/noticia/{id}(id=${principal.id})}">
+                                            <h3 th:text="${principal.titulo}" style="font-weight: bold; font-size: 1.7em;"></h3>
+                                        </a>
+                                        <span th:text="${'Postado em '+#dates.format(principal.data_postagem, 'dd/MM/yyyy')}"></span>
+                                        <div th:utext="${principal.noticia}"></div>
+                                    </article>
+                                </div>
                             </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-6 sub-article" th:each="noticia : ${ultimasNoticias}">
+                                            <div class="clearfix mb-lg-4">
+                                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                                    <img class="img-fluid img-mini" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
+                                                </a>
+                                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                                    <h6 th:text="${noticia.titulo}" style="font-size: 1em;"></h6>
+                                                </a>
+                                                <span class="ml-2" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <a th:href="@{/noticias}">
+                                        <button class="btn btn-danger btn-noticias mt-4 mb-4" style="font-size: 1em;">VER TODAS AS NOTÍCIAS</button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <aside>
+                                <div class="links-uteis">
+                                    <h6><i class="fas fa-link"></i> LINKS ÚTEIS</h6>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="http://www.ma.gov.br" target="_blank">
+                                            <img style="max-width:30px" th:src="@{/img/ma.png}" scale="0">
+                                            Governo do Maranhão</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.portaldoservidor.ma.gov.br" target="_blank">
+                                            <img style="max-width:30px" th:src="@{/img/ma.png}" scale="0">
+                                            Portal do Servidor</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://www.ssp.ma.gov.br" target="_blank">
+                                            <img style="max-width:30px" th:src="@{/img/ma.png}" scale="0">
+                                            Secretaria de Segurança</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://cbm.ssp.ma.gov.br" target="_blank">
+                                            <img style="max-width:30px" th:src="@{/img/cbmma.png}" scale="0">
+                                            Corpo de Bombeiros Militar</a>
+                                    </li>
+                                    <li>
+                                        <a href="http://pm.ssp.ma.gov.br" target="_blank">
+                                            <img style="max-width:30px" th:src="@{/img/pm.png}"
+                                                scale="0">
+                                            Polícia Militar</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.policiacivil.ma.gov.br" target="_blank">
+                                            <img style="max-width:25px" th:src="@{/img/pc.png}" scale="0">
+                                            Polícia Civil</a>
+                                    </li>
+                                </ul>
+
+                            </aside>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <a th:href="@{/noticias}">
-                        <button class="btn btn-danger btn-noticias mt-4 mb-4">VER TODAS AS NOTÍCIAS</button>
-                    </a>
-                </div>
-            </div>
-        </div>
+
 
         <div class="container-fluid div-conteudo">
             <div class="row">
