@@ -152,8 +152,6 @@ public class SiteController {
             return "paginas-site/contato";
         }
 
-        return "";
-
     }
 
 }

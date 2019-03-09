@@ -12,6 +12,7 @@
   <version>1.0</version>
   <name>Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão</name>
   <description>Sistema da AOCBMMA</description>
+  <packaging>war</packaging>
   <properties>
     <java.version>1.8</java.version>
     <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>

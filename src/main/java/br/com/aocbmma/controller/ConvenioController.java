@@ -1,7 +1,5 @@
 package br.com.aocbmma.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;

@@ -11,16 +11,16 @@
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/brasao.ico}">
     <title>AOCBMMA | Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão</title>
     <!-- Estilos -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/mdb.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
 
 <body>
     <div class="block-login">
-        <img class="brasao" src="/img/brasao.png" alt="Brasão AOCBMMA">
+        <img class="brasao" th:src="@{/img/brasao.png}" alt="Brasão AOCBMMA">
         <div class="container">
-            <form action="/sisaocbmma/login" method="POST">
+            <form th:action="@{/sisaocbmma/login}" method="POST">
                 <br>
                 <div class="form-group">
                     <label for="matricula">Matrícula</label>

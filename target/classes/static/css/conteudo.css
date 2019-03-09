@@ -104,7 +104,7 @@ article p {
 
 /* SEÇÃO PARALAX */
 .parallax {
-    background-image: url("/img/juridico.jpg");
+    background-image: url("../img/juridico.jpg");
     height: 500px;
     display: flex;
     justify-content: center;
