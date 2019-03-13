@@ -65,7 +65,7 @@ header a:hover {
 }
 
 .topo-div a {
-    color: white;
+    color: white !important;
 }
 
 .topo-div a:hover {
@@ -355,6 +355,7 @@ footer ul{
 
 .ult-footer{
     font-size: .8em;
+    margin-top: 0px !important;
 }
 
 .myfacebook{

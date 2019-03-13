@@ -25,7 +25,7 @@
                         <h5>TAXAS COBRADAS</h5>
                         <p>JÓIA: 01 salário mínimo nacional vigente (R$ 998,00) <br> MENSALIDADE: 1,2% do subsídio do
                             2º Tenente BM (R$ 85,00)</p>
-                        <p>O pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o
+                        <p>De acordo com o Estatuto, o pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o
                             pagamento da mensalidade.</p>
                     </div>
                     <br>
@@ -134,14 +134,14 @@
                                 <select class="form-control form-custom">
                                     <option value="" disabled selected>Banco</option>
                                     <option value="001">001 - Banco do Brasil S.A.</option>
-                                    <option value="341">Banco Itaú S.A.</option>
-                                    <option value="033">Banco Santander S.A.</option>
-                                    <option value="356">Banco Real S.A.</option>
-                                    <option value="237">Banco Bradesco S.A.</option>
-                                    <option value="104">Caixa Econômica Federal</option>
-                                    <option value="453">Banco Rural S.A.</option>
-                                    <option value="422">Banco Safra S.A.</option>
-                                    <option value="633">Banco Rendimento S.A.</option>
+                                    <option value="341">341 - Banco Itaú S.A.</option>
+                                    <option value="033">003 - Banco Santander S.A.</option>
+                                    <option value="356">356 - Banco Real S.A.</option>
+                                    <option value="237">237 - Banco Bradesco S.A.</option>
+                                    <option value="104">104 - Caixa Econômica Federal</option>
+                                    <option value="453">453 - Banco Rural S.A.</option>
+                                    <option value="422">422 - Banco Safra S.A.</option>
+                                    <option value="633">633 - Banco Rendimento S.A.</option>
                                 </select>
                             </div>
                         </div>
@@ -260,19 +260,8 @@
                 </div>
             </div>
 
-            <div class='popover-custom popover'>
-                <div class="title-popover">
-                    <h5>Quem são dependentes?</h5>
-                </div>
-                <div class="boody-popover">
-                    <ol style="list-style-type: upper-roman; margin: 0px;">
-                        <li>filho(a) solteiro(a) até 21 anos de idade ou 24 anos se estudante universitário;</li>
-                        <li>mãe, pai ou sogro(a), viúvo(a), desquitada ou divorciada que viva sob dependência financeira e mesmo teto do associado.</li>
-                    </ol>
-                </div>
-            </div>
 
-            <script>    
+            <script>
                 function addDependente() {
                     $('#dependente').append('<br><div class="row">' +
                         '<div class="col-sm-12 col-lg-8">' +
@@ -295,7 +284,17 @@
                     trigger: 'hover',
                     placement: 'top',
                     html: true,
-                    content: $('.popover-custom')
+                    content: '<div class="popover-custom">' +
+                        '<div class="title-popover">' +
+                        '<h5>Quem são dependentes?</h5>' +
+                        '</div>' +
+                        '<div class="body-popover">' +
+                        '<ol style="list-style-type: upper-roman; margin: 0px;">' +
+                        '<li>filho(a) solteiro(a) até 21 anos de idade ou 24 anos se estudante universitário;</li>' +
+                        '<li>mãe, pai ou sogro(a), viúvo(a), desquitada ou divorciada que viva sob dependência financeira e mesmo teto do associado.</li>' +
+                        '</ol>' +
+                        '</div>' +
+                        '</div>'
                 })
             </script>
     </main>
