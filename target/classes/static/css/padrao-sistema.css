@@ -31,7 +31,7 @@ header{
 }
 
 .form-custom:focus{
-    border-color: red !important;
+    border-color: #6495ED !important;
     box-shadow: 0px 0px 0px white !important;
 }
 

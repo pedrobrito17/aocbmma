@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.aocbmma.config.FilesConvenio;
 import br.com.aocbmma.helper.Mensagem;
+import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
 import br.com.aocbmma.service.NoticiaService;
@@ -87,8 +88,8 @@ public class SiteController {
     }
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
-    public String pageAssociese() {
-        return "paginas-site/servicos/associese";
+    public ModelAndView pageAssociese(Socio socio) {
+        return new ModelAndView("paginas-site/servicos/associese");
     }
 
     @RequestMapping(value = "/planodesaude", method = RequestMethod.GET)

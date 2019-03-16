@@ -11,13 +11,13 @@ body {
     border-top-right-radius: .3rem; }
   
   .form-gradient input[type=text]:focus:not([readonly]) {
-    border-bottom: 1px solid #f43340 !important;
-    box-shadow: 0 1px 0 0 #f43340 !important; }
+    border-bottom: 1px solid 	#6495ED !important;
+    box-shadow: 0 1px 0 0 	#6495ED !important; }
   
   .form-gradient input[type=text]:focus:not([readonly]) + label {
     color: #4f4f4f; }
   
   .form-gradient textarea.md-textarea:focus:not([readonly]) {
-      border-bottom: 1px solid #f43340 !important;
-      box-shadow: 0 1px 0 0 #f43340 !important; }
+      border-bottom: 1px solid 	#6495ED !important;
+      box-shadow: 0 1px 0 0 	#6495ED !important; }
 

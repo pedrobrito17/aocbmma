@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb-custom.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
 </head>
 
 <body>
@@ -25,278 +26,318 @@
                         <h5>TAXAS COBRADAS</h5>
                         <p>JÓIA: 01 salário mínimo nacional vigente (R$ 998,00) <br> MENSALIDADE: 1,2% do subsídio do
                             2º Tenente BM (R$ 85,00)</p>
-                        <p>De acordo com o Estatuto, o pagamento da jóia poderá ser feito em até 4 vezes. Neste período o sócio não efetuará o
+                        <p>De acordo com o Estatuto, o pagamento da jóia poderá ser feito em até 4 vezes. Neste período
+                            o sócio não efetuará o
                             pagamento da mensalidade.</p>
                     </div>
                     <br>
 
                     <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A
                         AOCBMMA.</h5><br>
-                    <fieldset>
-                        <legend>Dados pessoais</legend>
-                        <div class="row">
-                            <div class="col-12">
-                                <input type="text" class="form-control form-custom" name="nome" placeholder="Nome completo"
-                                    required>
-                            </div>
-                        </div><br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cpf" placeholder="CPF"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="date" name="data_nascimento" placeholder="Data de nascimento"
-                                    required>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <br>
 
-                    <fieldset>
-                        <legend>Dados do oficialato</legend>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="nome_guerra" placeholder="Nome de guerra"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <select class="form-control form-custom">
-                                    <option value="" disabled selected>Posto</option>
-                                    <option value="1">Cadete</option>
-                                    <option value="2">Aspirante a Oficial</option>
-                                    <option value="3">2º Tenente</option>
-                                    <option value="3">1º Tenente</option>
-                                    <option value="3">Capitão</option>
-                                    <option value="3">Major</option>
-                                    <option value="3">Tenente Coronel</option>
-                                    <option value="3">Coronel</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                        value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">QOC</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                        value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">QOA</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                                        value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">CBMMA</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                        value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">PMMA</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                                        value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">Forças Armadas</label>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-12">
-                                <input class="form-control form-custom" type="text" name="lotacao" placeholder="Lotação"
-                                    required>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="rg_militar" placeholder="RG Militar"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="matricula" placeholder="Matrícula"
-                                    required>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <br>
-                    <fieldset>
-                        <legend>Dados bancários</legend>
-                        <div class="row">
-                            <div class="col-12">
-                                <select class="form-control form-custom">
-                                    <option value="" disabled selected>Banco</option>
-                                    <option value="001">001 - Banco do Brasil S.A.</option>
-                                    <option value="341">341 - Banco Itaú S.A.</option>
-                                    <option value="033">003 - Banco Santander S.A.</option>
-                                    <option value="356">356 - Banco Real S.A.</option>
-                                    <option value="237">237 - Banco Bradesco S.A.</option>
-                                    <option value="104">104 - Caixa Econômica Federal</option>
-                                    <option value="453">453 - Banco Rural S.A.</option>
-                                    <option value="422">422 - Banco Safra S.A.</option>
-                                    <option value="633">633 - Banco Rendimento S.A.</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="agencia" placeholder="Agência"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="conta" placeholder="Conta corrente">
-                            </div>
-                        </div>
-                    </fieldset>
-
-
-                    <br>
-                    <fieldset>
-                        <legend>Endereço</legend>
-                        <div class="row">
-                            <div class="col-12">
-                                <input class="form-control form-custom" type="text" name="endereco" placeholder="Endereço"
-                                    required>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="bairro" placeholder="Bairro"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cidade" placeholder="Cidade"
-                                    required>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="cep" placeholder="CEP"
-                                    required>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                    <br>
-
-                    <fieldset>
-                        <legend>Contato</legend>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="whatsapp" placeholder="WhatsApp"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="text" name="celular" placeholder="Celular">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="email" name="email" placeholder="E-mail"
-                                    required>
-                            </div>
-                        </div>
-                    </fieldset>
-                    <br>
-
-                    <fieldset>
-                        <legend class="link">
-                            Dependentes
-                            <a href="javascript:addDependente()" data-toggle="popover" id="popover">
-                                <i class="fas fa-plus-circle"></i>
-                            </a>
-                        </legend>
-                        <div id="dependente">
+                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1" onsubmit="validarForm(this); return false;">
+                        <fieldset>
+                            <legend>Dados pessoais</legend>
                             <div class="row">
-                                <div class="col-sm-12 col-lg-8">
-                                    <input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">
+                                <div class="col-12">
+                                    <input type="text" class="form-control form-custom validacao-input-text" name="nome"
+                                        id="nome" autofocus placeholder="Nome completo" th:field="*{nome}">
+                                    <div class="invalid-feedback">
+                                        Digite seu nome
+                                    </div>
                                 </div>
-                                <div class="col-sm-12 col-lg-4">
-                                    <select class="form-control form-custom">
-                                        <option value="" disabled selected>Parentesco</option>
-                                        <option value="1">Cônjugue</option>
-                                        <option value="2">Filho(a)</option>
-                                        <option value="3">Pai</option>
-                                        <option value="4">Mãe</option>
-                                        <option value="5">Sogro(a)</option>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom cpf" type="text" name="cpf" placeholder="CPF"
+                                        th:field="*{cpf}">
+                                    <div class="invalid-feedback">
+                                        Digite seu cpf
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input id="data_nascimento" class="form-control form-custom" type="text" name="data_nascimento" onfocus="(this.type='date')"
+                                         placeholder="Data de nascimento">
+                                    <div class="invalid-feedback">
+                                        Digite sua data de nascimento
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+
+                        <fieldset>
+                            <legend>Dados do oficialato</legend>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="nome_guerra" placeholder="Nome de guerra" id="nome_guerra"
+                                        th:field="*{dadosOficial.nome_guerra}">
+                                        <div class="invalid-feedback">
+                                            Digite seu nome de guerra
+                                        </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <select id="posto" class="form-control form-custom" th:field="*{dadosOficial.posto}">
+                                        <option value="" selected hidden>Posto</option>
+                                        <option value="Cadete">Cadete</option>
+                                        <option value="Aspirante a Oficial">Aspirante a Oficial</option>
+                                        <option value="2º Tenente">2º Tenente</option>
+                                        <option value="1º Tenente">1º Tenente</option>
+                                        <option value="Capitão">Capitão</option>
+                                        <option value="Major">Major</option>
+                                        <option value="Tenente Coronel">Tenente Coronel</option>
+                                        <option value="Coronel">Coronel</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Selecione seu posto
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </fieldset>
-                    <br>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6" id="quadro">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="qoc" th:field="*{dadosOficial.quadro}"
+                                            value="QOC">
+                                        <label class="form-check-label" for="qoc">QOC</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="qoa" th:field="*{dadosOficial.quadro}"
+                                            value="QOA">
+                                        <label class="form-check-label" for="qoa">QOA</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6" id="corporacao">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="cbmma" th:field="*{dadosOficial.corporacao}"
+                                            value="CBMMA">
+                                        <label class="form-check-label" for="cbmma">CBMMA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pmma" th:field="*{dadosOficial.corporacao}"
+                                            value="PMMA">
+                                        <label class="form-check-label" for="pmma">PMMA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="forcas" th:field="*{dadosOficial.corporacao}"
+                                            value="Forças Armadas">
+                                        <label class="form-check-label" for="forcas">Forças Armadas</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="lotacao" placeholder="Lotação" id="lotacao"
+                                        th:field="*{dadosOficial.lotacao}">
+                                        <div class="invalid-feedback">
+                                            Digite sua lotação
+                                        </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="rg_militar" placeholder="RG Militar" id="rg_militar"
+                                        th:field="*{dadosOficial.rg_militar}">
+                                        <div class="invalid-feedback">
+                                            Digite seu rg militar
+                                        </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="matricula" placeholder="Matrícula" id="matricula"
+                                        th:field="*{dadosOficial.matricula}">
+                                        <div class="invalid-feedback">
+                                            Digite sua matricula
+                                        </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <legend>Dados bancários</legend>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select id="banco" class="form-control form-custom" th:field="*{dadosBancarios.banco}">
+                                        <option value=""selected hidden>Banco</option>
+                                        <option value="Banco do Brasil S.A.">001 - Banco do Brasil S.A.</option>
+                                        <option value="Banco Itaú S.A.">341 - Banco Itaú S.A.</option>
+                                        <option value="Banco Santander S.A.">003 - Banco Santander S.A.</option>
+                                        <option value="Banco Real S.A.">356 - Banco Real S.A.</option>
+                                        <option value="Banco Bradesco S.A.">237 - Banco Bradesco S.A.</option>
+                                        <option value="Caixa Econômica Federal">104 - Caixa Econômica Federal</option>
+                                        <option value="Banco Rural S.A.">453 - Banco Rural S.A.</option>
+                                        <option value="Banco Safra S.A.">422 - Banco Safra S.A.</option>
+                                        <option value="Banco Rendimento S.A.">633 - Banco Rendimento S.A.</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Selecione seu banco
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="agencia"
+                                        placeholder="Agência" id="agencia" th:field="*{dadosBancarios.agencia}">
+                                    <div class="invalid-feedback">
+                                        Digite sua agência
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="text" name="conta"
+                                        placeholder="Conta corrente" id="conta_corrente" th:field="*{dadosBancarios.conta_corrente}">
+                                    <div class="invalid-feedback">
+                                        Digite sua conta corrente
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
 
-                    <fieldset>
-                        <legend>Acesso</legend>
+
+                        <br>
+                        <fieldset>
+                            <legend>Endereço</legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input id="cep" class="form-control form-custom cep" type="text" name="cep" 
+                                        placeholder="CEP" th:field="*{dadosContato.cep}">
+                                    <div class="invalid-feedback">
+                                        Digite o CEP
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input id="logradouro" class="form-control form-custom" type="text" name="endereço"
+                                        placeholder="Endereço" th:field="*{dadosContato.endereco}" readonly>
+                                </div>
+                                <div class="col-6">
+                                    <input id="numero" class="form-control form-custom" type="text" name="numero"
+                                        placeholder="Número" th:field="*{dadosContato.numero}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input id="complemento" class="form-control form-custom" type="text" name="complemento"
+                                        placeholder="Complemento" th:field="*{dadosContato.complemento}">
+                                </div>
+                                <div class="col-6">
+                                    <input id="bairro" class="form-control form-custom" type="text" name="bairro"
+                                        placeholder="Bairro" th:field="*{dadosContato.bairro}" readonly>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input id="cidade" class="form-control form-custom" type="text" name="cidade"
+                                        placeholder="Cidade" th:field="*{dadosContato.cidade}" readonly>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input id="uf" class="form-control form-custom" type="text" name="uf" 
+                                        placeholder="UF" th:field="*{dadosContato.uf}" readonly>
+                                </div>
+                            </div>
+                            <br>
+
+
+                        </fieldset>
+                        <br>
+
+                        <fieldset>
+                            <legend>Contato</legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="whatsapp"
+                                        id="whatsapp" placeholder="WhatsApp" th:field="*{dadosContato.whatsapp}">
+                                    <div class="invalid-feedback">
+                                        Digite seu whatsapp
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="celular" id="celular"
+                                        placeholder="Celular" th:field="*{dadosContato.celular}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom validacao-input-text" type="email" name="email" id="email"
+                                        placeholder="E-mail" th:field="*{dadosContato.email}">
+                                    <div class="invalid-feedback">
+                                        Digite seu e-mail
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+
+                        <fieldset>
+                            <legend class="link">
+                                Dependentes
+                                <a class="text-muted" href="javascript:addDependente()" data-toggle="popover" id="popover">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                                <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover" id="popover">
+                                    <i class="fas fa-minus-circle"></i>
+                                </a>
+                            </legend>
+                            <div id="dependente">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-8">
+                                        <input class="form-control form-custom" type="text" name="dependente"
+                                            placeholder="Dependente" th:field="*{dependentes[0].nome}">
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                        <select class="form-control form-custom" th:field="*{dependentes[0].parentesco}">
+                                            <option value="" selected hidden>Parentesco</option>
+                                            <option value="Cônjugue">Cônjugue</option>
+                                            <option value="Filho(a)">Filho(a)</option>
+                                            <option value="Pai">Pai</option>
+                                            <option value="Mãe">Mãe</option>
+                                            <option value="Sogro(a)">Sogro(a)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+
+                        <fieldset>
+                            <legend>Acesso</legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="password" name="senha" placeholder="Senha" id="senha"
+                                        th:field="*{senha}">
+                                    <div class="invalid-feedback">
+                                        A senha não confere.
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="password" name="conf_senha" id="conf_senha"
+                                        placeholder="Confirmar senha">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <br>
                         <div class="row">
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="password" name="senha" placeholder="Senha"
-                                    required>
-                            </div>
-                            <div class="col-sm-12 col-lg-6">
-                                <input class="form-control form-custom" type="password" name="conf_senha" placeholder="Confirmar senha">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ASSOCIAR</button>
                             </div>
                         </div>
-                    </fieldset>
 
-                    <br>
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ASSOCIAR</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
 
 
-            <script>
-                function addDependente() {
-                    $('#dependente').append('<br><div class="row">' +
-                        '<div class="col-sm-12 col-lg-8">' +
-                        '<input class="form-control form-custom" type="text" name="whatsapp" placeholder="Dependente">' +
-                        '</div>' +
-                        '<div class="col-sm-12 col-lg-4">' +
-                        '<select class="form-control form-custom">' +
-                        '<option value="" disabled selected>Parentesco</option>' +
-                        '<option value="1">Cônjugue</option>' +
-                        '<option value="2">Filho(a)</option>' +
-                        '<option value="3">Pai</option>' +
-                        '<option value="4">Mãe</option>' +
-                        '<option value="5">Sogro(a)</option>' +
-                        '</select>' +
-                        '</div>' +
-                        '</div>');
-                }
-
-                $('#popover').popover({
-                    trigger: 'hover',
-                    placement: 'top',
-                    html: true,
-                    content: '<div class="popover-custom">' +
-                        '<div class="title-popover">' +
-                        '<h5>Quem são dependentes?</h5>' +
-                        '</div>' +
-                        '<div class="body-popover">' +
-                        '<ol style="list-style-type: upper-roman; margin: 0px;">' +
-                        '<li>filho(a) solteiro(a) até 21 anos de idade ou 24 anos se estudante universitário;</li>' +
-                        '<li>mãe, pai ou sogro(a), viúvo(a), desquitada ou divorciada que viva sob dependência financeira e mesmo teto do associado.</li>' +
-                        '</ol>' +
-                        '</div>' +
-                        '</div>'
-                })
-            </script>
+            <script th:src="@{/js/jquery.mask.min.js}"></script>
+            <script th:src="@{/js/form-associese.js}"></script>
     </main>
 
 </body>
