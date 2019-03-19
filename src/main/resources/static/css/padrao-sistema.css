@@ -172,3 +172,10 @@ footer{
         display: none !important;
     }
 }
+
+.div-info-system{
+    background-color: #f4f5f6;
+    color: #3b3c40;
+    min-height: 200px;
+    padding: 20px;
+}

@@ -2,6 +2,7 @@ package br.com.aocbmma.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,11 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -52,6 +57,9 @@ public class Socio{
     @Column
     private String senha;
 
+    @Column
+    private int ativo = 1;
+
     @OneToOne(mappedBy = "socio", cascade = CascadeType.ALL)
     private DadosContato dadosContato;
 
@@ -64,6 +72,11 @@ public class Socio{
     @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
     @Nullable
     private List<Dependente> dependentes;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "socio_role", joinColumns = @JoinColumn(name = "socio_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
 
     public Integer getId() {
         return this.id;
@@ -121,6 +134,14 @@ public class Socio{
         this.senha = senha;
     }
 
+    public int getAtivo() {
+        return this.ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
+    }
+
     public DadosContato getDadosContato() {
         return this.dadosContato;
     }
@@ -152,5 +173,14 @@ public class Socio{
     public void setDependentes(List<Dependente> dependentes) {
         this.dependentes = dependentes;
     }
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
 
 }

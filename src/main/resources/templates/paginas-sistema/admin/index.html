@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-admin-base}">
+
+<head>
+    <style>
+        h3,
+        h4 {
+            font-size: 1.4em;
+        }
+
+        .aniv {
+            padding: 1em;
+            background-color: #ffe066;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+
+                    <div class="div-info-system">
+                        <h3><i class="fas fa-user-circle"></i> NOVOS SÓCIOS</h3><br>
+                        <h4 th:if="${sociosSolicitados.empty}">Nenhuma solicitação realizada.</h4>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-10">
+
+                                <table class="table table-bordered table-sm" th:if="${not sociosSolicitados.empty}">
+                                    <thead class="table-secondary">
+                                        <th>Posto</th>
+                                        <th>Quadro</th>
+                                        <th>Nome</th>
+                                        <th>Corporação</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody th:each="socio : ${sociosSolicitados}">
+                                        <td class="align-middle" th:text="${socio.dadosOficial.posto}"></td>
+                                        <td class="align-middle" th:text="${socio.dadosOficial.quadro}"></td>
+                                        <td class="align-middle" th:text="${socio.nome}"></td>
+                                        <td class="align-middle" th:text="${socio.dadosOficial.corporacao}"></td>
+                                        <td class="align-middle text-center"><a th:href="@{/admin/aceitar-socio/{id}(id=${socio.id})}"
+                                                class="btn btn-info">Aceitar</a></td>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <br>
+                    <hr>
+                    <br>
+
+                    <div class="div-info-system">
+                        <h3><i class="fas fa-glass-cheers"></i> NOVOS EVENTOS</h3><br>
+                        <h4>Nenhum evento solicitado.</h4>
+                    </div>
+
+                    <br>
+                    <hr>
+                    <br>
+
+                    <div class="div-info-system">
+                        <h3><i class="fas fa-birthday-cake"></i> ANIVERSARIANTES DO MÊS</h3><br>
+                        <h4 th:if="${aniversariantes.empty}">Neste mês não há aniversariantes.</h4>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-6">
+                                <div th:each="aniv : ${aniversariantes}">
+                                    <p class="aniv" th:text="${aniv.dadosOficial.posto +' '+ aniv.dadosOficial.nome_guerra +  ' - ' + #dates.format(aniv.getData_nascimento(), 'dd MMM') }"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#home').addClass('menu-ativo');
+        </script>
+    </main>
+
+</body>
+
+</html>

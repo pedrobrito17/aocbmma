@@ -6,17 +6,17 @@ import java.security.NoSuchAlgorithmException;
 
 public class Criptografia {
 
-    public static String criptografarSenha(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+    // public static String criptografarSenha(String senha) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    //     MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+    //     byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
         
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : messageDigest) {
-            hexString.append(String.format("%02X", 0xFF & b));
-        }
+    //     StringBuilder hexString = new StringBuilder();
+    //     for (byte b : messageDigest) {
+    //         hexString.append(String.format("%02X", 0xFF & b));
+    //     }
 
-        String senha_criptografada = hexString.toString();
-        return senha_criptografada;
-    }
+    //     String senha_criptografada = hexString.toString();
+    //     return senha_criptografada;
+    // }
 
 }

@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
 
-                    <form enctype="multipart/form-data" th:action="@{/sisaocbmma/salvar-noticia}" th:method="POST">
+                    <form enctype="multipart/form-data" th:action="@{/admin/salvar-noticia}" th:method="POST">
                         <div class="form-group">
                             <label for="titulo">Título</label>
                             <input class="form-control" name="titulo" type="text" required autofocus>
@@ -67,6 +67,7 @@
                     ]
                 });
             });
+            $('#noticias').addClass('menu-ativo');
         </script>
 
     </main>

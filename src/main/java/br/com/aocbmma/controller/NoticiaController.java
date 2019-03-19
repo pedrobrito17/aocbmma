@@ -23,7 +23,7 @@ import br.com.aocbmma.model.Noticia;
 import br.com.aocbmma.service.NoticiaService;
 
 @Controller
-@RequestMapping(value = "/sisaocbmma")
+@RequestMapping(value = "/admin")
 public class NoticiaController {
 
     @Autowired
@@ -31,7 +31,7 @@ public class NoticiaController {
 
     @RequestMapping(value = "/add-noticia", method = RequestMethod.GET)
     public String pageAddNoticia() {
-        return "paginas-sistema/noticias/add-noticia";
+        return "paginas-sistema/admin/noticias/add-noticia";
     }
 
     @PostMapping(value = "/salvar-noticia")
@@ -49,10 +49,10 @@ public class NoticiaController {
 
         if(noticiaService.salvarNoticia(noticia)){
             attributes.addFlashAttribute("mensagem", "Notícia salva com sucesso!");
-            return new ModelAndView("redirect:/sisaocbmma/listar-noticias");
+            return new ModelAndView("redirect:/admin/listar-noticias");
         }else{
             attributes.addFlashAttribute("erro", "Erro inesperado. Sua notícia não foi salva. Tente novamente.");
-            return new ModelAndView("redirect:/sisaocbmma/listar-noticias");
+            return new ModelAndView("redirect:/admin/listar-noticias");
         }
     }
 
@@ -80,17 +80,17 @@ public class NoticiaController {
 
         if(noticiaService.salvarNoticia(noticia)){
             attributes.addFlashAttribute("mensagem", "Notícia atualizada com sucesso!");
-            return new ModelAndView("redirect:/sisaocbmma/listar-noticias");
+            return new ModelAndView("redirect:/admin/listar-noticias");
         }else{
             attributes.addFlashAttribute("erro", "Erro inesperado. Sua notícia não foi atualizada. Tente novamente.");
-            return new ModelAndView("redirect:/sisaocbmma/listar-noticias");
+            return new ModelAndView("redirect:/admin/listar-noticias");
         }
     }
 
     @RequestMapping(value = "/listar-noticias", method = RequestMethod.GET)
     public ModelAndView pageListarNoticias() {
 
-        ModelAndView mv = new ModelAndView("paginas-sistema/noticias/lista-noticias");
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/noticias/lista-noticias");
         mv.addObject("noticias", noticiaService.getNoticias());
         return mv;
     }
@@ -98,13 +98,13 @@ public class NoticiaController {
     @GetMapping(value="/excluir-noticia/{id}")
     public ModelAndView excluirNoticia(@PathVariable Integer id) {
         noticiaService.deletarNoticia(id);
-        ModelAndView mv = new ModelAndView("redirect:/sisaocbmma/listar-noticias");
+        ModelAndView mv = new ModelAndView("redirect:/admin/listar-noticias");
         return mv;
     }
 
     @RequestMapping(value = "/editar-noticia/{id}", method = RequestMethod.GET)
     public ModelAndView editarNoticia(@PathVariable Integer id) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/noticias/editar-noticia");
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/noticias/editar-noticia");
         mv.addObject("noticia", noticiaService.buscarNoticia(id));
         return mv;
     }

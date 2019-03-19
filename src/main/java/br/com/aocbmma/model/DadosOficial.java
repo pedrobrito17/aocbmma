@@ -29,7 +29,6 @@ public class DadosOficial{
     private String posto;
 
     @Column
-    @NotNull
     private String quadro;
 
     @Column

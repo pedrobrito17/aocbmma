@@ -26,7 +26,7 @@
                     <!-- MENSAGEM DE ERRO -->
                     <div th:replace="padrao/mensagens-alerta :: mensagem-erro"></div>
 
-                    <form enctype="multipart/form-data" th:action="@{/sisaocbmma/atualizar-convenio}" th:method="POST" th:object="${convenio}">
+                    <form enctype="multipart/form-data" th:action="@{/admin/atualizar-convenio}" th:method="POST" th:object="${convenio}">
                         <input hidden type="number" name="id" th:field="*{id}">
                         <input hidden type="text" name="path_logo" th:field="*{path_logo}">
                         
@@ -71,6 +71,7 @@
                     ]
                 });
             });
+            $('#convenios').addClass('menu-ativo');
         </script>
     </main>
 </body>

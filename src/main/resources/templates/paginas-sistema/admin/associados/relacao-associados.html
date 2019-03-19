@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-admin-base}">
+
+<head>
+    <style>
+        .rel-ass{
+            background-color: #f4f5f6;
+            color: #3b3c40;
+            padding: .8em .8em .8em 2em;
+            margin-top: 8px;
+            border-radius: 10px;
+        }
+        p{
+            margin-bottom: 2px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>ASSOCIADOS</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-10">
+                    <input class="form-control form-custom" type="search" placeholder="Pesquisar">
+                </div>
+                <div class="col-sm-12 col-lg-2">
+                    <select class="form-control form-custom">
+                        <option>Todos</option>
+                        <option>Nome</option>
+                        <option>Posto</option>
+                        <option>Quadro</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div th:each="ass : ${associados}">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1 rel-ass">
+                        <i class="fas fa-4x fa-user-circle"></i>
+                        <div class="d-inline-block">
+                            <p th:text="${ass.nome}"></p>
+                            <p th:if="${ass.dadosOficial.quadro != null}" th:text="${ass.dadosOficial.posto + ' ' + ass.dadosOficial.quadro}"></p>
+                            <p th:if="${ass.dadosOficial.quadro == null}" th:text="${ass.dadosOficial.posto}"></p>
+                            <p th:text="${ass.dadosOficial.corporacao}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('#associados').addClass('menu-ativo');
+        </script>
+    </main>
+
+</body>
+
+</html>

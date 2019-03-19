@@ -33,8 +33,8 @@
                             <td th:text="${id.count}">1</td>
                             <td th:text="${convenio.nome_empresa}"></td>
                             <td class="text-right">
-                                <a th:href="@{/sisaocbmma/editar-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
-                                <a th:href="@{/sisaocbmma/excluir-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
+                                <a th:href="@{/admin/editar-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+                                <a th:href="@{/admin/excluir-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
                             </td>
                         </tr>
                     </table>
@@ -42,6 +42,10 @@
                 </div>
             </div>
         </div>
+        <script>
+            $('#convenios').addClass('menu-ativo');
+        </script>
+    </main>
 </body>
 
 </html>

@@ -25,7 +25,7 @@ import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
 
 @Controller
-@RequestMapping(value = "/sisaocbmma")
+@RequestMapping(value = "/admin")
 public class ConvenioController {
 
     @Autowired
@@ -39,21 +39,21 @@ public class ConvenioController {
 
     @RequestMapping(value = "/add-convenio", method = RequestMethod.GET)
     public ModelAndView pageAddConvenio(Convenio convenio) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/convenios/add-convenio");
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/add-convenio");
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
         return mv;
     }
 
     @RequestMapping(value = "/listar-convenios", method = RequestMethod.GET)
     public ModelAndView pageListarConvenios() {
-        ModelAndView mv = new ModelAndView("paginas-sistema/convenios/lista-convenios");
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/lista-convenios");
         mv.addObject("convenios", convenioService.getConvenios());
         return mv;
     }
 
     @RequestMapping(value = "/editar-convenio/{id}", method = RequestMethod.GET)
     public ModelAndView pageEditarConvenio(@PathVariable Integer id) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/convenios/editar-convenio");
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/editar-convenio");
         mv.addObject("convenio", convenioService.buscarConvenio(id));
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
         return mv;
@@ -76,10 +76,10 @@ public class ConvenioController {
 
         if (convenioService.salvarConvenio(convenio)) {
             attributes.addFlashAttribute("mensagem", "Convênio salvo com sucesso!");
-            return new ModelAndView("redirect:/sisaocbmma/listar-convenios");
+            return new ModelAndView("redirect:/admin/listar-convenios");
         } else {
             attributes.addFlashAttribute("erro", "Erro inesperado. O convênio não foi salvo. Tente novamente.");
-            return new ModelAndView("redirect:/sisaocbmma/listar-convenios");
+            return new ModelAndView("redirect:/admin/listar-convenios");
         }
     }
 
@@ -106,10 +106,10 @@ public class ConvenioController {
 
         if (convenioService.salvarConvenio(convenio)) {
             attributes.addFlashAttribute("mensagem", "Convênio atualizado com sucesso!");
-            return new ModelAndView("redirect:/sisaocbmma/listar-convenios");
+            return new ModelAndView("redirect:/admin/listar-convenios");
         } else {
             attributes.addFlashAttribute("erro", "Erro inesperado. O convênio não foi atualizado. Tente novamente.");
-            return new ModelAndView("redirect:/sisaocbmma/listar-convenios");
+            return new ModelAndView("redirect:/admin/listar-convenios");
         }
 
     }
@@ -117,7 +117,7 @@ public class ConvenioController {
     @GetMapping(value = "/excluir-convenio/{id}")
     public ModelAndView excluirConvenio(@PathVariable Integer id) {
         convenioService.deletarConvenio(id);
-        ModelAndView mv = new ModelAndView("redirect:/sisaocbmma/listar-convenios");
+        ModelAndView mv = new ModelAndView("redirect:/admin/listar-convenios");
         return mv;
     }
 

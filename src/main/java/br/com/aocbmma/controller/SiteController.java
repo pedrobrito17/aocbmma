@@ -89,7 +89,8 @@ public class SiteController {
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
     public ModelAndView pageAssociese(Socio socio) {
-        return new ModelAndView("paginas-site/servicos/associese");
+        ModelAndView mv = new ModelAndView("paginas-site/servicos/associese"); 
+        return mv;
     }
 
     @RequestMapping(value = "/planodesaude", method = RequestMethod.GET)
@@ -152,7 +153,11 @@ public class SiteController {
             model.addAttribute("erro", "Desculpe! Erro ao enviar o e-mail. Tente novamente.");
             return "paginas-site/contato";
         }
+    }
 
+    @RequestMapping(value = "/site/retorno", method = RequestMethod.GET)
+    public String pageRetorno() {
+        return "paginas-site/retorno";
     }
 
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>ALTERAR SENHA</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-8 offset-lg-2">
+
+                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1"
+                        onsubmit="validarForm(this); return false;">
+
+                        <!-- <input type="hidden" th:field="*{socio.id}" type="text"> -->
+
+                        <fieldset>
+                            <legend>Acesso</legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="password" name="senha" placeholder="Nova Senha"
+                                        id="senha" th:field="*{senha}">
+                                    <div class="invalid-feedback">
+                                        A senha não confere.
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="password" name="conf_senha" id="conf_senha"
+                                        placeholder="Confirmar nova Ssenha">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br>
+
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">ALTERAR</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/form-associese.js}"></script>
+    </main>
+
+</body>
+
+</html>
