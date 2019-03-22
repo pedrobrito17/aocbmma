@@ -25,7 +25,7 @@
 
 
                     <form th:action="@{/sisaocbmma/atualizar-socio}" th:method="POST" th:object="${socio}" name="form1"
-                        onsubmit="validarForm(this); return false;">
+                        onsubmit="validarFormAtualizarMeusDados(this); return false;">
 
                         <fieldset>
                             <legend>Dados pessoais</legend>
@@ -289,12 +289,7 @@
                         <br>
 
                         <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
-                        <input name="id" th:field="*{id}" type="text">
-                        <input type="password" name="senha" th:field="*{senha}">
-                        <div th:each="dep : ${socio.dependentes}">
-                            <input type="text" th:field="*{dep.nome}">
-                            <input type="text" th:field="*{dep.parentesco}">
-                        </div>
+                        <input name="id" th:field="*{id}" type="text" hidden>
 
                         <div class="row">
                             <div class="col-12 text-center">

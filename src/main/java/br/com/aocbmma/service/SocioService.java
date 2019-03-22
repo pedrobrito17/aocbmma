@@ -16,11 +16,12 @@ import org.springframework.stereotype.Service;
 import br.com.aocbmma.model.Dependente;
 import br.com.aocbmma.model.Role;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.repository.Dependentes;
 import br.com.aocbmma.repository.Roles;
 import br.com.aocbmma.repository.Socios;
 
 @Service
-public class SocioService{
+public class SocioService {
 
     @Autowired
     private Socios socios;
@@ -29,16 +30,19 @@ public class SocioService{
     private Roles roles;
 
     @Autowired
+    private Dependentes dependentes;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
-    public String salvarSocio(Socio socio){
+    public String salvarSocio(Socio socio) {
         Socio socioExiste = socios.findByEmail(socio.getDadosContato().getEmail());
 
-        if(socioExiste == null){
+        if (socioExiste == null) {
             verificarCadastroDependentes(socio.getDependentes());
             relacionarEntidadePaiComEntidadeFilha(socio);
-    
+
             Role socioRole = roles.findByRole("SOCIO");
             socio.setRoles(new HashSet<Role>(Arrays.asList(socioRole)));
             socio.setSenha(bCryptPasswordEncoder.encode(socio.getSenha()));
@@ -47,59 +51,90 @@ public class SocioService{
             return "";
         }
         return "Este e-mail já está cadastrado. Tente novamente com outro e-mail.";
-        
+
     }
 
-    public void relacionarEntidadePaiComEntidadeFilha(Socio socio){
+    public void relacionarEntidadePaiComEntidadeFilha(Socio socio) {
         socio.getDadosBancarios().setSocio(socio);
         socio.getDadosContato().setSocio(socio);
         socio.getDadosOficial().setSocio(socio);
-        
+
         List<Dependente> dependentes = socio.getDependentes();
         relacionarEntidadePaiComOsSeusDependentes(dependentes, socio);
     }
 
-    public void verificarCadastroDependentes(List<Dependente> socioDependentes){
-        for(int i = 0 ; i < socioDependentes.size() ; i++){
+    public void verificarCadastroDependentes(List<Dependente> socioDependentes) {
+        for (int i = 0; i < socioDependentes.size(); i++) {
             if (socioDependentes.get(i).getNome().isEmpty() || socioDependentes.get(i).getParentesco().isEmpty()) {
                 socioDependentes.remove(i);
             }
         }
-        if(socioDependentes.isEmpty()){
+        if (socioDependentes.isEmpty()) {
             socioDependentes = null;
         }
     }
 
-    public void relacionarEntidadePaiComOsSeusDependentes(List<Dependente> socioDependentes, Socio socio){
-        if(socioDependentes != null){
-            for(int i = 0 ; i < socioDependentes.size() ; i++){
-                socioDependentes.get(i).setSocio(socio);            
+    public void relacionarEntidadePaiComOsSeusDependentes(List<Dependente> socioDependentes, Socio socio) {
+        if (socioDependentes != null) {
+            for (int i = 0; i < socioDependentes.size(); i++) {
+                socioDependentes.get(i).setSocio(socio);
             }
         }
     }
 
-    public List<Socio> getSociosSolicitados(){
+    public List<Socio> getSociosSolicitados() {
         return socios.findBySituacao("solicitado");
     }
 
     @Transactional
-    public void atualizarSituacaoSocio(int id){
+    public void atualizarSituacaoSocio(int id) {
         Socio socio = socios.getOne(id);
         socio.setSituacao("ativo");
+        socio.setAtivo(1);
         socios.save(socio);
     }
 
-    public void atualizarSocio(Socio socio){
+    public void atualizarSocio(Socio socio) {
+        Socio socioBd = socios.findById(socio.getId()).get();
+        
+        socio.setRoles(socioBd.getRoles());
+        socio.setDependentes(socioBd.getDependentes());
+        socio.setSenha(socioBd.getSenha());
+        socio.setAtivo(socioBd.getAtivo());
+
+        socio.getDadosBancarios().setId(socioBd.getId());
+        socio.getDadosBancarios().setSocio(socio);
+        socio.getDadosContato().setId(socioBd.getId());
+        socio.getDadosContato().setSocio(socio);
+        socio.getDadosOficial().setId(socioBd.getId());
+        socio.getDadosOficial().setSocio(socio);
+        
         socios.save(socio);
     }
 
-    public List<Socio> getAniversariantesDoMes(){
+    public void atualizarSenhaSocio(Socio socio){
+        Socio socioBd = socios.findById(socio.getId()).get();
+        socioBd.setSenha(bCryptPasswordEncoder.encode(socio.getSenha()));
+        socios.save(socioBd);
+    }
+
+    public void atualizarMeusDependentes(Socio socio){
+        Socio socioBd = socios.findById(socio.getId()).get();
+        
+        verificarCadastroDependentes(socio.getDependentes());
+        relacionarEntidadePaiComOsSeusDependentes(socio.getDependentes(), socioBd);
+
+        socioBd.setDependentes(socio.getDependentes());
+        socios.save(socioBd);
+    }
+
+    public List<Socio> getAniversariantesDoMes() {
         Calendar cal = Calendar.getInstance();
         int month = cal.get(Calendar.MONTH) + 1;
         return socios.getAniversariantes(month);
     }
 
-    public List<Socio> getTodosOsSocios(){
+    public List<Socio> getTodosOsSocios() {
         return socios.findAll();
     }
 
@@ -108,11 +143,16 @@ public class SocioService{
     }
 
     @Transactional
-    public Socio getSocioByEmail(){
+    public Socio getSocioByEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         Socio socioIncompleto = socios.findByEmail(email);
         Socio socio = socios.findById(socioIncompleto.getId()).get();
         return socio;
     }
+
+	public boolean deletarDependente(int id) {
+        dependentes.deleteById(id);
+        return true;
+	}
 }

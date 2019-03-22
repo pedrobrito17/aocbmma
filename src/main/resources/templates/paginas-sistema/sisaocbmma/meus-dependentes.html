@@ -23,42 +23,44 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-8 offset-lg-2">
 
-                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1"
-                        onsubmit="validarForm(this); return false;">
+                    <form th:action="@{/sisaocbmma/atualizar-meus-dependentes}" th:method="POST" th:object="${socio}"
+                        name="form1">
 
-                        <!-- <input type="text" th:value="${socio.id}" th:field="*{socio.id}" hidden> -->
+                        <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
+                        <input name="id" th:field="*{id}" type="text" hidden>
 
                         <fieldset>
-                            <legend class="link">
+                            <legend class="link mb-n3">
                                 Dependentes
                                 <a class="text-muted" href="javascript:addDependente()" data-toggle="popover" id="popover">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
-                                <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover" id="popover">
+                                <!-- <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover" id="popover">
                                     <i class="fas fa-minus-circle"></i>
-                                </a>
+                                </a> -->
                             </legend>
                             <div id="dependente">
-
-                                <div th:each="dep,index : ${socio.dependentes}">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-lg-8">
-                                            <input class="form-control form-custom" type="text" name="dependente"
-                                                placeholder="Dependente" th:field="*{dependentes[index].nome}">
-                                        </div>
-                                        <div class="col-sm-12 col-lg-4">
-                                            <select class="form-control form-custom" th:field="*{dependentes[index].parentesco}">
-                                                <option value="" selected hidden>Parentesco</option>
-                                                <option value="Cônjugue">Cônjugue</option>
-                                                <option value="Filho(a)">Filho(a)</option>
-                                                <option value="Pai">Pai</option>
-                                                <option value="Mãe">Mãe</option>
-                                                <option value="Sogro(a)">Sogro(a)</option>
-                                            </select>
-                                        </div>
+                                <div th:each="dep, i : ${socio.getDependentes()}" class="row mt-4">
+                                    <div class="col-sm-12 col-lg-7">
+                                        <input type="text" th:field="*{dependentes[__${i.index}__].id}" hidden>
+                                        <input class="form-control form-custom dependente" type="text" name="dependente" 
+                                            placeholder="Dependente" th:value="${dep.getNome()}" th:field="*{dependentes[__${i.index}__].nome}">
                                     </div>
-
+                                    <div class="col-sm-10 col-lg-3">
+                                        <select class="form-control form-custom" th:field="*{dependentes[__${i.index}__].parentesco}">
+                                            <option value="" selected hidden>Parentesco</option>
+                                            <option th:if="${dep.getParentesco()} == 'Cônjugue' ? selected" value="Cônjugue">Cônjugue</option>
+                                            <option th:if="${dep.getParentesco()} == 'Filho(a)'" value="Filho(a)">Filho(a)</option>
+                                            <option th:if="${dep.getParentesco()} == 'Pai'" value="Pai">Pai</option>
+                                            <option th:if="${dep.getParentesco()} == 'Mãe'" value="Mãe">Mãe</option>
+                                            <option th:if="${dep.getParentesco()} == 'Sogro(a)'" value="Sogro(a)">Sogro(a)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 col-lg-2">
+                                        <button type="button" class="btn btn-sm btn-warning" th:onclick="deletarDependente(2)">Excluir</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </fieldset>
                         <br>
@@ -73,6 +75,7 @@
                 </div>
             </div>
         </div>
+        <script th:src="@{/js/form-associese.js}"></script>
     </main>
 
 </body>

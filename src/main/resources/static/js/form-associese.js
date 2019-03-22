@@ -1,9 +1,23 @@
-var cont = 1;
+var cont = 0;
 
 function addDependente() {
+    var dadosDependente = $('.dependente');
+    console.log(dadosDependente);
+    cont = 0;
+    if (dadosDependente != undefined) {
+        if (dadosDependente.length > 1) {
+            cont = dadosDependente.length;
+            console.log("array: " + cont);
+        } else if (dadosDependente.length == 0) {
+            cont = 0;
+        } else {
+            cont = 1;
+        }
+    }
+
     $('#dependente').append('<div class="row mt-4">' +
         '<div class="col-sm-12 col-lg-8">' +
-        '<input class="form-control form-custom" type="text" name="dependentes[' + cont +
+        '<input class="form-control form-custom dependente" type="text" name="dependentes[' + cont +
         '].nome" id="dependentes' + cont + '.nome" placeholder="Dependente">' +
         '</div>' +
         '<div class="col-sm-12 col-lg-4">' +
@@ -18,12 +32,29 @@ function addDependente() {
         '</select>' +
         '</div>' +
         '</div>');
-
-    cont += 1;
 }
 
-function removeDependente(){
+function removeDependente() {
     $('#dependente .row:last-child').remove();
+    cont--;
+}
+
+function deletarDependente(id) {
+    var url = location.href; //pega endereço que esta no navegador
+    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
+    console.log(url[2]); // retorna a parte www.endereco.com.br
+    console.log(url[2] + '/sisaocbmma/deletar-dependente/' + id);
+
+    $.ajax({
+        url: url[2]+'/sisaocbmma/deletar-dependente/' + id,
+        type: 'DELETE'
+      })
+      .done(function () {
+        console.log("funcionou");
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.log("Desculpe! Houve um erro: " + jqXHR.status);
+      });
 }
 
 $('#popover').popover({
@@ -81,6 +112,17 @@ $(document).ready(function () {
 });
 
 function validarForm(form) {
+    var erros = validarInputsAndSelects();
+
+    if (!validarSenha() || erros > 0) {
+        console.log("Form com erros de validação");
+        return false;
+    } else {
+        form.submit();
+    }
+}
+
+function validarInputsAndSelects() {
     var erros = 0;
     var nome = $('input[name=nome]').val();
     var cpf = $('input[name=cpf]').val();
@@ -93,59 +135,53 @@ function validarForm(form) {
     var quadro = $("#quadro input[type=radio]:checked").val();
 
     var input_text = $('.validacao-input-text');
-    for(let i = 0 ; i < input_text.length ; i ++){
-        if(input_text[i].value == ''){
+    for (let i = 0; i < input_text.length; i++) {
+        if (input_text[i].value == '') {
             input_text[i].focus();
             input_text[i].classList.add('is-invalid');
             erros++;
         }
     }
-    if(cep.length != 9){
+    if (cep.length != 9) {
         $('#cep').focus();
         $('#cep').addClass('is-invalid');
         erros++;
     }
-    if(whatsapp.length != 15){
+    if (whatsapp.length != 15) {
         $('#whatsapp').focus();
         $('#whatsapp').addClass('is-invalid');
         erros++;
     }
-    if(cpf.length != 14){
+    if (cpf.length != 14) {
         $('input[name=cpf]').focus();
         $('input[name=cpf').addClass('is-invalid');
         erros++;
     }
-    if(dta_nascimento.length != 10){
+    if (dta_nascimento.length != 10) {
         $('input[name=data_nascimento]').focus();
         $('input[name=data_nascimento').addClass('is-invalid');
         erros++;
     }
-    if(posto.length == 0){
+    if (posto.length == 0) {
         $('#posto').focus();
         $('#posto').addClass('is-invalid');
         erros++;
     }
-    if(banco.length == 0){
+    if (banco.length == 0) {
         $('#banco').focus();
         $('#banco').addClass('is-invalid');
         erros++;
     }
-    if(corporacao == undefined){
+    if (corporacao == undefined) {
         $('#corporacao').focus();
         $('#corporacao input[type=radio]').addClass('is-invalid');
         erros++;
     }
 
-    
-    if(!validarSenha() || erros>0){
-        console.log("Form com erros de validação");
-        return false;
-    }else{
-        form.submit();
-    }
+    return erros;
 }
 
-function validarSenha(){
+function validarSenha() {
     var senha = $('input[name=senha]').val();
     var conf_senha = $('input[name=conf_senha]').val();
     if (senha != conf_senha || senha.length == 0 || conf_senha == 0) {
@@ -156,50 +192,63 @@ function validarSenha(){
     return true;
 }
 
-$(".validacao-input-text").focusout(function(){
-    if(!$(this).val()){
+function validarAlterarSenha(form) {
+    if (validarSenha()) {
+        form.submit();
+    }
+}
+
+function validarFormAtualizarMeusDados(form) {
+    var erros = validarInputsAndSelects();
+    if (erros == 0) {
+        form.submit();
+    }
+}
+
+$(".validacao-input-text").focusout(function () {
+    if (!$(this).val()) {
         $(this).addClass('is-invalid');
-    }else{
+    } else {
         $(this).removeClass('is-invalid');
     }
 });
 
-$("#cpf").focusout(function(){
-    if($(this).val().length != 14){
+$("#cpf").focusout(function () {
+    if ($(this).val().length != 14) {
         $(this).addClass('is-invalid');
-    }else{
+    } else {
         $(this).removeClass('is-invalid');
     }
 });
 
-$("#cep").focusout(function(){
-    if($(this).val().length != 9){
+$("#cep").focusout(function () {
+    if ($(this).val().length != 9) {
         $(this).addClass('is-invalid');
-    }else{
+    } else {
         $(this).removeClass('is-invalid');
     }
 });
 
-$("#whatsapp").focusout(function(){
-    if($(this).val().length != 15){
+$("#whatsapp").focusout(function () {
+    if ($(this).val().length != 15) {
         $(this).addClass('is-invalid');
-    }else{
+    } else {
         $(this).removeClass('is-invalid');
     }
 });
 
-$("#data_nascimento").focusout(function(){
-    if($(this).val().length != 10){
+$("#data_nascimento").focusout(function () {
+    if ($(this).val().length != 10) {
         $(this).addClass('is-invalid');
-    }else{
+    } else {
         $(this).removeClass('is-invalid');
     }
 });
 
-$('input').focus(function(){
+$('input').focus(function () {
     $(this).removeClass('is-invalid');
 });
-$('select').focus(function(){
+$('select').focus(function () {
     $(this).removeClass('is-invalid');
 });
 
@@ -229,10 +278,10 @@ $("#cep").focusout(function () {
 //     $('#lotacao').val('2 BBM');
 //     $('#rg_militar').val('2170');
 //     $('#matricula').val('435');
-    
+
 //     $('#agencia').val('5878-1');
 //     $('#conta_corrente').val('24973-4');
-    
+
 //     $('#whatsapp').val('(98) 98204-5453');
 //     $('#celular').val('(98) 98204-5453');
 //     $('#email').val('aragao@cbm.ma.gov.br');
@@ -242,4 +291,3 @@ $("#cep").focusout(function () {
 //     $('#senha').val('fsadu');
 //     $('#conf_senha').val('fsadu');
 // });
-

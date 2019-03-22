@@ -18,7 +18,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -58,7 +57,7 @@ public class Socio{
     private String senha;
 
     @Column
-    private int ativo = 1;
+    private int ativo = 0;
 
     @OneToOne(mappedBy = "socio", cascade = CascadeType.ALL)
     private DadosContato dadosContato;

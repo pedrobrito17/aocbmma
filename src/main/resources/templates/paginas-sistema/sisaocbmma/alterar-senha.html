@@ -20,17 +20,18 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-8 offset-lg-2">
 
-                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1"
-                        onsubmit="validarForm(this); return false;">
+                    <form th:action="@{/sisaocbmma/alterar-senha}" th:method="POST" th:object="${socio}" name="form1"
+                        onsubmit="validarAlterarSenha(this); return false;">
 
-                        <!-- <input type="hidden" th:field="*{socio.id}" type="text"> -->
+                         <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
+                         <input name="id" th:field="*{id}" type="text" hidden>
 
                         <fieldset>
                             <legend>Acesso</legend>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <input class="form-control form-custom" type="password" name="senha" placeholder="Nova Senha"
-                                        id="senha" th:field="*{senha}">
+                                        id="senha" th:field="*{senha}" autofocus>
                                     <div class="invalid-feedback">
                                         A senha não confere.
                                     </div>

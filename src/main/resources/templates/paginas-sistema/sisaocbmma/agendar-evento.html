@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
+    <style>
+        input:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>AGENDAR EVENTO</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12">
+                    <p class="ml-5">*Somente os sócios adimplentes podem realizar a reserva do clube.</p>
+                    <p class="ml-5">**Não é permitido a reserva do clube aos domingos.</p>
+                    <p class="ml-5">***As datas reservadas estão desabilitadas no calendário.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-8 offset-lg-2">
+
+                    <form>
+                        <div class="row mt-4">
+                            <div class="col-8 offset-1">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="data-evento"><i
+                                                class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-custom" placeholder="Data do evento"
+                                        aria-label="data-evento" aria-describedby="data-evento" id="datepicker"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <!-- id do socio -->
+                                <input type="text" hidden>
+                                <button type="submit" class="btn btn-danger btn-noticias btn-lg">AGENDAR</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/jquery-ui.min.js}"></script>
+        <script th:src="@{/js/datepicker-custom.js}"></script>
+    </main>
+
+</body>
+
+</html>

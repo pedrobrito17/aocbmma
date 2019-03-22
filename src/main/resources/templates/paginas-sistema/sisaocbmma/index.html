@@ -25,12 +25,21 @@
             <div class="row">
                 <div class="col-lg-12">
                     <br>
-                    <h1><span th:utext="${socio.nome}"> </span>, Bem vindo ao Sistema da AOCBMMA!</h1>
+                    <h2>Bem vindo ao Sistema da AOCBMMA!</h2>
                     <hr>
                     <h6>Utilize o menu ao lado para navegar.</h6>
                     <hr>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-success" th:if="${msgSuccess}">
+                        <span th:utext="${msgSuccess}"></span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
