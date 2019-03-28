@@ -27,20 +27,16 @@ public class SiteController {
     private NoticiaService noticiaService;
 
     @Autowired
-    private ConvenioService convenioService;
-
-    @Autowired
-    private CategoriaConvenioService categoriaService;
-
-    @Autowired
     private JavaMailSender javaMailSender;
 
     @Autowired
     ServletContext servlet; //utilizado para copiar a pasta para o servidor
 
+    private ModelAndView mv = null;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView pageIndex() {
-        ModelAndView mv = new ModelAndView("paginas-site/index");
+        mv = new ModelAndView("paginas-site/index");
         mv.addObject("principal", noticiaService.getNoticiaPrincipal());
         mv.addObject("ultimasNoticias", noticiaService.getUltimasDuasNoticias());
 
@@ -54,6 +50,11 @@ public class SiteController {
     @RequestMapping(value = "/estatuto", method = RequestMethod.GET)
     public String pageEstatuto() {
         return "paginas-site/institucional/estatuto";
+    }
+
+    @RequestMapping(value = "/legislacao", method = RequestMethod.GET)
+    public String pageLegislacao() {
+        return "paginas-site/institucional/legislacao";
     }
 
     @RequestMapping(value = "/regimento", method = RequestMethod.GET)
@@ -73,7 +74,7 @@ public class SiteController {
 
     @RequestMapping(value = "/contato", method = RequestMethod.GET)
     public ModelAndView pageContato(Mensagem mensagem, Model model) {
-        ModelAndView mv = new ModelAndView("paginas-site/contato");
+        mv = new ModelAndView("paginas-site/contato");
         return mv;
     }
 
@@ -89,7 +90,7 @@ public class SiteController {
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
     public ModelAndView pageAssociese(Socio socio) {
-        ModelAndView mv = new ModelAndView("paginas-site/servicos/associese"); 
+        mv = new ModelAndView("paginas-site/servicos/associese"); 
         return mv;
     }
 
@@ -105,32 +106,30 @@ public class SiteController {
 
     @RequestMapping(value = "/pesquisar", method = RequestMethod.GET)
     public ModelAndView buscarNoticia(@RequestParam("busca") String busca) {
-        ModelAndView mv = new ModelAndView("paginas-site/noticias");
+        mv = new ModelAndView("paginas-site/noticias");
         mv.addObject("noticias", noticiaService.buscarNoticias(busca));
         mv.addObject("qtd", noticiaService.buscarNoticias(busca).size());
         mv.addObject("pesquisa", true);
         return mv;
     }
 
-    @RequestMapping(value = "/convenios", method = RequestMethod.GET)
-    public ModelAndView pageConvenios() {
-        ModelAndView mv = new ModelAndView("paginas-site/servicos/convenios");
-        mv.addObject("convenios", convenioService.getConvenios());
-        mv.addObject("categorias", categoriaService.getListCategoriaConvenios());
-        return mv;
-    }
-
     @RequestMapping(value = "/noticias", method = RequestMethod.GET)
     public ModelAndView pageNoticias() {
-        ModelAndView mv = new ModelAndView("paginas-site/noticias");
+        mv = new ModelAndView("paginas-site/noticias");
         mv.addObject("noticias", noticiaService.getNoticias());
         return mv;
     }
 
     @RequestMapping(value = "/noticia/{id}", method = RequestMethod.GET)
     public ModelAndView exibeNoticia(@PathVariable("id") Integer id) {
-        ModelAndView mv = new ModelAndView("paginas-site/noticia");
+        mv = new ModelAndView("paginas-site/noticia");
         mv.addObject("noticia", noticiaService.buscarNoticia(id));
+        return mv;
+    }
+
+    @RequestMapping(value = "/convenios", method = RequestMethod.GET)
+    public ModelAndView pageConvenios() {
+        mv = new ModelAndView("paginas-site/servicos/convenios");
         return mv;
     }
 

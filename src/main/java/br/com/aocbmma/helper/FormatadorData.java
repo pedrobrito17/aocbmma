@@ -18,5 +18,17 @@ public class FormatadorData{
         return data;
     }
 
+    public static Date getDataFormatadaNoPadraoUtil(String dataString){
+        Date data = null;
+        try{
+            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+            data = formato.parse(dataString);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        
+        return data;
+    }
+
 
 }

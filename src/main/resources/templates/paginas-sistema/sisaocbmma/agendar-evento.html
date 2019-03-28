@@ -4,9 +4,43 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <style>
         input:hover {
             cursor: pointer;
+        }
+
+        .nav-tabs>.active>a,
+        .nav-tabs>.active>a:hover,
+        .nav-tabs>.active>a:focus {
+            border-color: #dee2e6;
+            border-bottom-color: transparent;
+        }
+
+        .nav-tabs {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .tab-content {
+            border: 1px solid #dee2e6;
+            border-top: 0px;
+        }
+
+        .navbar a:hover,
+        .active {
+            background-color: #fff !important;
+            border-radius: 0px !important;
+        }
+
+        .nav-link {
+            color: #495057;
+        }
+
+        input[type=checkbox] {
+            transform: scale(1.5);
+        }
+        option:disabled{
+            background-color: #dee2e6;
         }
     </style>
 </head>
@@ -23,41 +57,270 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-12">
-                    <p class="ml-5">*Somente os sócios adimplentes podem realizar a reserva do clube.</p>
-                    <p class="ml-5">**Não é permitido a reserva do clube aos domingos.</p>
-                    <p class="ml-5">***As datas reservadas estão desabilitadas no calendário.</p>
+                <div class="col-sm-12 col-lg-6">
+                    <ol class="ml-5" type="I">
+                        <li>Somente os sócios adimplentes podem realizar a reserva do clube.</li>
+                        <li>Não é permitido a reserva do clube aos domingos.</li>
+                        <li>As datas e horários reservados estão desabilitados no formulário.</li>
+                        <li>Período diurno: 08H às 18H.</li>
+                        <li>Período noturno
+                            <ul>
+                                <li>Campo de futebol: 18H às 22H</li>
+                                <li>Espaço cajueiro: 18H às 02H</li>
+                            </ul>
+                        </li>
+                    </ol>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12 col-lg-8 offset-lg-2">
+            <div class="row mt-4">
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
 
-                    <form>
-                        <div class="row mt-4">
-                            <div class="col-8 offset-1">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="data-evento"><i
-                                                class="far fa-calendar-alt"></i></span>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#campo">Campo de futebol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#cajueiro">Espaço cajueiro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#chale">Chalé</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div id="campo" class="container tab-pane active p-4 pb-5"><br>
+
+                            <h5>Reserva do Campo de Futebol</h5>
+                            <span>Diurno: R$ 100,00 / hora</span><br>
+                            <span>Noturno: R$ 150,00 / hora</span>
+
+                            <form th:action="@{/sisaocbmma/salvar-reserva-campo-futebol}" th:method="POST"
+                                th:object="${reservaCampo}">
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="data-evento"><i
+                                                        class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control form-custom"
+                                                placeholder="Data do evento" aria-label="data-evento"
+                                                name="data_reserva" th:field="*{data_reserva}"
+                                                aria-describedby="data-evento" id="datepicker-campo" readonly>
+                                        </div>
                                     </div>
-                                    <input type="text" class="form-control form-custom" placeholder="Data do evento"
-                                        aria-label="data-evento" aria-describedby="data-evento" id="datepicker"
-                                        readonly>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <select id="hora-inicio" class="form-control form-custom" name="hora_inicio"
+                                            th:field="*{hora_inicio}">
+                                            <option value="" selected hidden>Horário início</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <select id="hora-termino" class="form-control form-custom" name="hora_termino"
+                                            th:field="*{hora_termino}">
+                                            <option value="" selected hidden>Horário término</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-2">
-                                <!-- id do socio -->
-                                <input type="text" hidden>
-                                <button type="submit" class="btn btn-danger btn-noticias btn-lg">AGENDAR</button>
-                            </div>
-                        </div>
-                    </form>
+                                <div class="row mt-4">
+                                    <div class="col-12 text-center">
+                                        <button type="submit"
+                                            class="btn btn-danger btn-noticias btn-lg">CONFIRMAR</button>
+                                    </div>
+                                </div>
+                            </form>
 
+                        </div>
+
+                        <div id="cajueiro" class="container tab-pane fade p-4 pb-5"><br>
+                            <h5>Reserva do Espaço Cajueiro</h5>
+                            <span>Diurno: R$ 100,00</span><br>
+                            <span>Noturno: R$ 150,00</span><br>
+                            <span>Diária: R$ 250,00</span>
+
+                            <form>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="data-evento"><i
+                                                        class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control form-custom"
+                                                placeholder="Data do evento" aria-label="data-evento"
+                                                aria-describedby="data-evento" id="datepicker-cajueiro" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6">
+                                        <select id="periodo" class="form-control form-custom">
+                                            <option value="" selected hidden>Período</option>
+                                            <option value="diurno">Diurno</option>
+                                            <option value="noturno">Noturno</option>
+                                            <option value="diaria">Diária</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-12 text-center">
+                                        <!-- id do socio -->
+                                        <input type="text" hidden>
+                                        <button type="submit"
+                                            class="btn btn-danger btn-noticias btn-lg">CONFIRMAR</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div id="chale" class="container tab-pane fade p-4 pb-5"><br>
+                            <h5>Reserva do Chalé</h5>
+                            <span>R$ 30,00 / diária</span><br>
+                            <span>Horário do check in: 12H</span><br>
+                            <span>Horário do check out: 12H</span>
+
+                            <form>
+                                <div class="row mt-4">
+                                    <div class="col-sm-12 col-lg-4 offset-lg-2">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="data-evento"><i
+                                                        class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control form-custom" placeholder="Check in"
+                                                aria-label="data-evento" aria-describedby="data-evento" id="checkin"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" id="data-evento"><i
+                                                        class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" class="form-control form-custom" placeholder="Check out"
+                                                aria-label="data-evento" aria-describedby="data-evento" id="checkout"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-12 text-center">
+                                        <!-- id do socio -->
+                                        <input type="text" hidden>
+                                        <button type="submit"
+                                            class="btn btn-danger btn-noticias btn-lg">PESQUISAR</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <script th:src="@{/js/jquery-ui.min.js}"></script>
-        <script th:src="@{/js/datepicker-custom.js}"></script>
+
+            <br><br>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#termo">
+                Launch demo modal
+            </button>
+
+            <div th:replace="padrao/modal :: aceite-reserva"></div>
+
+
+
+            <script th:src="@{/js/jquery-ui.min.js}"></script>
+            <script th:src="@{/js/datepicker-custom.js}"></script>
+            <script th:src="@{/js/jquery.mask.min.js}"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.time').mask('00:00');
+
+                    for (let i = 8; i < 22; i++) {
+                        $('#hora-inicio').append('<option value="' + i + ':00:00">' + i + ':00</option>');
+                    }
+                    for (let j = 9; j < 23; j++) {
+                        $('#hora-termino').append('<option value="' + j + ':00:00">' + j + ':00</option>');
+                    }
+                });
+
+                $(function () { //recupera a data do input, troca / por - e chama o ajax
+                    $('#datepicker-campo').change(function () {
+                        var data = $(this).val();
+                        data = data.replace('/', '-');
+                        data = data.replace('/', '-');
+                        getHorasIniciaisReservadasDoDiaSelecionado(data);
+                        getHorasTerminaisReservadasDoDiaSelecionado(data);
+                        limparDatasEscolhidas();
+                    });
+                });
+
+                var horas_iniciais = [];
+                function getHorasIniciaisReservadasDoDiaSelecionado(data) { // recupera as horas iniciais
+                    var url = location.href; //pega endereço que esta no navegador
+                    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
+
+                    $.ajax({
+                            url: '/sisaocbmma/horas-iniciais/' + data,
+                            type: 'GET',
+                            async: false
+                        })
+                        .done(function (resposta) {
+                            horas_iniciais = resposta;
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            console.log("Desculpe! Houve um erro: " + jqXHR.status);
+                        });
+                }
+
+                var horas_terminais = [];
+                function getHorasTerminaisReservadasDoDiaSelecionado(data) { // recupera as horas iniciais
+                    var url = location.href; //pega endereço que esta no navegador
+                    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
+
+                    $.ajax({
+                            url: '/sisaocbmma/horas-terminais/' + data,
+                            type: 'GET',
+                            async: false
+                        })
+                        .done(function (resposta) {
+                            horas_terminais = resposta;
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            console.log("Desculpe! Houve um erro: " + jqXHR.status);
+                        });
+
+                }
+
+                function limparDatasEscolhidas() {
+                    let tam = horas_iniciais.length;
+
+                    $('#hora-inicio option').each(function (index, element) {
+                        for (let i = 0; i < tam; i++) {
+                            if (element.value == horas_iniciais[i]+':00:00' && (horas_terminais[i]-horas_iniciais[i])>1 ) {
+                                element.setAttribute('disabled','disabled');
+
+                                let valor = (horas_terminais[i]-horas_iniciais[i]);
+                                let horaNum = parseInt(horas_iniciais[i]);
+                                for(let j = 1 ; j < valor ; j ++){
+                                    $("#hora-inicio option[value='"+(horaNum+j)+":00:00']").attr('disabled','disabled');
+                                    $("#hora-termino option[value='"+(horaNum+j)+":00:00']").attr('disabled','disabled');
+                                }
+                            }
+                            else if(element.value == horas_iniciais[i]+':00:00'){
+                                element.setAttribute('disabled','disabled');
+                            }
+                        }
+                    });
+                    $('#hora-termino option').each(function (index, element) {
+                        for (let i = 0; i < tam; i++) {
+                            if (element.value == horas_terminais[i]+':00:00') {
+                                element.setAttribute('disabled','disabled');
+                            }
+                        }
+                    });
+
+
+                }
+            </script>
     </main>
 
 </body>

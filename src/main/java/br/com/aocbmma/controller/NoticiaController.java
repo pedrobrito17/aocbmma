@@ -29,6 +29,8 @@ public class NoticiaController {
     @Autowired
     private NoticiaService noticiaService;
 
+    private ModelAndView mv = null;
+
     @RequestMapping(value = "/add-noticia", method = RequestMethod.GET)
     public String pageAddNoticia() {
         return "paginas-sistema/admin/noticias/add-noticia";
@@ -89,8 +91,7 @@ public class NoticiaController {
 
     @RequestMapping(value = "/listar-noticias", method = RequestMethod.GET)
     public ModelAndView pageListarNoticias() {
-
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/noticias/lista-noticias");
+        mv = new ModelAndView("paginas-sistema/admin/noticias/lista-noticias");
         mv.addObject("noticias", noticiaService.getNoticias());
         return mv;
     }
@@ -98,13 +99,13 @@ public class NoticiaController {
     @GetMapping(value="/excluir-noticia/{id}")
     public ModelAndView excluirNoticia(@PathVariable Integer id) {
         noticiaService.deletarNoticia(id);
-        ModelAndView mv = new ModelAndView("redirect:/admin/listar-noticias");
+        mv = new ModelAndView("redirect:/admin/listar-noticias");
         return mv;
     }
 
     @RequestMapping(value = "/editar-noticia/{id}", method = RequestMethod.GET)
     public ModelAndView editarNoticia(@PathVariable Integer id) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/noticias/editar-noticia");
+        mv = new ModelAndView("paginas-sistema/admin/noticias/editar-noticia");
         mv.addObject("noticia", noticiaService.buscarNoticia(id));
         return mv;
     }

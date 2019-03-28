@@ -15,6 +15,8 @@ public class AdminController{
     @Autowired
     private SocioService socioService;
 
+    private ModelAndView mv = null;
+
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String pageLogin() {
         return "paginas-sistema/login";
@@ -22,7 +24,7 @@ public class AdminController{
     
     @RequestMapping(value="/admin", method=RequestMethod.GET)
     public ModelAndView pageSistema() {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/index");
+        mv = new ModelAndView("paginas-sistema/admin/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
         return mv;
@@ -30,7 +32,7 @@ public class AdminController{
 
     @RequestMapping(value="/admin/relacao-associados", method=RequestMethod.GET)
     public ModelAndView pageRelacaoAssociados() {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/associados/relacao-associados");
+        mv = new ModelAndView("paginas-sistema/admin/associados/relacao-associados");
         mv.addObject("associados", socioService.getTodosOsSocios());
         return mv;
     }

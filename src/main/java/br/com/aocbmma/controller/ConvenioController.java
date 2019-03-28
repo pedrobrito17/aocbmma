@@ -37,23 +37,25 @@ public class ConvenioController {
     @Autowired
     ServletContext servlet;
 
+    private ModelAndView mv = null;
+
     @RequestMapping(value = "/add-convenio", method = RequestMethod.GET)
     public ModelAndView pageAddConvenio(Convenio convenio) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/add-convenio");
+        mv = new ModelAndView("paginas-sistema/admin/convenios/add-convenio");
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
         return mv;
     }
 
     @RequestMapping(value = "/listar-convenios", method = RequestMethod.GET)
     public ModelAndView pageListarConvenios() {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/lista-convenios");
+        mv = new ModelAndView("paginas-sistema/admin/convenios/lista-convenios");
         mv.addObject("convenios", convenioService.getConvenios());
         return mv;
     }
 
     @RequestMapping(value = "/editar-convenio/{id}", method = RequestMethod.GET)
     public ModelAndView pageEditarConvenio(@PathVariable Integer id) {
-        ModelAndView mv = new ModelAndView("paginas-sistema/admin/convenios/editar-convenio");
+        mv = new ModelAndView("paginas-sistema/admin/convenios/editar-convenio");
         mv.addObject("convenio", convenioService.buscarConvenio(id));
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
         return mv;
@@ -117,7 +119,7 @@ public class ConvenioController {
     @GetMapping(value = "/excluir-convenio/{id}")
     public ModelAndView excluirConvenio(@PathVariable Integer id) {
         convenioService.deletarConvenio(id);
-        ModelAndView mv = new ModelAndView("redirect:/admin/listar-convenios");
+        mv = new ModelAndView("redirect:/admin/listar-convenios");
         return mv;
     }
 
