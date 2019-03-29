@@ -1,3 +1,4 @@
+//DATEPICKER CAMPO DE FUTEBOL
 $(function () {
   $("#datepicker-campo").datepicker({
     dateFormat: 'dd/mm/yy',
@@ -15,6 +16,7 @@ $(function () {
   });
 });
 
+//DATEPICKER ESPACO CAJUEIRO
 $(function () {
   $("#datepicker-cajueiro").datepicker({
     dateFormat: 'dd/mm/yy',
@@ -32,10 +34,11 @@ $(function () {
   });
 });
 
+//DATEPICKER CHALE
 $(function () {
-  var dateFormat = "dd/mm/yyyy",
-    from = $("#checkin")
+  var dateFormat = 'dd/mm/yy', from = $("#checkin")
     .datepicker({
+      dateFormat: 'dd/mm/yy',
       changeMonth: true,
       numberOfMonths: 2,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -53,6 +56,7 @@ $(function () {
       to.datepicker("option", "minDate", getDate(this));
     }),
     to = $("#checkout").datepicker({
+      dateFormat: 'dd/mm/yy',
       changeMonth: true,
       numberOfMonths: 2,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -64,7 +68,6 @@ $(function () {
       prevText: 'Anterior',
       autoSize: true,
       showAnim: 'slide',
-      minDate: 0
     })
     .on("change", function () {
       from.datepicker("option", "maxDate", getDate(this));
@@ -76,6 +79,7 @@ $(function () {
       date = $.datepicker.parseDate(dateFormat, element.value);
     } catch (error) {
       date = null;
+      console.log(error);
     }
 
     return date;
@@ -83,7 +87,6 @@ $(function () {
 });
 
 /** Days to be disabled as an array */
-var disableddates = ["3-28-2019", "4-17-2019", "4-3-2019", "3-29-2019"];
 
 function DisableSpecificDates(date) {
 
@@ -101,7 +104,7 @@ function DisableSpecificDates(date) {
   for (var i = 0; i < disableddates.length; i++) {
 
     // Now check if the current date is in disabled dates array. 
-    if ($.inArray(currentdate, disableddates) != -1) {
+    if ($.inArray(currentdate, disableddates) != -1) { //disableddates são as datas já reservadas. Váriavel global.
       return [false];
     }
   }

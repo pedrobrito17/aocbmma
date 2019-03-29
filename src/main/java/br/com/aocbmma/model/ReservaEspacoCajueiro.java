@@ -16,8 +16,9 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="reserva_campo_futebol")
-public class ReservaCampoFutebol{
+@Table(name="reserva_cajueiro")
+public class ReservaEspacoCajueiro{
+
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,15 +31,7 @@ public class ReservaCampoFutebol{
 
     @Column
     @NotNull
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(pattern = "HH:mm")
-    private Date hora_inicio;
-
-    @Column
-    @NotNull
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(pattern = "HH:mm")
-    private Date hora_termino;
+    private String periodo;
 
     @OneToOne
     @NotNull
@@ -64,20 +57,12 @@ public class ReservaCampoFutebol{
         this.data_reserva = data_reserva;
     }
 
-    public Date getHora_inicio() {
-        return this.hora_inicio;
+    public String getPeriodo() {
+        return this.periodo;
     }
 
-    public void setHora_inicio(Date hora_inicio) {
-        this.hora_inicio = hora_inicio;
-    }
-
-    public Date getHora_termino() {
-        return this.hora_termino;
-    }
-
-    public void setHora_termino(Date hora_termino) {
-        this.hora_termino = hora_termino;
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
     }
 
     public Socio getSocio() {
@@ -97,5 +82,5 @@ public class ReservaCampoFutebol{
     }
 
 
-    
+
 }

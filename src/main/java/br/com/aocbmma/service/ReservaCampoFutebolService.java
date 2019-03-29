@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,16 @@ public class ReservaCampoFutebolService{
             listaSrting.add(String.valueOf( listaInteger.get(i) ));
         }
         return listaSrting;
+    }
+
+    public List<ReservaCampoFutebol> getReservaCampoSolicitada(){
+        return reservaCampoFutebolRepository.selectReservaCampoSolicitada();
+    }
+
+    @Transactional
+    public void confirmarReserva(int id){
+        ReservaCampoFutebol reserva = reservaCampoFutebolRepository.findById(id).get();
+        reserva.setPagamento("realizado");
+        reservaCampoFutebolRepository.save(reserva);
     }
 }

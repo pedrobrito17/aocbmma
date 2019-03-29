@@ -16,33 +16,30 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="reserva_campo_futebol")
-public class ReservaCampoFutebol{
+@Table(name="reserva_chale")
+public class ReservaChale{
+
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
     @Column
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date data_reserva;
-
+    private Date data_entrada;
+    
     @Column
     @NotNull
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(pattern = "HH:mm")
-    private Date hora_inicio;
-
-    @Column
-    @NotNull
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(pattern = "HH:mm")
-    private Date hora_termino;
-
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date data_saida;
+    
     @OneToOne
-    @NotNull
     private Socio socio;
+    
+    @OneToOne
+    private Chale chale;
 
     @Column
     private String pagamento = "pendente"; //vencido realizado
@@ -56,28 +53,20 @@ public class ReservaCampoFutebol{
         this.id = id;
     }
 
-    public Date getData_reserva() {
-        return this.data_reserva;
+    public Date getData_entrada() {
+        return this.data_entrada;
     }
 
-    public void setData_reserva(Date data_reserva) {
-        this.data_reserva = data_reserva;
+    public void setData_entrada(Date data_entrada) {
+        this.data_entrada = data_entrada;
     }
 
-    public Date getHora_inicio() {
-        return this.hora_inicio;
+    public Date getData_saida() {
+        return this.data_saida;
     }
 
-    public void setHora_inicio(Date hora_inicio) {
-        this.hora_inicio = hora_inicio;
-    }
-
-    public Date getHora_termino() {
-        return this.hora_termino;
-    }
-
-    public void setHora_termino(Date hora_termino) {
-        this.hora_termino = hora_termino;
+    public void setData_saida(Date data_saida) {
+        this.data_saida = data_saida;
     }
 
     public Socio getSocio() {
@@ -86,6 +75,14 @@ public class ReservaCampoFutebol{
 
     public void setSocio(Socio socio) {
         this.socio = socio;
+    }
+
+    public Chale getChale() {
+        return this.chale;
+    }
+
+    public void setChale(Chale chale) {
+        this.chale = chale;
     }
 
     public String getPagamento() {
@@ -97,5 +94,4 @@ public class ReservaCampoFutebol{
     }
 
 
-    
 }

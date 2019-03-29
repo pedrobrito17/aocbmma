@@ -2,34 +2,12 @@ CREATE DATABASE bd_aocbmma;
 
 USE bd_aocbmma;
 
-CREATE TABLE noticias(
-	id int(10) NOT NULL primary key auto_increment,
-    titulo varchar(255) NOT NULL,
-    data_postagem date NOT NULL,
-    imagem longblob NOT NULL,
-    noticia longtext
-);
+select * from reserva_campo_futebol;
 
-CREATE TABLE convenios(
-	id int(10) NOT NULL primary key auto_increment,
-    nome_empresa varchar(255) NOT NULL,
-    path_logo varchar(255) NOT NULL,
-    beneficio text
-);
+select * from reserva_chale;
 
-CREATE TABLE categoria_convenios(
-	id int(10) NOT NULL primary key auto_increment,
-    categoria varchar(255) NOT NULL
-);
+insert into reserva_chale(data_entrada,data_saida,pagamento,chale_cod,socio_id) values('2019-04-01','2019-04-10','pendente',1,1);
+insert into reserva_chale(data_entrada,data_saida,pagamento,chale_cod,socio_id) values('2019-04-05','2019-04-10','pendente',2,1);
 
-select id, data_postagem, titulo from noticias order by id desc limit 4;
-
-select * from convenios;
-select * from categoria_convenio;
-insert into categoria_convenio(categoria) values('Educação'),('Lazer'),('Saúde'),('Outros');
-
-alter table convenios modify column beneficio longtext;
-
-select * from noticias where titulo like '%reunião%'  ORDER BY id DESC;
-
+select * from reserva_chale where data_entrada between '01/04/2019' and '08/04/2019' OR data_saida between '01/04/2019' and '11/04/2019';
 

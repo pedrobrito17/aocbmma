@@ -4,45 +4,9 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/blitzer/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reserva.css}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <style>
-        input:hover {
-            cursor: pointer;
-        }
-
-        .nav-tabs>.active>a,
-        .nav-tabs>.active>a:hover,
-        .nav-tabs>.active>a:focus {
-            border-color: #dee2e6;
-            border-bottom-color: transparent;
-        }
-
-        .nav-tabs {
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .tab-content {
-            border: 1px solid #dee2e6;
-            border-top: 0px;
-        }
-
-        .navbar a:hover,
-        .active {
-            background-color: #fff !important;
-            border-radius: 0px !important;
-        }
-
-        .nav-link {
-            color: #495057;
-        }
-
-        input[type=checkbox] {
-            transform: scale(1.5);
-        }
-        option:disabled{
-            background-color: #dee2e6;
-        }
-    </style>
 </head>
 
 <body>
@@ -97,7 +61,7 @@
                             <span>Noturno: R$ 150,00 / hora</span>
 
                             <form th:action="@{/sisaocbmma/salvar-reserva-campo-futebol}" th:method="POST"
-                                th:object="${reservaCampo}">
+                                th:object="${reservaCampo}" name="form-campo" onsubmit="exibirTermo(this); return false;">
                                 <div class="row mt-4">
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="input-group">
@@ -140,7 +104,8 @@
                             <span>Noturno: R$ 150,00</span><br>
                             <span>Diária: R$ 250,00</span>
 
-                            <form>
+                            <form th:action="@{/sisaocbmma/salvar-reserva-espaco-cajueiro}" th:method="POST"
+                                th:object="${reservaCajueiro}" name="form-cajueiro" onsubmit="exibirTermo(this); return false;">
                                 <div class="row mt-4">
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="input-group">
@@ -149,12 +114,13 @@
                                                         class="far fa-calendar-alt"></i></span>
                                             </div>
                                             <input type="text" class="form-control form-custom"
-                                                placeholder="Data do evento" aria-label="data-evento"
-                                                aria-describedby="data-evento" id="datepicker-cajueiro" readonly>
+                                                th:field="*{data_reserva}" placeholder="Data do evento"
+                                                aria-label="data-evento" aria-describedby="data-evento"
+                                                id="datepicker-cajueiro" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-lg-6">
-                                        <select id="periodo" class="form-control form-custom">
+                                        <select id="periodo" class="form-control form-custom" th:field="*{periodo}">
                                             <option value="" selected hidden>Período</option>
                                             <option value="diurno">Diurno</option>
                                             <option value="noturno">Noturno</option>
@@ -164,8 +130,6 @@
                                 </div>
                                 <div class="row mt-4">
                                     <div class="col-12 text-center">
-                                        <!-- id do socio -->
-                                        <input type="text" hidden>
                                         <button type="submit"
                                             class="btn btn-danger btn-noticias btn-lg">CONFIRMAR</button>
                                     </div>
@@ -179,7 +143,7 @@
                             <span>Horário do check in: 12H</span><br>
                             <span>Horário do check out: 12H</span>
 
-                            <form>
+                            <!-- <form th:action="@{/sisaocbmma/pesquisar-chale}"> -->
                                 <div class="row mt-4">
                                     <div class="col-sm-12 col-lg-4 offset-lg-2">
                                         <div class="input-group">
@@ -208,119 +172,67 @@
                                     <div class="col-12 text-center">
                                         <!-- id do socio -->
                                         <input type="text" hidden>
-                                        <button type="submit"
+                                        <button type="button" onclick="pesquisarDisponibilidade()"
                                             class="btn btn-danger btn-noticias btn-lg">PESQUISAR</button>
                                     </div>
                                 </div>
-                            </form>
+                            <!-- </form> -->
+                            <div id="chales-disponiveis">
+                                
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <br><br>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#termo">
-                Launch demo modal
-            </button>
-
             <div th:replace="padrao/modal :: aceite-reserva"></div>
 
+            <div id="animacao">
+                <div id="circularG">
+                    <div id="circularG_1" class="circularG"></div>
+                    <div id="circularG_2" class="circularG"></div>
+                    <div id="circularG_3" class="circularG"></div>
+                    <div id="circularG_4" class="circularG"></div>
+                    <div id="circularG_5" class="circularG"></div>
+                    <div id="circularG_6" class="circularG"></div>
+                    <div id="circularG_7" class="circularG"></div>
+                    <div id="circularG_8" class="circularG"></div>
+                </div>
+            </div>
 
+
+            <!-- Recebendo dados thymeleaf -->
+            <script th:inline="javascript">
+                var disableddates = [];
+
+                /*<![CDATA[*/
+                var dt = /*[[${datasReservaCajueiro}]]*/ "d";
+
+                let tam = dt.length;
+                for (let i = 0; i < tam; i++) {
+                    disableddates.push(formatarData(dt[i]));
+                }
+
+                function formatarData(dt) {
+                    var ano = dt.substr(0, 4);
+                    var mesdia = dt.substr(5, 9);
+                    var data = mesdia.concat('-').concat(ano);
+
+                    var dataNova = new Date(data);
+                    var mes = dataNova.getMonth()+1;
+                    var dat = dataNova.getDate();
+                    var ano = dataNova.getFullYear();
+
+                    return mes+'-'+dat+'-'+ano;
+                }
+                /*]]*/
+            </script>
 
             <script th:src="@{/js/jquery-ui.min.js}"></script>
             <script th:src="@{/js/datepicker-custom.js}"></script>
             <script th:src="@{/js/jquery.mask.min.js}"></script>
-            <script>
-                $(document).ready(function () {
-                    $('.time').mask('00:00');
-
-                    for (let i = 8; i < 22; i++) {
-                        $('#hora-inicio').append('<option value="' + i + ':00:00">' + i + ':00</option>');
-                    }
-                    for (let j = 9; j < 23; j++) {
-                        $('#hora-termino').append('<option value="' + j + ':00:00">' + j + ':00</option>');
-                    }
-                });
-
-                $(function () { //recupera a data do input, troca / por - e chama o ajax
-                    $('#datepicker-campo').change(function () {
-                        var data = $(this).val();
-                        data = data.replace('/', '-');
-                        data = data.replace('/', '-');
-                        getHorasIniciaisReservadasDoDiaSelecionado(data);
-                        getHorasTerminaisReservadasDoDiaSelecionado(data);
-                        limparDatasEscolhidas();
-                    });
-                });
-
-                var horas_iniciais = [];
-                function getHorasIniciaisReservadasDoDiaSelecionado(data) { // recupera as horas iniciais
-                    var url = location.href; //pega endereço que esta no navegador
-                    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-
-                    $.ajax({
-                            url: '/sisaocbmma/horas-iniciais/' + data,
-                            type: 'GET',
-                            async: false
-                        })
-                        .done(function (resposta) {
-                            horas_iniciais = resposta;
-                        })
-                        .fail(function (jqXHR, textStatus, errorThrown) {
-                            console.log("Desculpe! Houve um erro: " + jqXHR.status);
-                        });
-                }
-
-                var horas_terminais = [];
-                function getHorasTerminaisReservadasDoDiaSelecionado(data) { // recupera as horas iniciais
-                    var url = location.href; //pega endereço que esta no navegador
-                    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-
-                    $.ajax({
-                            url: '/sisaocbmma/horas-terminais/' + data,
-                            type: 'GET',
-                            async: false
-                        })
-                        .done(function (resposta) {
-                            horas_terminais = resposta;
-                        })
-                        .fail(function (jqXHR, textStatus, errorThrown) {
-                            console.log("Desculpe! Houve um erro: " + jqXHR.status);
-                        });
-
-                }
-
-                function limparDatasEscolhidas() {
-                    let tam = horas_iniciais.length;
-
-                    $('#hora-inicio option').each(function (index, element) {
-                        for (let i = 0; i < tam; i++) {
-                            if (element.value == horas_iniciais[i]+':00:00' && (horas_terminais[i]-horas_iniciais[i])>1 ) {
-                                element.setAttribute('disabled','disabled');
-
-                                let valor = (horas_terminais[i]-horas_iniciais[i]);
-                                let horaNum = parseInt(horas_iniciais[i]);
-                                for(let j = 1 ; j < valor ; j ++){
-                                    $("#hora-inicio option[value='"+(horaNum+j)+":00:00']").attr('disabled','disabled');
-                                    $("#hora-termino option[value='"+(horaNum+j)+":00:00']").attr('disabled','disabled');
-                                }
-                            }
-                            else if(element.value == horas_iniciais[i]+':00:00'){
-                                element.setAttribute('disabled','disabled');
-                            }
-                        }
-                    });
-                    $('#hora-termino option').each(function (index, element) {
-                        for (let i = 0; i < tam; i++) {
-                            if (element.value == horas_terminais[i]+':00:00') {
-                                element.setAttribute('disabled','disabled');
-                            }
-                        }
-                    });
-
-
-                }
-            </script>
+            <script th:src="@{/js/reserva.js}"></script>
     </main>
 
 </body>

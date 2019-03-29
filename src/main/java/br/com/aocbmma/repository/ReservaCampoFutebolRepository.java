@@ -19,5 +19,8 @@ public interface ReservaCampoFutebolRepository extends JpaRepository<ReservaCamp
     @Query(value="select hour(hora_termino) from reserva_campo_futebol where data_reserva = :data and pagamento != 'vencido'", nativeQuery=true)
     public List<Integer> selectHoraTermino(@Param("data") Date data);
 
+    @Query(value="select * from reserva_campo_futebol where pagamento = 'pendente'", nativeQuery=true)
+    public List<ReservaCampoFutebol> selectReservaCampoSolicitada();
+
 
 }

@@ -1,5 +1,8 @@
 package br.com.aocbmma.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.aocbmma.helper.FormatadorData;
 import br.com.aocbmma.model.ReservaCampoFutebol;
+import br.com.aocbmma.model.ReservaEspacoCajueiro;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
+import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 
 
@@ -28,6 +34,9 @@ public class SistemaController{
 
     @Autowired
     private CategoriaConvenioService categoriaService;
+
+    @Autowired
+    private ReservaEspacoCajueiroService reservaCajueiroService;
 
     private Socio socio = null;
 
@@ -103,7 +112,8 @@ public class SistemaController{
         socio = socioService.getSocioByEmail();
         mv.addObject("socio", socio);
         mv.addObject("reservaCampo", new ReservaCampoFutebol());
-
+        mv.addObject("reservaCajueiro", new ReservaEspacoCajueiro());
+        mv.addObject("datasReservaCajueiro", reservaCajueiroService.getDatasReservasRealizadas());
         return mv;
     }
     

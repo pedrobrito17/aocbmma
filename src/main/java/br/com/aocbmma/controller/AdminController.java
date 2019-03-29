@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.aocbmma.service.ReservaCampoFutebolService;
+import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 
 
@@ -14,6 +16,12 @@ public class AdminController{
 
     @Autowired
     private SocioService socioService;
+
+    @Autowired
+    private ReservaCampoFutebolService reservaCampoService;
+
+    @Autowired
+    private ReservaEspacoCajueiroService reservaCajueiroService;
 
     private ModelAndView mv = null;
 
@@ -27,6 +35,8 @@ public class AdminController{
         mv = new ModelAndView("paginas-sistema/admin/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
+        mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
+        mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
         return mv;
     }
 
