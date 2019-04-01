@@ -3,6 +3,7 @@
     layout:decorate="~{padrao/layout-admin-base}">
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
 </head>
 
 <body>
@@ -15,7 +16,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-10 offset-lg-1">
 
                     <!-- MENSAGEM DE SUCESSO -->
@@ -23,26 +24,49 @@
                     <!-- MENSAGEM DE ERRO -->
                     <div th:replace="padrao/mensagens-alerta :: mensagem-erro"></div>
 
-                    <table class="table table-striped">
-                        <tr class="table-header">
-                            <th>#</th>
-                            <th>Empresa</th>
-                            <th></th>
-                        </tr>
-                        <tr th:each="convenio, id : ${convenios}">
-                            <td th:text="${id.count}">1</td>
-                            <td th:text="${convenio.nome_empresa}"></td>
-                            <td class="text-right">
-                                <a th:href="@{/admin/editar-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
-                                <a th:href="@{/admin/excluir-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
-                            </td>
-                        </tr>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Empresa</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="convenio, id : ${convenios}">
+                                <td class="align-middle" th:text="${id.count}">1</td>
+                                <td class="align-middle" th:text="${convenio.nome_empresa}"></td>
+                                <td class="text-right align-middle">
+                                    <a th:href="@{/admin/editar-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+                                    <a th:href="@{/admin/excluir-convenio/{id}(id=${convenio.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
         <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 10,
+                    paging: true,
+                    ordering: false,
+                    searching: false,
+                    info: false,
+                    lengthChange: false,
+                    language: {
+                        lengthMenu: "Exibir _MENU_ linhas",
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
             $('#convenios').addClass('menu-ativo');
         </script>
         <br><br><br>

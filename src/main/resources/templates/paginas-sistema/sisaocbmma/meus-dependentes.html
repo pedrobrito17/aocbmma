@@ -57,7 +57,7 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-2 col-lg-2">
-                                        <button type="button" class="btn btn-sm btn-warning" th:onclick="deletarDependente(2)">Excluir</button>
+                                        <button type="button" class="btn btn-sm btn-warning" th:onclick="'deletarDependente('+ ${dep.getId()} +');'" >Excluir</button>
                                     </div>
                                 </div>
 

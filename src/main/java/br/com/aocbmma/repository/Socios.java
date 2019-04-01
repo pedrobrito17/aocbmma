@@ -20,4 +20,7 @@ public interface Socios extends JpaRepository<Socio,Integer>{
     @Query(value="SELECT * FROM dados_contato d INNER JOIN socio s ON s.id = d.socio_id WHERE d.email = :email", nativeQuery=true)
     Socio findByEmail(@Param("email") String email);
 
+    @Query(value="select * from socio where tipo_socio=:categoria order by nome asc", nativeQuery=true)
+    List<Socio> findByTipoSocio(@Param("categoria") String categoria);
+
 }

@@ -129,15 +129,14 @@ footer a:hover {
 .row-conteudo{
     min-height: 110vh !important;
     font-size: .9em;
-    position: relative;
+    display: table;
 }
 
 footer{
-    position: absolute;
-    bottom: 0px;
     width: 98%;
     font-size: .9em;
     color: #444;
+    display: table-footer-group;
 }
 
 .menu-down{
@@ -178,4 +177,27 @@ footer{
     color: #3b3c40;
     min-height: 200px;
     padding: 20px;
+}
+
+.div-info-system h3, .div-info-system h4 {
+    font-size: 1.2em;
+}
+
+.aniv {
+    padding: .4em;
+    background-color: #ffe066;
+    border-radius: 10px;
+    margin-bottom: 3px;
+}
+
+#foto-perfil{
+    width:60px;
+    height:60px;
+    border-radius: 50%;
+    background-color:white;
+    cursor: pointer;
+}
+
+#foto-perfil:hover{
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }

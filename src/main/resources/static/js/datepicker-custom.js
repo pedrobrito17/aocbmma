@@ -81,7 +81,6 @@ $(function () {
       date = null;
       console.log(error);
     }
-
     return date;
   }
 });

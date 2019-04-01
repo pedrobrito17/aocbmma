@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{padrao/layout-site-base}">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-site-base}">
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
@@ -31,20 +31,11 @@
                     </div>
                     <br>
 
-
-                    <div th:if="${msg}">
-                            <!-- <div> -->
-                                <br><br><br><br>
-                                <h1>Parabéns por sua decisão!</h1>
-                                <h3>A Associação dos Oficiais irá analisar seu pedido.</h3>
-                                <h5>Em breve entraremos em contato.</h5>
-                                <br><br><br><br><br><br>
-                            </div>
-
                     <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A
                         AOCBMMA.</h5><br>
 
-                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1" onsubmit="validarForm(this); return false;">
+                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form1"
+                        onsubmit="validarForm(this); return false;">
                         <fieldset>
                             <legend>Dados pessoais</legend>
                             <div class="row">
@@ -65,11 +56,24 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input id="data_nascimento" class="form-control form-custom" type="text" name="data_nascimento" onfocus="(this.type='date')" th:field="*{data_nascimento}" 
-                                         placeholder="Data de nascimento">
+                                    <input id="data_nascimento" class="form-control form-custom" type="text"
+                                        name="data_nascimento" onfocus="(this.type='date')"
+                                        th:field="*{data_nascimento}" placeholder="Data de nascimento">
                                     <div class="invalid-feedback">
                                         Digite sua data de nascimento
                                     </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <select class="form-control form-custom" th:field="*{tipoSocio}" data-toggle="categoria"
+                                    id="categoria">
+                                        <option value="" selected hidden>Categoria</option>
+                                        <option value="fundador">Sócio fundador</option>
+                                        <option value="efetivo">Sócio efetivo</option>
+                                        <option value="contribuinte">Sócio contribuinte</option>
+                                        <option value="honorário">Sócio honorário</option>
+                                    </select>
                                 </div>
                             </div>
                         </fieldset>
@@ -80,14 +84,16 @@
 
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="nome_guerra" placeholder="Nome de guerra" id="nome_guerra"
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="nome_guerra" placeholder="Nome de guerra" id="nome_guerra"
                                         th:field="*{dadosOficial.nome_guerra}">
-                                        <div class="invalid-feedback">
-                                            Digite seu nome de guerra
-                                        </div>
+                                    <div class="invalid-feedback">
+                                        Digite seu nome de guerra
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <select id="posto" class="form-control form-custom" th:field="*{dadosOficial.posto}">
+                                    <select id="posto" class="form-control form-custom"
+                                        th:field="*{dadosOficial.posto}">
                                         <option value="" selected hidden>Posto</option>
                                         <option value="Cadete">Cadete</option>
                                         <option value="Aspirante a Oficial">Aspirante a Oficial</option>
@@ -107,40 +113,40 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6" id="quadro">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qoc" th:field="*{dadosOficial.quadro}"
-                                            value="QOC">
+                                        <input class="form-check-input" type="radio" name="qoc"
+                                            th:field="*{dadosOficial.quadro}" value="QOC">
                                         <label class="form-check-label" for="qoc">QOC</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qoa" th:field="*{dadosOficial.quadro}"
-                                            value="QOA">
+                                        <input class="form-check-input" type="radio" name="qoa"
+                                            th:field="*{dadosOficial.quadro}" value="QOA">
                                         <label class="form-check-label" for="qoa">QOA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qoe" th:field="*{dadosOficial.quadro}"
-                                            value="QOE">
+                                        <input class="form-check-input" type="radio" name="qoe"
+                                            th:field="*{dadosOficial.quadro}" value="QOE">
                                         <label class="form-check-label" for="qoe">QOE</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qos" th:field="*{dadosOficial.quadro}"
-                                            value="QOS">
+                                        <input class="form-check-input" type="radio" name="qos"
+                                            th:field="*{dadosOficial.quadro}" value="QOS">
                                         <label class="form-check-label" for="qos">QOS</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6" id="corporacao">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="cbmma" th:field="*{dadosOficial.corporacao}"
-                                            value="CBMMA">
+                                        <input class="form-check-input" type="radio" name="cbmma"
+                                            th:field="*{dadosOficial.corporacao}" value="CBMMA">
                                         <label class="form-check-label" for="cbmma">CBMMA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pmma" th:field="*{dadosOficial.corporacao}"
-                                            value="PMMA">
+                                        <input class="form-check-input" type="radio" name="pmma"
+                                            th:field="*{dadosOficial.corporacao}" value="PMMA">
                                         <label class="form-check-label" for="pmma">PMMA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="forcas" th:field="*{dadosOficial.corporacao}"
-                                            value="Forças Armadas">
+                                        <input class="form-check-input" type="radio" name="forcas"
+                                            th:field="*{dadosOficial.corporacao}" value="Forças Armadas">
                                         <label class="form-check-label" for="forcas">Forças Armadas</label>
                                     </div>
                                 </div>
@@ -148,28 +154,31 @@
                             <br>
                             <div class="row">
                                 <div class="col-12">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="lotacao" placeholder="Lotação" id="lotacao"
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="lotacao" placeholder="Lotação" id="lotacao"
                                         th:field="*{dadosOficial.lotacao}">
-                                        <div class="invalid-feedback">
-                                            Digite sua lotação
-                                        </div>
+                                    <div class="invalid-feedback">
+                                        Digite sua lotação
+                                    </div>
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="rg_militar" placeholder="RG Militar" id="rg_militar"
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="rg_militar" placeholder="RG Militar" id="rg_militar"
                                         th:field="*{dadosOficial.rg_militar}">
-                                        <div class="invalid-feedback">
-                                            Digite seu rg militar
-                                        </div>
+                                    <div class="invalid-feedback">
+                                        Digite seu rg militar
+                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="matricula" placeholder="Matrícula" id="matricula"
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="matricula" placeholder="Matrícula" id="matricula"
                                         th:field="*{dadosOficial.matricula}">
-                                        <div class="invalid-feedback">
-                                            Digite sua matricula
-                                        </div>
+                                    <div class="invalid-feedback">
+                                        Digite sua matricula
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
@@ -178,8 +187,9 @@
                             <legend>Dados bancários</legend>
                             <div class="row">
                                 <div class="col-12">
-                                    <select id="banco" class="form-control form-custom" th:field="*{dadosBancarios.banco}">
-                                        <option value=""selected hidden>Banco</option>
+                                    <select id="banco" class="form-control form-custom"
+                                        th:field="*{dadosBancarios.banco}">
+                                        <option value="" selected hidden>Banco</option>
                                         <option value="Banco do Brasil S.A.">001 - Banco do Brasil S.A.</option>
                                         <option value="Banco Itaú S.A.">341 - Banco Itaú S.A.</option>
                                         <option value="Banco Santander S.A.">003 - Banco Santander S.A.</option>
@@ -198,15 +208,17 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="agencia"
-                                        placeholder="Agência" id="agencia" th:field="*{dadosBancarios.agencia}">
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="agencia" placeholder="Agência" id="agencia"
+                                        th:field="*{dadosBancarios.agencia}">
                                     <div class="invalid-feedback">
                                         Digite sua agência
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="conta"
-                                        placeholder="Conta corrente" id="conta_corrente" th:field="*{dadosBancarios.conta_corrente}">
+                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                        name="conta" placeholder="Conta corrente" id="conta_corrente"
+                                        th:field="*{dadosBancarios.conta_corrente}">
                                     <div class="invalid-feedback">
                                         Digite sua conta corrente
                                     </div>
@@ -220,7 +232,7 @@
                             <legend>Endereço</legend>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input id="cep" class="form-control form-custom cep" type="text" name="cep" 
+                                    <input id="cep" class="form-control form-custom cep" type="text" name="cep"
                                         placeholder="CEP" th:field="*{dadosContato.cep}">
                                     <div class="invalid-feedback">
                                         Digite o CEP
@@ -241,8 +253,9 @@
                             <br>
                             <div class="row">
                                 <div class="col-6">
-                                    <input id="complemento" class="form-control form-custom" type="text" name="complemento"
-                                        placeholder="Complemento" th:field="*{dadosContato.complemento}">
+                                    <input id="complemento" class="form-control form-custom" type="text"
+                                        name="complemento" placeholder="Complemento"
+                                        th:field="*{dadosContato.complemento}">
                                 </div>
                                 <div class="col-6">
                                     <input id="bairro" class="form-control form-custom" type="text" name="bairro"
@@ -257,7 +270,7 @@
                                         placeholder="Cidade" th:field="*{dadosContato.cidade}" readonly>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input id="uf" class="form-control form-custom" type="text" name="uf" 
+                                    <input id="uf" class="form-control form-custom" type="text" name="uf"
                                         placeholder="UF" th:field="*{dadosContato.uf}" readonly>
                                 </div>
                             </div>
@@ -278,15 +291,15 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="celular" id="celular"
-                                        placeholder="Celular" th:field="*{dadosContato.celular}">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="celular"
+                                        id="celular" placeholder="Celular" th:field="*{dadosContato.celular}">
                                 </div>
                             </div>
                             <br>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="email" name="email" id="email"
-                                        placeholder="E-mail" th:field="*{dadosContato.email}">
+                                    <input class="form-control form-custom validacao-input-text" type="email"
+                                        name="email" id="email" placeholder="E-mail" th:field="*{dadosContato.email}">
                                     <div class="invalid-feedback">
                                         Digite seu e-mail
                                     </div>
@@ -298,10 +311,12 @@
                         <fieldset>
                             <legend class="link">
                                 Dependentes
-                                <a class="text-muted" href="javascript:addDependente()" data-toggle="popover" id="popover">
+                                <a class="text-muted" href="javascript:addDependente()" data-toggle="popover"
+                                    id="popover">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
-                                <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover" id="popover">
+                                <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover"
+                                    id="popover">
                                     <i class="fas fa-minus-circle"></i>
                                 </a>
                             </legend>
@@ -312,7 +327,8 @@
                                             placeholder="Dependente" th:field="*{dependentes[0].nome}">
                                     </div>
                                     <div class="col-sm-12 col-lg-4">
-                                        <select class="form-control form-custom" th:field="*{dependentes[0].parentesco}">
+                                        <select class="form-control form-custom"
+                                            th:field="*{dependentes[0].parentesco}">
                                             <option value="" selected hidden>Parentesco</option>
                                             <option value="Cônjugue">Cônjugue</option>
                                             <option value="Filho(a)">Filho(a)</option>
@@ -330,15 +346,15 @@
                             <legend>Acesso</legend>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom" type="password" name="senha" placeholder="Senha" id="senha"
-                                        th:field="*{senha}">
+                                    <input class="form-control form-custom" type="password" name="senha"
+                                        placeholder="Senha" id="senha" th:field="*{senha}">
                                     <div class="invalid-feedback">
                                         A senha não confere.
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom" type="password" name="conf_senha" id="conf_senha"
-                                        placeholder="Confirmar senha">
+                                    <input class="form-control form-custom" type="password" name="conf_senha"
+                                        id="conf_senha" placeholder="Confirmar senha">
                                 </div>
                             </div>
                         </fieldset>

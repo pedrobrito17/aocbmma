@@ -3,6 +3,7 @@
     layout:decorate="~{padrao/layout-admin-base}">
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
     <style>
         .img-table{
             width: 100px;
@@ -21,7 +22,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-lg-10 offset-lg-1">
 
                     <!-- MENSAGEM DE SUCESSO -->
@@ -29,27 +30,52 @@
                     <!-- MENSAGEM DE ERRO -->
                     <div th:replace="padrao/mensagens-alerta :: mensagem-erro"></div>
 
-                    <table class="table table-striped">
-                        <tr class="table-header">
-                            <th>Data da postagem</th>
-                            <th>Título</th>
-                            <th></th>
-                        </tr>
-                        <tr th:each="noticia : ${noticias}">
-                            <td th:text="${#dates.format(noticia.data_postagem, 'dd/MM/yyyy')} "></td>
-                            <td th:text="${noticia.titulo}"></td>
-                            <!-- <td><img class="img-table" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}" alt="foto"></td> -->
-                            <td class="text-right">
-                                <a th:href="@{/admin/editar-noticia/{id}(id=${noticia.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
-                                <a th:href="@{/admin/excluir-noticia/{id}(id=${noticia.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
-                            </td>
-                        </tr>
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Data da postagem</th>
+                                <th>Título</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="noticia,id : ${noticias}">
+                                <td class="align-middle" th:text="${id.count}">1</td>
+                                <td class="align-middle" th:text="${#dates.format(noticia.data_postagem, 'dd/MM/yyyy')} "></td>
+                                <td class="align-middle" th:text="${noticia.titulo}"></td>
+                                <td class="text-right align-middle">
+                                    <a th:href="@{/admin/editar-noticia/{id}(id=${noticia.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a>
+                                    <a th:href="@{/admin/excluir-noticia/{id}(id=${noticia.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
 
                 </div>
             </div>
         </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
         <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 10,
+                    paging: true,
+                    ordering: false,
+                    searching: false,
+                    info: false,
+                    lengthChange: false,
+                    language: {
+                        lengthMenu: "Exibir _MENU_ linhas",
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
             $('#noticias').addClass('menu-ativo');            
         </script>
     </main>

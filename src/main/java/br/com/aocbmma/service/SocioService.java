@@ -134,10 +134,6 @@ public class SocioService {
         return socios.getAniversariantes(month);
     }
 
-    public List<Socio> getTodosOsSocios() {
-        return socios.findAll();
-    }
-
     public Socio findSocioByEmail(String email) {
         return socios.findByEmail(email);
     }
@@ -154,5 +150,13 @@ public class SocioService {
 	public boolean deletarDependente(int id) {
         dependentes.deleteById(id);
         return true;
-	}
+    }
+    
+    public Socio findSocio(int id){
+        return socios.findById(id).get();
+    }
+
+    public List<Socio> getSociosDesta(String categoria){
+        return socios.findByTipoSocio(categoria);
+    }
 }

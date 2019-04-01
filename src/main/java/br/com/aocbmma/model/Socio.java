@@ -38,6 +38,10 @@ public class Socio{
 
     @Column
     @NotNull
+    private String path_foto_perfil;
+
+    @Column
+    @NotNull
     @CPF
     private String cpf;
 
@@ -51,7 +55,7 @@ public class Socio{
     private String situacao = "solicitado";
 
     @Column
-    private String tipoSocio = "efetivo";
+    private String tipoSocio;
 
     @Column
     private String senha;
@@ -77,6 +81,7 @@ public class Socio{
     private Set<Role> roles;
 
 
+
     public Integer getId() {
         return this.id;
     }
@@ -91,6 +96,14 @@ public class Socio{
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getPath_foto_perfil() {
+        return this.path_foto_perfil;
+    }
+
+    public void setPath_foto_perfil(String path_foto_perfil) {
+        this.path_foto_perfil = path_foto_perfil;
     }
 
     public String getCpf() {
@@ -180,6 +193,7 @@ public class Socio{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+   
 
 
 }

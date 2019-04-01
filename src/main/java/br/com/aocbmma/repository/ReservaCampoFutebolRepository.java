@@ -22,5 +22,11 @@ public interface ReservaCampoFutebolRepository extends JpaRepository<ReservaCamp
     @Query(value="select * from reserva_campo_futebol where pagamento = 'pendente'", nativeQuery=true)
     public List<ReservaCampoFutebol> selectReservaCampoSolicitada();
 
+    @Query(value="select * from reserva_campo_futebol r inner join socio s on r.socio_id = s.id where s.id = :id order by r.data_reserva desc", nativeQuery=true)
+    List<ReservaCampoFutebol> findBySocio(@Param("id") int id);
+
+    @Query(value="select * from reserva_campo_futebol r where r.pagamento!='vencido' order by r.data_reserva desc", nativeQuery=true)
+    List<ReservaCampoFutebol> findAllDiferenteDePagamentoVencido();
+
 
 }

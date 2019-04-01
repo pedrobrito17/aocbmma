@@ -67,15 +67,8 @@
                         <li class="">
                             <a id="financeiro" href="#"><i class="far fa-money-bill-alt"></i><span> Financeiro</span></a>
                         </li>
-                        <li class="menu-down">
-                            <a class="eventos" href="javascript:void(0);">
-                                <i class="far fa-calendar-alt"></i><span> Eventos</span>
-                                <i class="fas fa-caret-down"></i>
-                            </a>
-                            <ul class="">
-                                <li class=""><a href="#">Agendar evento</a></li>
-                                <li class=""><a href="#">Eventos do clube</a></li>
-                            </ul>
+                        <li class="">
+                            <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
                         </li>
                         <li class="menu-down">
                             <a id="associados" href="javascript:void(0);">
@@ -83,8 +76,10 @@
                                 <i class="fas fa-caret-down"></i>
                             </a>
                             <ul class="">
-                                <li class=""><a href="#">Novo sócio</a></li>
-                                <li class=""><a th:href="@{/admin/relacao-associados}">Relação associados</a></li>
+                                <li class=""><a th:href="@{/admin/socios/fundador}">Sócios fundadores</a></li>
+                                <li class=""><a th:href="@{/admin/socios/efetivo}">Sócios efetivos</a></li>
+                                <li class=""><a th:href="@{/admin/socios/contribuinte}">Sócios contribuintes</a></li>
+                                <li class=""><a href="#">Sócios honorários</a></li>
                             </ul>
                         </li>
                         <li class="menu-down">
@@ -135,12 +130,11 @@
                                         target="_blank">italobrito.com.br</a></span>
                             </div>
                         </div>
+                    </div>
                 </footer>
             </div>
         </div>
     </div>
-    </div>
-
 
     <script th:src="@{/js/sistema.js}"></script>
 

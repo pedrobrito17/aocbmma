@@ -42,15 +42,14 @@ function removeDependente() {
 function deletarDependente(id) {
     var url = location.href; //pega endereço que esta no navegador
     url = url.split("/"); //quebra o endeço de acordo com a / (barra)
-    console.log(url[2]); // retorna a parte www.endereco.com.br
-    console.log(url[2] + '/sisaocbmma/deletar-dependente/' + id);
 
     $.ajax({
-        url: url[2]+'/sisaocbmma/deletar-dependente/' + id,
+        url: '/sisaocbmma/deletar-dependente/' + id,
         type: 'DELETE'
       })
       .done(function () {
         console.log("funcionou");
+        location.reload();
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
         console.log("Desculpe! Houve um erro: " + jqXHR.status);
@@ -69,6 +68,22 @@ $('#popover').popover({
         '<ol style="list-style-type: upper-roman; margin: 0px;">' +
         '<li>filho(a) solteiro(a) até 21 anos de idade ou 24 anos se estudante universitário;</li>' +
         '<li>mãe, pai ou sogro(a), viúvo(a), desquitada ou divorciada que viva sob dependência financeira e mesmo teto do associado.</li>' +
+        '</ol>' +
+        '</div>' +
+        '</div>'
+})
+
+$('#categoria').popover({
+    trigger: 'hover',
+    placement: 'right',
+    html: true,
+    content: '<div class="popover-custom">' +
+        '<div class="body-popover">' +
+        '<ol style="list-style-type: upper-roman; margin: 0px;">' +
+        '<li>Fundadores: oficiais que assinaram a Ata de Fundação. </li>' +
+        '<li>Efetivos: cadetes, aspirantes e oficiais do CBMMA.</li>' +
+        '<li>Contribuintes: oficiais das Forças Armadas ou outras Forças Auxiliares.</li>' +
+        '<li>Honorários: reconhecidos por Assembléia Geral.</li>' +
         '</ol>' +
         '</div>' +
         '</div>'
@@ -130,6 +145,7 @@ function validarInputsAndSelects() {
     var cep = $('#cep').val();
     var whatsapp = $('#whatsapp').val();
     var posto = $('#posto').val();
+    var categoria = $('#categoria').val();
     var banco = $('#banco').val();
     var corporacao = $("#corporacao input[type=radio]:checked").val();
     var quadro = $("#quadro input[type=radio]:checked").val();
@@ -165,6 +181,11 @@ function validarInputsAndSelects() {
     if (posto.length == 0) {
         $('#posto').focus();
         $('#posto').addClass('is-invalid');
+        erros++;
+    }
+    if (categoria.length == 0) {
+        $('#categoria').focus();
+        $('#categoria').addClass('is-invalid');
         erros++;
     }
     if (banco.length == 0) {
@@ -269,25 +290,25 @@ $("#cep").focusout(function () {
 
 
 
-// $(document).ready(function(){
-//     $('input[name=nome]').val('Pedro');
-//     $('input[name=cpf]').val('001.881.933-83');
-//     // $('input[name=data_nascimento]').val('17/04/1988');
+$(document).ready(function(){
+    $('input[name=nome]').val('Pedro');
+    $('input[name=cpf]').val('001.881.933-83');
+    // $('input[name=data_nascimento]').val('17/04/1988');
 
-//     $('#nome_guerra').val('Aragão');
-//     $('#lotacao').val('2 BBM');
-//     $('#rg_militar').val('2170');
-//     $('#matricula').val('435');
+    $('#nome_guerra').val('Aragão');
+    $('#lotacao').val('2 BBM');
+    $('#rg_militar').val('2170');
+    $('#matricula').val('435');
 
-//     $('#agencia').val('5878-1');
-//     $('#conta_corrente').val('24973-4');
+    $('#agencia').val('5878-1');
+    $('#conta_corrente').val('24973-4');
 
-//     $('#whatsapp').val('(98) 98204-5453');
-//     $('#celular').val('(98) 98204-5453');
-//     $('#email').val('aragao@cbm.ma.gov.br');
+    $('#whatsapp').val('(98) 98204-5453');
+    $('#celular').val('(98) 98204-5453');
+    $('#email').val('aragao@cbm.ma.gov.br');
 
-//     $('#cep').val('65070-400');
+    $('#cep').val('65070-400');
 
-//     $('#senha').val('fsadu');
-//     $('#conf_senha').val('fsadu');
-// });
+    $('#senha').val('fsadu');
+    $('#conf_senha').val('fsadu');
+});

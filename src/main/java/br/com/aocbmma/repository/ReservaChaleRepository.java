@@ -17,4 +17,12 @@ public interface ReservaChaleRepository extends JpaRepository<ReservaChale, Inte
         +"(data_entrada between :dt_entrada_pesq and :dt_saida_pesq) OR (data_saida between :dt_entrada_pesq and :dt_saida_pesq) "
         +"and (:dt_entrada_pesq between data_entrada and data_saida) OR (:dt_saida_pesq between data_entrada and data_saida)", nativeQuery=true)
     List<ReservaChale> buscarReservaQueCoincidaComAPesquisada(@Param("dt_entrada_pesq") Date data_entrada, @Param("dt_saida_pesq") Date data_saida);
+
+    List<ReservaChale> findByPagamento(String pag);
+
+    @Query(value="select * from reserva_chale r inner join socio s on r.socio_id = s.id where s.id = :id order by r.data_entrada desc", nativeQuery=true)
+    List<ReservaChale> findBySocio(@Param("id") int id);
+
+    @Query(value="select * from reserva_chale r where r.pagamento!='vencido' order by r.data_entrada desc", nativeQuery=true)
+    List<ReservaChale> findAllDiferenteDePagamentoVencido();
 }

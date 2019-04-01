@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <head>
@@ -17,8 +18,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Scripts -->
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
@@ -26,14 +27,15 @@
 </head>
 
 <body>
-    <header>
 
+    <header>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-6">
                     <div class="titulo">
                         <a th:href="@{/sisaocbmma}">
-                            <img class="d-inline-block" th:src="@{/img/brasao-sistema.png}" style="width:40px;" alt="brasao">
+                            <img class="d-inline-block" th:src="@{/img/brasao-sistema.png}" style="width:40px;"
+                                alt="brasao">
                             <h4 class="d-inline-block ml-2"><b>AOCBMMA</b></h4>
                         </a>
                     </div>
@@ -58,39 +60,53 @@
                 <br>
                 <nav class="">
                     <ul class="">
+                        <li class="text-center mb-4">
+                            <img id="foto-perfil" th:src="@{/img/avatar-user.png}" th:if="${socio.path_foto_perfil.empty}">
+                            <img id="foto-perfil" th:src="@{ ${socio.path_foto_perfil} }" th:if="${not socio.path_foto_perfil.empty}">
+                            <p class="mt-2"><b
+                                    th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}">Tenente
+                                    Coronel Celso Alves</b></p>
+                            <hr>
+                        </li>
                         <li class="">
                             <a id="home" th:href="@{/sisaocbmma}"><i class="fas fa-home"></i><span> Home</span></a>
                         </li>
                         <li class="">
-                            <a id="meus_dados" th:href="@{/sisaocbmma/meus-dados}"><i class="far fa-address-card"></i><span> Meus dados</span></a>
+                            <a id="meus_dados" th:href="@{/sisaocbmma/meus-dados}"><i
+                                    class="far fa-address-card"></i><span> Meus dados</span></a>
                         </li>
                         <li class="">
-                            <a id="meus_dependentes" th:href="@{/sisaocbmma/meus-dependentes}"><i class="fas fa-child"></i><span> Meus dependentes</span></a>
+                            <a id="meus_dependentes" th:href="@{/sisaocbmma/meus-dependentes}"><i
+                                    class="fas fa-child"></i><span> Meus dependentes</span></a>
                         </li>
                         <li class="">
-                            <a id="alterar_senha" th:href="@{/sisaocbmma/alterar-senha}"><i class="fas fa-key"></i><span> Alterar senha</span></a>
+                            <a id="alterar_senha" th:href="@{/sisaocbmma/alterar-senha}"><i
+                                    class="fas fa-key"></i><span> Alterar senha</span></a>
                         </li>
                         <li class="">
-                            <a id="alterar_senha" href="#"><i class="fas fa-fingerprint"></i><span> Solicitar carteira</span></a>
+                            <a id="alterar_senha" href="#"><i class="fas fa-fingerprint"></i><span> Solicitar
+                                    carteira</span></a>
                         </li>
                         <li class="">
-                            <a id="atas" th:href="@{/sisaocbmma/convenios}"><i class="far fa-handshake"></i><span> Convênios</span></a>
+                            <a id="atas" th:href="@{/sisaocbmma/convenios}"><i class="far fa-handshake"></i><span>
+                                    Convênios</span></a>
                         </li>
                         <li class="">
                             <a id="atas" href="#"><i class="far fa-file-alt"></i><span> Atas de assembleia</span></a>
                         </li>
                         <li class="">
-                            <a id="financeiro" href="#"><i class="far fa-money-bill-alt"></i><span> Financeiro</span></a>
+                            <a id="financeiro" href="#"><i class="far fa-money-bill-alt"></i><span>
+                                    Financeiro</span></a>
                         </li>
                         <li class="menu-down">
                             <a class="eventos" href="javascript:void(0);">
-                                <i class="far fa-calendar-alt"></i><span> Eventos</span>
+                                <i class="far fa-calendar-alt"></i><span> Reservas</span>
                                 <i class="fas fa-caret-down"></i>
                             </a>
                             <ul class="">
-                                <li class=""><a th:href="@{/sisaocbmma/agendar-evento}">Agendar evento</a></li>
-                                <li class=""><a href="#">Meus eventos</a></li>
-                                <li class=""><a href="#">Eventos do clube</a></li>
+                                <li class=""><a th:href="@{/sisaocbmma/reservar-clube}">Reservar clube</a></li>
+                                <li class=""><a th:href="@{/sisaocbmma/minhas-reservas}">Minhas reservas</a></li>
+                                <li class=""><a th:href="@{/sisaocbmma/reservas-clube}">Reservas do clube</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -104,6 +120,7 @@
                         </main>
                     </div>
                 </div>
+
                 <footer>
                     <div class="container-fluid ult-footer">
                         <hr>
@@ -116,14 +133,42 @@
                                         target="_blank">italobrito.com.br</a></span>
                             </div>
                         </div>
+                    </div>
                 </footer>
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Selecionar foto do perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
+                    <div class="">
+                        <input type="file" class="form-control form-custom" id="foto" name="foto" accept="image/*"><br>
+                    </div>
+                        <button type="submit" class="btn btn-danger btn-noticias btn-block">Salvar foto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 
     <script th:src="@{/js/sistema.js}"></script>
+    <script>
+        $('#foto-perfil').click(function () {
+            $('#alterar-foto-perfil').modal();
+        });
+    </script>
 
 </body>
 

@@ -24,11 +24,11 @@
                     <form enctype="multipart/form-data" th:action="@{/admin/salvar-noticia}" th:method="POST">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input class="form-control" name="titulo" type="text" required autofocus>
+                            <input class="form-control form-custom" name="titulo" type="text" required autofocus>
                         </div>
                         <div class="form-group">
                             <label for="imagem">Imagem</label>
-                            <input class="form-control" name="imagem" type="file" accept="image/*" required>
+                            <input class="form-control form-custom" name="imagem" type="file" accept="image/*" required>
                         </div>
                         <div class="form-group">
                             <textarea id="summernote" name="noticia"></textarea>

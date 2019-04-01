@@ -27,7 +27,7 @@ public class Dependente{
     @NotNull
     private String parentesco;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "socio_id", referencedColumnName = "id")
     private Socio socio;
 

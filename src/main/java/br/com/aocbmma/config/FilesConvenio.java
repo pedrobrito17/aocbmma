@@ -2,9 +2,7 @@ package br.com.aocbmma.config;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletContext;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

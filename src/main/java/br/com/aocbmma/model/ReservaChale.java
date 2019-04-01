@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -44,6 +45,10 @@ public class ReservaChale{
     @Column
     private String pagamento = "pendente"; //vencido realizado
 
+    @Column(precision=4, scale=2)
+    @Type(type="float")
+    @NotNull
+    private float valor_reserva;
 
     public Integer getId() {
         return this.id;
@@ -93,5 +98,12 @@ public class ReservaChale{
         this.pagamento = pagamento;
     }
 
+    public float getValor_reserva() {
+        return this.valor_reserva;
+    }
+
+    public void setValor_reserva(float valor_reserva) {
+        this.valor_reserva = valor_reserva;
+    }
 
 }

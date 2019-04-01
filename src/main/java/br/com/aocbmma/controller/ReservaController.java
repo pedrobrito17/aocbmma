@@ -22,13 +22,9 @@ import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
-
 
 @Controller
-public class ReservaController{
+public class ReservaController {
 
     @Autowired
     private ReservaCampoFutebolService reservaCampoService;
@@ -44,29 +40,19 @@ public class ReservaController{
 
     private ModelAndView mv = null;
 
-    @PostMapping(value="/sisaocbmma/salvar-reserva-campo-futebol")
-    public ModelAndView salvarReservaCampo(ReservaCampoFutebol reserva){
-        Socio socio = socioService.getSocioByEmail();
-        reserva.setSocio(socio);
+    @PostMapping(value = "/sisaocbmma/salvar-reserva-campo-futebol")
+    public ModelAndView salvarReservaCampo(ReservaCampoFutebol reserva) {
         reservaCampoService.salvarReservaCampoFutebol(reserva);
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("msgSuccess", "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
-        +"a reserva estará novamente disponível no sistema.");
-        return mv;
+        return aoIndex();
     }
 
-    @PostMapping(value="/sisaocbmma/salvar-reserva-espaco-cajueiro")
-    public ModelAndView salvarReservaEspacoCajueiro(ReservaEspacoCajueiro reserva){
-        Socio socio = socioService.getSocioByEmail();
-        reserva.setSocio(socio);
+    @PostMapping(value = "/sisaocbmma/salvar-reserva-espaco-cajueiro")
+    public ModelAndView salvarReservaEspacoCajueiro(ReservaEspacoCajueiro reserva) {
         reservaCajueiroService.salvarReserva(reserva);
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("msgSuccess", "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
-        +"a reserva estará novamente disponível no sistema.");
-        return mv;
+        return aoIndex();
     }
 
-    @GetMapping(value="/sisaocbmma/horas-iniciais/{data}")
+    @GetMapping(value = "/sisaocbmma/horas-iniciais/{data}")
     @ResponseBody
     public List<String> getHorasIniciais(@PathVariable("data") String data) {
         Date dataFormat = FormatadorData.getDataFormatadaNoPadraoUtil(data);
@@ -74,7 +60,7 @@ public class ReservaController{
         return horas_iniciais;
     }
 
-    @GetMapping(value="/sisaocbmma/horas-terminais/{data}")
+    @GetMapping(value = "/sisaocbmma/horas-terminais/{data}")
     @ResponseBody
     public List<String> getHorasTerminais(@PathVariable("data") String data) {
         Date dataFormat = FormatadorData.getDataFormatadaNoPadraoUtil(data);
@@ -82,45 +68,48 @@ public class ReservaController{
         return horas_terminais;
     }
 
-    @GetMapping(value="/admin/confirmar-reserva/{item}/{id}")
+    @GetMapping(value = "/admin/confirmar-reserva/{item}/{id}")
     public ModelAndView getMethodName(@PathVariable("item") String item, @PathVariable("id") int id) {
-        switch(item){
-            case "campo":
-                reservaCampoService.confirmarReserva(id);
-                break;
-            case "cajueiro":
-                reservaCajueiroService.confirmarReserva(id);
-                break;
-            case "chale":
-                break;
+        switch (item) {
+        case "campo":
+            reservaCampoService.confirmarReserva(id);
+            break;
+        case "cajueiro":
+            reservaCajueiroService.confirmarReserva(id);
+            break;
+        case "chale":
+            reservaChaleService.confirmarReserva(id);
+            break;
         }
         mv = new ModelAndView("redirect:/admin");
         return mv;
     }
-    
-    @GetMapping(value="/sisaocbmma/pesquisar-chale/{entrada}/{saida}")
-    public String pesquisarDisponibilidadeChales(@PathVariable("entrada") String entrada, @PathVariable("saida") String saida, Model model) {
+
+    @GetMapping(value = "/sisaocbmma/pesquisar-chale/{entrada}/{saida}")
+    public String pesquisarDisponibilidadeChales(@PathVariable("entrada") String entrada,
+            @PathVariable("saida") String saida, Model model) {
         Date data_entrada = FormatadorData.getDataFormatadaNoPadraoUtil(entrada);
         Date data_saida = FormatadorData.getDataFormatadaNoPadraoUtil(saida);
-        List<Chale> chalesDisponiveisParaReservar = reservaChaleService.verificarDisponibilidadeChale(data_entrada, data_saida);
+        List<Chale> chalesDisponiveisParaReservar = reservaChaleService.verificarDisponibilidadeChale(data_entrada,
+                data_saida);
         model.addAttribute("chalesDisponiveis", chalesDisponiveisParaReservar);
         model.addAttribute("reserva", new ReservaChale());
         return "padrao/reserva :: chales-disponiveis";
     }
-    
-    @PostMapping(value="/sisaocbmma/salvar-reserva-chale")
-    public ModelAndView salvarReservaChale(ReservaChale reservaChale) {
-        Socio socio = socioService.getSocioByEmail();
-        reservaChale.setSocio(socio);
-        
-        reservaChaleService.salvarReserva(reservaChale);
 
+    @PostMapping(value = "/sisaocbmma/salvar-reserva-chale")
+    public ModelAndView salvarReservaChale(ReservaChale reservaChale) {
+        reservaChaleService.salvarReserva(reservaChale);
+        return aoIndex();
+    }
+
+    public ModelAndView aoIndex() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("msgSuccess", "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
-        +"a reserva estará novamente disponível no sistema.");
+        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
+        mv.addObject("msgSuccess",
+                "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
+                        + "a reserva estará novamente disponível no sistema.");
         return mv;
     }
-        
-    
 
 }

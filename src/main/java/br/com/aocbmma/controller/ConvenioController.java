@@ -66,10 +66,14 @@ public class ConvenioController {
     public ModelAndView salvarConvenio(HttpServletRequest request, @RequestParam("logo") MultipartFile logo,
             RedirectAttributes attributes) throws IOException {
 
-        String pathRoot = servlet.getRealPath("/");
-        String pathFile = FileUpload.DIRECTORY_CONVENIOS + logo.getOriginalFilename();
+        String nameFileOrig = logo.getOriginalFilename();
+        int tam = nameFileOrig.length();
 
-        FileUpload.uploadServerImgConvenio(pathRoot, logo);
+        String fileName = request.getParameter("nome_empresa")+nameFileOrig.substring(tam-4, tam);
+        String pathRoot = servlet.getRealPath("/");
+        String pathFile = FileUpload.DIRECTORY_CONVENIOS + fileName;
+
+        FileUpload.uploadServerImgConvenio(FileUpload.DIRECTORY_CONVENIOS ,pathRoot, fileName, logo);
 
         Integer categoria = Integer.parseInt(request.getParameter("categoria"));
         CategoriaConvenio categoriaConvenio = categoriaConvenioService.getCategoriaConvenio(categoria);
@@ -98,12 +102,17 @@ public class ConvenioController {
         if (logo.isEmpty()) {
             convenio.setPath_logo(request.getParameter("path_logo"));
         } else {
+            String nameFileOrig = logo.getOriginalFilename();
+            int tam = nameFileOrig.length();
+        
+            String fileName = request.getParameter("nome_empresa")+nameFileOrig.substring(tam-4, tam);
             String pathRoot = servlet.getRealPath("/");
-            String pathFile = FileUpload.DIRECTORY_CONVENIOS + logo.getOriginalFilename();
+            String pathFile = FileUpload.DIRECTORY_CONVENIOS + fileName;
+
             convenio.setPath_logo(pathFile);
 
             FileUpload.deleteFile(pathRoot, request.getParameter("path_logo"));
-            FileUpload.uploadServerImgConvenio(pathRoot, logo);
+            FileUpload.uploadServerImgConvenio(FileUpload.DIRECTORY_CONVENIOS ,pathRoot, fileName, logo);
         }
 
         if (convenioService.salvarConvenio(convenio)) {

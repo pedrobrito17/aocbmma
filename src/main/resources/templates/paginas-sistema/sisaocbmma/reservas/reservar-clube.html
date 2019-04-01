@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <br>
-                    <h4><b>AGENDAR EVENTO</b></h4>
+                    <h4><b>RESERVAR CLUBE</b></h4>
                     <hr>
 
                 </div>
@@ -61,7 +61,8 @@
                             <span>Noturno: R$ 150,00 / hora</span>
 
                             <form th:action="@{/sisaocbmma/salvar-reserva-campo-futebol}" th:method="POST"
-                                th:object="${reservaCampo}" name="form-campo" onsubmit="exibirTermo(this); return false;">
+                                th:object="${reservaCampo}" name="form-campo"
+                                onsubmit="exibirTermo(this); return false;">
                                 <div class="row mt-4">
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="input-group">
@@ -105,7 +106,8 @@
                             <span>Diária: R$ 250,00</span>
 
                             <form th:action="@{/sisaocbmma/salvar-reserva-espaco-cajueiro}" th:method="POST"
-                                th:object="${reservaCajueiro}" name="form-cajueiro" onsubmit="exibirTermo(this); return false;">
+                                th:object="${reservaCajueiro}" name="form-cajueiro"
+                                onsubmit="exibirTermo(this); return false;">
                                 <div class="row mt-4">
                                     <div class="col-sm-12 col-lg-6">
                                         <div class="input-group">
@@ -124,7 +126,7 @@
                                             <option value="" selected hidden>Período</option>
                                             <option value="diurno">Diurno</option>
                                             <option value="noturno">Noturno</option>
-                                            <option value="diaria">Diária</option>
+                                            <option value="diária">Diária</option>
                                         </select>
                                     </div>
                                 </div>
@@ -144,41 +146,41 @@
                             <span>Horário do check out: 12H</span>
 
                             <!-- <form th:action="@{/sisaocbmma/pesquisar-chale}"> -->
-                                <div class="row mt-4">
-                                    <div class="col-sm-12 col-lg-4 offset-lg-2">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="data-evento"><i
-                                                        class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control form-custom" placeholder="Check in"
-                                                aria-label="data-evento" aria-describedby="data-evento" id="checkin"
-                                                readonly>
+                            <div class="row mt-4">
+                                <div class="col-sm-12 col-lg-4 offset-lg-2">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="data-evento"><i
+                                                    class="far fa-calendar-alt"></i></span>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12 col-lg-4">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text" id="data-evento"><i
-                                                        class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control form-custom" placeholder="Check out"
-                                                aria-label="data-evento" aria-describedby="data-evento" id="checkout"
-                                                readonly>
-                                        </div>
+                                        <input type="text" class="form-control form-custom" placeholder="Check in"
+                                            aria-label="data-evento" aria-describedby="data-evento" id="checkin"
+                                            readonly>
                                     </div>
                                 </div>
-                                <div class="row mt-4">
-                                    <div class="col-12 text-center">
-                                        <!-- id do socio -->
-                                        <input type="text" hidden>
-                                        <button type="button" onclick="pesquisarDisponibilidade()"
-                                            class="btn btn-danger btn-noticias btn-lg">PESQUISAR</button>
+                                <div class="col-sm-12 col-lg-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="data-evento"><i
+                                                    class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-custom" placeholder="Check out"
+                                            aria-label="data-evento" aria-describedby="data-evento" id="checkout"
+                                            readonly>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-12 text-center">
+                                    <!-- id do socio -->
+                                    <input type="text" hidden>
+                                    <button type="button" onclick="pesquisarDisponibilidade()"
+                                        class="btn btn-danger btn-noticias btn-lg">PESQUISAR</button>
+                                </div>
+                            </div>
                             <!-- </form> -->
                             <div id="chales-disponiveis">
-                                
+
                             </div>
 
                         </div>
@@ -199,8 +201,8 @@
                     <div id="circularG_7" class="circularG"></div>
                     <div id="circularG_8" class="circularG"></div>
                 </div>
+                <h6>Carregando...</h6>
             </div>
-
 
             <!-- Recebendo dados thymeleaf -->
             <script th:inline="javascript">
@@ -220,11 +222,11 @@
                     var data = mesdia.concat('-').concat(ano);
 
                     var dataNova = new Date(data);
-                    var mes = dataNova.getMonth()+1;
+                    var mes = dataNova.getMonth() + 1;
                     var dat = dataNova.getDate();
                     var ano = dataNova.getFullYear();
 
-                    return mes+'-'+dat+'-'+ano;
+                    return mes + '-' + dat + '-' + ano;
                 }
                 /*]]*/
             </script>

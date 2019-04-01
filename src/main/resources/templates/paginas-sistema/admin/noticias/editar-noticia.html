@@ -30,7 +30,7 @@
                         <input hidden type="number" name="id" th:field="*{id}">
                         <div class="form-group">
                             <label for="titulo">Título</label>
-                            <input class="form-control" name="titulo" type="text" th:field="*{titulo}" required autofocus>
+                            <input class="form-control form-custom" name="titulo" type="text" th:field="*{titulo}" required autofocus>
                         </div>
                         <img class="img-fluid img-thumbnail mb-3" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}" alt="foto">
                         <div class="form-group">

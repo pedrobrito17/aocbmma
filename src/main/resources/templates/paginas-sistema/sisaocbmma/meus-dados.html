@@ -26,7 +26,8 @@
 
                     <form th:action="@{/sisaocbmma/atualizar-socio}" th:method="POST" th:object="${socio}" name="form1"
                         onsubmit="validarFormAtualizarMeusDados(this); return false;">
-
+                        <input type="text" th:value="${socio.path_foto_perfil}" name="path_foto_perfil" hidden>
+                        <input type="text" th:value="*{socio.tipo_socio}" name="tipo_socio" hidden>
                         <fieldset>
                             <legend>Dados pessoais</legend>
                             <div class="row">
