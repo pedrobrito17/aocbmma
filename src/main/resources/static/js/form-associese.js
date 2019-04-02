@@ -274,6 +274,7 @@ $('select').focus(function () {
 });
 
 $("#cep").focusout(function () {
+    $('#animacao').css('display','block'); //inicia a animação
     $.ajax({
         url: 'https://viacep.com.br/ws/' + $(this).val() + '/json/unicode/',
         dataType: 'json',
@@ -284,6 +285,12 @@ $("#cep").focusout(function () {
             $("#cidade").val(resposta.localidade);
             $("#uf").val(resposta.uf);
             $("#numero").focus();
+            
+            $('#animacao').css('display','none'); //encerra a animação
+        },
+        fail: function(jqXHR, textStatus, errorThrown) {
+            console.log("Desculpe! Houve um erro: " + jqXHR.status);
+            $('#animacao').css('display','none'); //encerra a animação
         }
     });
 });

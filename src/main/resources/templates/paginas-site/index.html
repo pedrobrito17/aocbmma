@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <a th:href="@{/noticia/{id}(id=${principal.id})}" class="float-left mr-2">
-                                        <img class="img-fluid img-destaque" th:src="@{'data:image/png;base64,'+${principal.generateBase64Image()}}"
+                                        <img class="img-fluid img-destaque" th:src="@{ ${principal.imagem} }"
                                             alt="foto">
                                     </a>
                                     <article class="news">
@@ -89,7 +89,7 @@
                                         <div class="col-6 sub-article" th:each="noticia : ${ultimasNoticias}">
                                             <div class="clearfix mb-lg-4">
                                                 <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                                    <img class="img-fluid img-mini" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}">
+                                                    <img class="img-fluid img-mini" th:src="@{ ${noticia.imagem} }">
                                                 </a>
                                                 <a th:href="@{/noticia/{id}(id=${noticia.id})}">
                                                     <h6 th:text="${noticia.titulo}" style="font-size: 1em;"></h6>

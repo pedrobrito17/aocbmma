@@ -18,6 +18,10 @@
             max-width: 300px;
             max-height: 300px;
         }
+        .foto-avatar{
+            max-width: 200px;
+            max-height: 200px;
+        }
         .dados{
             position: absolute;
         }
@@ -42,8 +46,8 @@
                     <div class="avatar-ficha d-inline-block" th:if="${socio.path_foto_perfil != null}">
                        <img class="foto-socio" th:src="@{${socio.path_foto_perfil}}">
                     </div>
-                    <div class="avatar-ficha d-inline-block" th:if="${socio.path_foto_perfil == null}">
-                        <img class="foto-socio" th:src="@{/img/avatar-user.png}">
+                    <div class=" d-inline-block" th:if="${socio.path_foto_perfil == null}">
+                        <img class="foto-avatar" th:src="@{/img/avatar-user.png}">
                     </div>
                     <div class="d-inline-block ml-lg-5 mt-lg-4 dados">
                         <h5><b th:text="${socio.nome}"></b></h5>

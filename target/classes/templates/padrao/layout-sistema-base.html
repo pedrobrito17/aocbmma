@@ -64,8 +64,8 @@
                             <div class="avatar" th:if="${socio.path_foto_perfil != null}">
                                 <img class="foto" th:src="@{${socio.path_foto_perfil}}">
                             </div>
-                            <div class="avatar" th:if="${socio.path_foto_perfil == null}">
-                                <img class="foto" th:src="@{/img/avatar-user.png}">
+                            <div class="" th:if="${socio.path_foto_perfil == null}">
+                                <img class="foto-avatar" th:src="@{/img/avatar-user.png}">
                             </div>
                             <p class="mt-2"><b
                                     th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}">Tenente

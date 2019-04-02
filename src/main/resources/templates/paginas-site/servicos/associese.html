@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/mdb-custom.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
 </head>
 
 <body>
@@ -231,6 +232,7 @@
                         <fieldset>
                             <legend>Endereço</legend>
                             <div class="row">
+                                <div th:replace="padrao/elementos :: loading"></div>
                                 <div class="col-sm-12 col-lg-6">
                                     <input id="cep" class="form-control form-custom cep" type="text" name="cep"
                                         placeholder="CEP" th:field="*{dadosContato.cep}">
@@ -369,7 +371,6 @@
                     </form>
                 </div>
             </div>
-
 
             <script th:src="@{/js/jquery.mask.min.js}"></script>
             <script th:src="@{/js/form-associese.js}"></script>

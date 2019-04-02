@@ -13,7 +13,7 @@ public class MensageiroEmail {
 
         simpleMailMessage = new SimpleMailMessage();
 
-        simpleMailMessage.setFrom("administracao@aocbmma.com.br");
+        simpleMailMessage.setFrom("contato@aocbmma.com.br");
         simpleMailMessage.setTo(emailDoPresidente);
         simpleMailMessage.setSubject("Reserva do clube");
         simpleMailMessage.setText("Nova reserva do clube.\nAcesse o sistema para verificar.");

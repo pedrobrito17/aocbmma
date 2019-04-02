@@ -63,7 +63,7 @@
                             <article class=news>
                                 <div class="d-lg-inline-block">
                                     <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                        <img class="img-fluid img-mini-news" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}"
+                                        <img class="img-fluid img-mini-news" th:src="@{ ${noticia.imagem} }"
                                             alt="foto">
                                     </a>
                                 </div>
