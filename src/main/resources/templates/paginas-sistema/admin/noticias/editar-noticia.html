@@ -32,7 +32,8 @@
                             <label for="titulo">Título</label>
                             <input class="form-control form-custom" name="titulo" type="text" th:field="*{titulo}" required autofocus>
                         </div>
-                        <img class="img-fluid img-thumbnail mb-3" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}" alt="foto">
+                        <img class="img-fluid img-thumbnail mb-3" th:src="@{ ${noticia.imagem} }" alt="foto">
+                        <!-- <img class="img-fluid img-thumbnail mb-3" th:src="@{'data:image/png;base64,'+${noticia.generateBase64Image()}}" alt="foto"> -->
                         <div class="form-group">
                             <input class="form-control" name="imagem" type="file" accept="image/*">
                         </div>

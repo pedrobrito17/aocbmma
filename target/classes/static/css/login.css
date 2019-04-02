@@ -28,11 +28,11 @@ body{
     opacity: .9;
 }
 
-button{
+/* button{
     width: 100%;
     margin-top: 10px;
     font-size: 1.2em !important;
-}
+} */
 
 .form-custom:focus{
     border-color: 	#6495ED !important;
@@ -61,4 +61,8 @@ a:hover {
     text-decoration: underline;
     color: #f43340;
     cursor: pointer;
+}
+
+.modal p{
+    margin: 0px;
 }

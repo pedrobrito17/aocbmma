@@ -54,15 +54,19 @@
         </div>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid geral">
         <div class="row">
             <div class="col-lg-2 col-menu">
                 <br>
                 <nav class="">
                     <ul class="">
                         <li class="text-center mb-4">
-                            <img id="foto-perfil" th:src="@{/img/avatar-user.png}" th:if="${socio.path_foto_perfil.empty}">
-                            <img id="foto-perfil" th:src="@{ ${socio.path_foto_perfil} }" th:if="${not socio.path_foto_perfil.empty}">
+                            <div class="avatar" th:if="${socio.path_foto_perfil != null}">
+                                <img class="foto" th:src="@{${socio.path_foto_perfil}}">
+                            </div>
+                            <div class="avatar" th:if="${socio.path_foto_perfil == null}">
+                                <img class="foto" th:src="@{/img/avatar-user.png}">
+                            </div>
                             <p class="mt-2"><b
                                     th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}">Tenente
                                     Coronel Celso Alves</b></p>
@@ -119,8 +123,11 @@
                         <main layout:fragment="conteudo">
                         </main>
                     </div>
-                </div>
-
+                </div>      
+            </div>  
+        </div>
+        <div class="row my-footer">
+            <div class="col-sm-12 col-lg-10 offset-lg-2">
                 <footer>
                     <div class="container-fluid ult-footer">
                         <hr>
@@ -129,15 +136,23 @@
                                 <p>&copy 2019 AOCBMMA | todos os direitos reservados.</p>
                             </div>
                             <div class="col-6">
-                                <span class="float-right">desenvolvido por <a href="http://www.italobrito.com.br"
+                                <span class="float-lg-right">desenvolvido por <a href="http://www.italobrito.com.br"
                                         target="_blank">italobrito.com.br</a></span>
                             </div>
                         </div>
                     </div>
                 </footer>
             </div>
-        </div>
+        </div>        
     </div>
+
+
+
+
+
+
+
+
 
 
     <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
@@ -151,21 +166,23 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
-                    <div class="">
-                        <input type="file" class="form-control form-custom" id="foto" name="foto" accept="image/*"><br>
-                    </div>
-                        <button type="submit" class="btn btn-danger btn-noticias btn-block">Salvar foto</button>
+                    <form enctype="multipart/form-data"
+                        th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
+                        <div class="">
+                            <input type="file" class="form-control form-custom" id="foto" name="foto"
+                                accept="image/*"><br>
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-noticias btn-block">Salvar
+                            foto</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-
     <script th:src="@{/js/sistema.js}"></script>
     <script>
-        $('#foto-perfil').click(function () {
+        $('.foto').click(function () {
             $('#alterar-foto-perfil').modal();
         });
     </script>

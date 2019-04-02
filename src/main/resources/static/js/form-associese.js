@@ -290,25 +290,25 @@ $("#cep").focusout(function () {
 
 
 
-$(document).ready(function(){
-    $('input[name=nome]').val('Pedro');
-    $('input[name=cpf]').val('001.881.933-83');
-    // $('input[name=data_nascimento]').val('17/04/1988');
+// $(document).ready(function(){
+//     $('input[name=nome]').val('Pedro');
+//     $('input[name=cpf]').val('001.881.933-83');
+//     // $('input[name=data_nascimento]').val('17/04/1988');
 
-    $('#nome_guerra').val('Aragão');
-    $('#lotacao').val('2 BBM');
-    $('#rg_militar').val('2170');
-    $('#matricula').val('435');
+//     $('#nome_guerra').val('Aragão');
+//     $('#lotacao').val('2 BBM');
+//     $('#rg_militar').val('2170');
+//     $('#matricula').val('435');
 
-    $('#agencia').val('5878-1');
-    $('#conta_corrente').val('24973-4');
+//     $('#agencia').val('5878-1');
+//     $('#conta_corrente').val('24973-4');
 
-    $('#whatsapp').val('(98) 98204-5453');
-    $('#celular').val('(98) 98204-5453');
-    $('#email').val('aragao@cbm.ma.gov.br');
+//     $('#whatsapp').val('(98) 98204-5453');
+//     $('#celular').val('(98) 98204-5453');
+//     $('#email').val('aragao@cbm.ma.gov.br');
 
-    $('#cep').val('65070-400');
+//     $('#cep').val('65070-400');
 
-    $('#senha').val('fsadu');
-    $('#conf_senha').val('fsadu');
-});
+//     $('#senha').val('fsadu');
+//     $('#conf_senha').val('fsadu');
+// });

@@ -7,11 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -31,10 +29,14 @@ public class Noticia{
     @NotNull
     private Date data_postagem;
 
+    // @Column
+    // @NotNull
+    // @Lob
+    // private byte[] imagem;
+
     @Column
     @NotNull
-    @Lob
-    private byte[] imagem;
+    private String imagem;
 
     @Column(columnDefinition = "longtext")
     @NotNull
@@ -65,11 +67,11 @@ public class Noticia{
         this.data_postagem = data_postagem;
     }
 
-    public byte[] getImagem() {
+    public String getImagem() {
         return this.imagem;
     }
 
-    public void setImagem(byte[] imagem) {
+    public void setImagem(String imagem) {
         this.imagem = imagem;
     }
 
@@ -81,8 +83,8 @@ public class Noticia{
         this.noticia = noticia;
     }
 
-    public String generateBase64Image(){
-        return Base64.encodeBase64String(this.getImagem());
-    }
+    // public String generateBase64Image(){
+    //     return Base64.encodeBase64String(this.getImagem());
+    // }
 
 }

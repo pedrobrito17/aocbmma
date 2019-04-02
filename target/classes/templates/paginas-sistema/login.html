@@ -12,7 +12,6 @@
     <title>AOCBMMA | Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão</title>
     <!-- Estilos -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/mdb.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
 
@@ -33,7 +32,7 @@
                     <input class="form-control form-custom" type="password" name="password" required>
                     <input type="checkbox" id="remember-me" name="remember-me" />
                     <label for="remember-me">Lembrar-me</label><br>
-                    <span class="psw"><a th:href="@{/contato}">Esqueceu a senha?</a></span>
+                    <span class="psw"><a href="#" onclick="modal_esqueceu_senha();return false;">Esqueceu a senha?</a></span>
                 </div>
 
                 <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
@@ -45,18 +44,44 @@
 
     <br><br>
     <div class="container">
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-info">Até breve!</div>
-                    </div>
-    
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">E-mail e/ou senha inválido.</div>
-                    </div>
+        <div class="row">
+            <div class="col-6 offset-3">
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">Até breve!</div>
+                </div>
+
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">E-mail e/ou senha inválido.</div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="esqueceu-senha" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Entre em contato com o desenvolvedor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Capitão QOCBM Aragão</h6>
+                    <p>Whatsapp: (98) 98204-5453</p>
+                    <p>E-mail: aragao@cbm.ma.gov.br</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script>
+        function modal_esqueceu_senha(){
+            $('#esqueceu-senha').modal();
+        }
+    </script>
 </body>
 
 </html>

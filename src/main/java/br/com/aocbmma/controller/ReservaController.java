@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.aocbmma.helper.FormatadorData;
+import br.com.aocbmma.helper.MensageiroEmail;
 import br.com.aocbmma.model.Chale;
 import br.com.aocbmma.model.ReservaCampoFutebol;
 import br.com.aocbmma.model.ReservaChale;
@@ -36,19 +38,30 @@ public class ReservaController {
     private ReservaChaleService reservaChaleService;
 
     @Autowired
+    private JavaMailSender mailSender;
+
+    @Autowired
     private SocioService socioService;
 
     private ModelAndView mv = null;
 
+    private MensageiroEmail mensageiroEmail = null;
+
+    private Socio socio = null;
+
     @PostMapping(value = "/sisaocbmma/salvar-reserva-campo-futebol")
     public ModelAndView salvarReservaCampo(ReservaCampoFutebol reserva) {
         reservaCampoService.salvarReservaCampoFutebol(reserva);
+        mensageiroEmail = new MensageiroEmail();
+        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
         return aoIndex();
     }
 
     @PostMapping(value = "/sisaocbmma/salvar-reserva-espaco-cajueiro")
     public ModelAndView salvarReservaEspacoCajueiro(ReservaEspacoCajueiro reserva) {
         reservaCajueiroService.salvarReserva(reserva);
+        mensageiroEmail = new MensageiroEmail();
+        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
         return aoIndex();
     }
 
@@ -100,12 +113,17 @@ public class ReservaController {
     @PostMapping(value = "/sisaocbmma/salvar-reserva-chale")
     public ModelAndView salvarReservaChale(ReservaChale reservaChale) {
         reservaChaleService.salvarReserva(reservaChale);
+        mensageiroEmail = new MensageiroEmail();
+        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
         return aoIndex();
     }
 
     public ModelAndView aoIndex() {
+        socio = socioService.getSocioByEmail();
+
         mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
+        mv.addObject("socio", socio);
         mv.addObject("msgSuccess",
                 "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
                         + "a reserva estará novamente disponível no sistema.");

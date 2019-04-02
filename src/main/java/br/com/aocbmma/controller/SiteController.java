@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.aocbmma.config.FilesConvenio;
+import br.com.aocbmma.helper.MensageiroEmail;
 import br.com.aocbmma.helper.Mensagem;
 import br.com.aocbmma.model.Socio;
-import br.com.aocbmma.service.CategoriaConvenioService;
-import br.com.aocbmma.service.ConvenioService;
 import br.com.aocbmma.service.NoticiaService;
 
 @Controller
@@ -27,7 +26,7 @@ public class SiteController {
     private NoticiaService noticiaService;
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSender mailSender;
 
     @Autowired
     ServletContext servlet; //utilizado para copiar a pasta para o servidor
@@ -135,20 +134,12 @@ public class SiteController {
 
     @RequestMapping(value = "/enviar-email", method = RequestMethod.POST)
     public String postEnviarEmail(Mensagem mensagem, Model model) {
+        MensageiroEmail mensageiro = new MensageiroEmail();
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-
-        simpleMailMessage.setFrom(mensagem.getRemetente());
-        simpleMailMessage.setTo("pedrobrito17@gmail.com");
-        simpleMailMessage.setSubject(mensagem.getAssunto());
-        simpleMailMessage.setText(mensagem.getRemetente() + "\n" + mensagem.getEmail() + "\n" + mensagem.getMensagem());
-
-        try {
-            javaMailSender.send(simpleMailMessage);
+        if(mensageiro.enviarEmailDoSiteParaPresidente(mailSender, mensagem)){
             model.addAttribute("enviado", "E-mail enviado com sucesso. Aguarde o retorno da AOCBMMA.");
             return "paginas-site/contato";
-        } catch (Exception e) {
-            e.printStackTrace();
+        }else{
             model.addAttribute("erro", "Desculpe! Erro ao enviar o e-mail. Tente novamente.");
             return "paginas-site/contato";
         }

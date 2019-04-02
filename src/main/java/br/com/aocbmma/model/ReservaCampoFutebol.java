@@ -31,6 +31,12 @@ public class ReservaCampoFutebol{
 
     @Column
     @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date data_solicitacao = new Date(System.currentTimeMillis());
+
+    @Column
+    @NotNull
     @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "HH:mm")
     private Date hora_inicio;
@@ -67,6 +73,14 @@ public class ReservaCampoFutebol{
 
     public void setData_reserva(Date data_reserva) {
         this.data_reserva = data_reserva;
+    }
+
+    public Date getData_solicitacao() {
+        return this.data_solicitacao;
+    }
+
+    public void setData_solicitacao(Date data_solicitacao) {
+        this.data_solicitacao = data_solicitacao;
     }
 
     public Date getHora_inicio() {
@@ -108,6 +122,5 @@ public class ReservaCampoFutebol{
     public void setValor_reserva(float valor_reserva) {
         this.valor_reserva = valor_reserva;
     }
-
-    
+   
 }

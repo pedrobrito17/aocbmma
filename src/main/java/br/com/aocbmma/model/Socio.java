@@ -37,7 +37,6 @@ public class Socio{
     private String nome;
 
     @Column
-    @NotNull
     private String path_foto_perfil;
 
     @Column

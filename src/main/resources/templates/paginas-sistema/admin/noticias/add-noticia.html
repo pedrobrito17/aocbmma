@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <textarea id="summernote" name="noticia"></textarea>
                         </div>
-                        <input hidden type="date" name="data-postagem" id="data">
+                        <input type="date" name="data-postagem" id="data" hidden>
                         <button type="submit" class="btn btn-danger btn-noticias float-right">SALVAR</button>
                     </form>
 
@@ -44,11 +44,21 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 var data = new Date();
+                let mes = 0;
+                let dia = 0;
                 if ((data.getMonth() + 1) < 10) {
-                    $("#data").val(data.getFullYear() + "-0" + (data.getMonth() + 1) + "-" + data.getDate());
+                    mes = "0" + (data.getMonth() + 1);
                 } else {
-                    $("#data").val(data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate());
+                    mes = (data.getMonth() + 1);
                 }
+
+                if(data.getDate()<10){
+                    dia = '0' + data.getDate();
+                }else{
+                    dia = data.getDate();
+                }
+
+                $("#data").val(data.getFullYear() + "-" + mes + "-" + dia);
             });
         </script>
 

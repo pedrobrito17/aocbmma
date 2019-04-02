@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-
 import br.com.aocbmma.model.ReservaCampoFutebol;
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
 import br.com.aocbmma.model.Socio;
@@ -20,11 +20,6 @@ import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-
 
 
 @Controller
@@ -49,71 +44,62 @@ public class SistemaController{
     @Autowired
     private ReservaChaleService reservaChaleService;
 
-    private Socio socio = null;
+    private Socio socioLogado = null;
 
     private ModelAndView mv = null;
 
     @RequestMapping(value="", method=RequestMethod.GET)
     public ModelAndView pageIndex() {
         
-        socio = socioService.getSocioByEmail();
+        socioLogado = socioService.getSocioByEmail();
 
         mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("socio", socio);
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 
     @RequestMapping(value="/meus-dados", method=RequestMethod.GET)
     public ModelAndView pageMeusDados() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/meus-dados");
-        socio = socioService.getSocioByEmail();
-        mv.addObject("socio", socio);
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 
     @RequestMapping(value="/meus-dependentes", method=RequestMethod.GET)
     public ModelAndView pageMeusDependentes() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/meus-dependentes");
-        socio = socioService.getSocioByEmail();
-        mv.addObject("socio", socio);
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 
     @RequestMapping(value="/alterar-senha", method=RequestMethod.GET)
     public ModelAndView pageAlterarSenha() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/alterar-senha");
-        socio = socioService.getSocioByEmail();
-        mv.addObject("socio", socio);
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 
     @PostMapping(value="/atualizar-socio")
     public ModelAndView atualizarSocio(Socio socio) {
         socioService.atualizarSocio(socio);
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("msgSuccess", "Os seus dados foram alterados com sucesso.");
-        return mv;
+        return aoIndex("Os seus dados foram alteardos com sucesso.");
     }
 
     @PostMapping(value="/alterar-senha")
     public ModelAndView alterarSenha(Socio socio) {
         socioService.atualizarSenhaSocio(socio);
         mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("socio", socio);
-        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("msgSuccess", "Senha alterada com sucesso.");
-        return mv;
+        return aoIndex("Senha alterada com sucesso.");
     }
 
     @PostMapping(value="/atualizar-meus-dependentes")
     public ModelAndView atualizarMeusDependentes(Socio socio) {
         socioService.atualizarMeusDependentes(socio);
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
-        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("msgSuccess", "Dependentes atualizados com sucesso.");
-        return mv;
+        return aoIndex("Dependentes atualizados com sucesso.");
     }
 
     @DeleteMapping(value="/deletar-dependente/{id}")
@@ -125,8 +111,8 @@ public class SistemaController{
     @RequestMapping(value="/reservar-clube", method=RequestMethod.GET)
     public ModelAndView pageAgendar() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/reservas/reservar-clube");
-        socio = socioService.getSocioByEmail();
-        mv.addObject("socio", socio);
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
         mv.addObject("reservaCampo", new ReservaCampoFutebol());
         mv.addObject("reservaCajueiro", new ReservaEspacoCajueiro());
         mv.addObject("datasReservaCajueiro", reservaCajueiroService.getDatasReservasRealizadas());
@@ -136,6 +122,8 @@ public class SistemaController{
     @RequestMapping(value = "/convenios", method = RequestMethod.GET)
     public ModelAndView pageConvenios() {
         mv = new ModelAndView("paginas-sistema/sisaocbmma/convenios");
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
         mv.addObject("convenios", convenioService.getConvenios());
         mv.addObject("categorias", categoriaService.getListCategoriaConvenios());
         return mv;
@@ -147,6 +135,9 @@ public class SistemaController{
         mv.addObject("eventCampo", reservaCampoService.getMinhasReserva());
         mv.addObject("eventCajueiro", reservaCajueiroService.getMinhasReserva());
         mv.addObject("eventChale", reservaChaleService.getMinhasReservas());
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
+
         return mv;
     }
 
@@ -156,12 +147,20 @@ public class SistemaController{
         mv.addObject("eventCampo", reservaCampoService.getReservasDoClube());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservasDoClube());
         mv.addObject("eventChale", reservaChaleService.getReservasDoClube());
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
+
         return mv;
     }
     
-    
+    public ModelAndView aoIndex(String mensagem){
+        socioLogado = socioService.getSocioByEmail();
 
-    
-    
+        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
+        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
+        mv.addObject("socio", socioLogado);
+        mv.addObject("msgSuccess", mensagem);
+        return mv;
+    }
     
 }

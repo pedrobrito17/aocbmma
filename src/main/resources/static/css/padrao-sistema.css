@@ -1,3 +1,12 @@
+html, body{
+    height: 100%;
+    margin: 0;
+}
+.geral{
+    min-height: 100%;
+    position: relative;
+}
+
 .titulo {
     font-family: 'Open Sans', sans-serif;
     background-color: #f43340;
@@ -129,14 +138,15 @@ footer a:hover {
 .row-conteudo{
     min-height: 110vh !important;
     font-size: .9em;
-    display: table;
+    padding-bottom: 100px;
 }
 
-footer{
-    width: 98%;
+.my-footer{
+    width: 100%;
     font-size: .9em;
     color: #444;
-    display: table-footer-group;
+    position: absolute;
+    bottom: 0;
 }
 
 .menu-down{
@@ -170,6 +180,10 @@ footer{
     .titulo img{
         display: none !important;
     }
+
+    .my-footer{
+        position: static;
+    }
 }
 
 .div-info-system{
@@ -190,14 +204,21 @@ footer{
     margin-bottom: 3px;
 }
 
-#foto-perfil{
-    width:60px;
-    height:60px;
+.avatar {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    background-color:white;
+    overflow: hidden;
+    position: relative;
+    left: calc(50% - 35px);
+}
+
+.foto{
+    max-width: 100px;
+    max-height: 100px;
     cursor: pointer;
 }
 
-#foto-perfil:hover{
+.foto:hover{
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }

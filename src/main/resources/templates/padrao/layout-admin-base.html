@@ -52,7 +52,7 @@
         </div>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid geral">
         <div class="row">
             <div class="col-lg-2 col-menu">
                 <br>
@@ -111,30 +111,34 @@
                 </nav>
             </div>
             <div class="col-lg-10 row-conteudo">
-                <div class="row">
-                    <div class="col-12">
-                        <br>
-                        <main layout:fragment="conteudo">
-                        </main>
-                    </div>
-                </div>
-                <footer>
-                    <div class="container-fluid ult-footer">
-                        <hr>
-                        <div class="row">
-                            <div class="col-6">
-                                <p>&copy 2019 AOCBMMA | todos os direitos reservados.</p>
-                            </div>
-                            <div class="col-6">
-                                <span class="float-right">desenvolvido por <a href="http://www.italobrito.com.br"
-                                        target="_blank">italobrito.com.br</a></span>
+                    <div class="row">
+                        <div class="col-12">
+                            <br>
+                            <main layout:fragment="conteudo">
+                            </main>
+                        </div>
+                    </div>      
+                </div>  
+            </div>
+            <div class="row my-footer">
+                <div class="col-sm-12 col-lg-10 offset-lg-2">
+                    <footer>
+                        <div class="container-fluid ult-footer">
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>&copy 2019 AOCBMMA | todos os direitos reservados.</p>
+                                </div>
+                                <div class="col-6">
+                                    <span class="float-lg-right">desenvolvido por <a href="http://www.italobrito.com.br"
+                                            target="_blank">italobrito.com.br</a></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </footer>
-            </div>
+                    </footer>
+                </div>
+            </div>           
         </div>
-    </div>
 
     <script th:src="@{/js/sistema.js}"></script>
 

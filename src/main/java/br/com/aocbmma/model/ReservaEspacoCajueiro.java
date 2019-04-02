@@ -28,6 +28,12 @@ public class ReservaEspacoCajueiro{
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date data_solicitacao = new Date(System.currentTimeMillis());
+
+    @Column
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data_reserva;
 
     @Column
@@ -46,12 +52,21 @@ public class ReservaEspacoCajueiro{
     @NotNull
     private float valor_reserva;
 
+
     public Integer getId() {
         return this.id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Date getData_solicitacao() {
+        return this.data_solicitacao;
+    }
+
+    public void setData_solicitacao(Date data_solicitacao) {
+        this.data_solicitacao = data_solicitacao;
     }
 
     public Date getData_reserva() {
@@ -93,5 +108,5 @@ public class ReservaEspacoCajueiro{
     public void setValor_reserva(float valor_reserva) {
         this.valor_reserva = valor_reserva;
     }
-
+   
 }
