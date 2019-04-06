@@ -54,7 +54,7 @@
     <main layout:fragment="conteudo">
         <div class="container-fluid mt-5">
             <div class="row">
-                <div class="col-8 offset-2 text-center">
+                <div class="col-sm-12 col-lg-8 offset-lg-2 text-center">
                     <a th:href="@{/planodesaude}"><img class="img-fluid" th:src="@{/img/banner-hapvida.jpg}" alt="banner sul américa"></a>
                 </div>
             </div>
@@ -70,8 +70,10 @@
                             <div class="row">
                                 <div class="col-12">
                                     <a th:href="@{/noticia/{id}(id=${principal.id})}" class="float-left mr-2">
-                                        <img class="img-fluid img-destaque" th:src="@{ ${principal.imagem} }"
-                                            alt="foto">
+                                        <div class="div1">
+                                            <img class="img-destaque" th:src="@{ ${principal.imagem} }"
+                                                alt="foto">
+                                        </div>
                                     </a>
                                     <article class="news">
                                         <a th:href="@{/noticia/{id}(id=${principal.id})}">
@@ -82,16 +84,18 @@
                                     </article>
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            
+                            <div class="row mt-lg-4">
                                 <div class="col-12">
                                     <div class="row">
-                                        <div class="col-6 sub-article" th:each="noticia : ${ultimasNoticias}">
+                                        <div class="col-sm-12 col-lg-6 sub-article" th:each="noticia : ${ultimasNoticias}">
                                             <div class="clearfix mb-lg-4">
                                                 <a th:href="@{/noticia/{id}(id=${noticia.id})}">
-                                                    <img class="img-fluid img-mini" th:src="@{ ${noticia.imagem} }">
+                                                    <div class="div0">
+                                                        <img class="img-mini" th:src="@{ ${noticia.imagem} }">
+                                                    </div>
                                                 </a>
-                                                <a th:href="@{/noticia/{id}(id=${noticia.id})}">
+                                                <a class="" th:href="@{/noticia/{id}(id=${noticia.id})}">
                                                     <h6 th:text="${noticia.titulo}" style="font-size: 1em;"></h6>
                                                 </a>
                                                 <span class="ml-2" th:text="${'Postado em '+#dates.format(noticia.data_postagem, 'dd/MM/yyyy')}"></span>

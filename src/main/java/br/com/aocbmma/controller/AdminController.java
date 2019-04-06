@@ -1,7 +1,5 @@
 package br.com.aocbmma.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
@@ -42,6 +39,10 @@ public class AdminController{
     
     @RequestMapping(value="/admin", method=RequestMethod.GET)
     public ModelAndView pageSistema() {
+        reservaCampoService.cancelarReservarComPagamentoVencido();
+        reservaCajueiroService.cancelarReservarComPagamentoVencido();
+        reservaChaleService.cancelarReservarComPagamentoVencido();
+
         mv = new ModelAndView("paginas-sistema/admin/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
@@ -54,7 +55,6 @@ public class AdminController{
     @RequestMapping(value="/admin/socios/{categoria}", method=RequestMethod.GET)
     public ModelAndView pageRelacaoAssociados(@PathVariable("categoria") String categoria) {
         mv = new ModelAndView("paginas-sistema/admin/associados/relacao-socios");
-        List<Socio> s = socioService.getSociosDesta(categoria);
         mv.addObject("socios", socioService.getSociosDesta(categoria));
         mv.addObject("categoria", categoria);
         return mv;

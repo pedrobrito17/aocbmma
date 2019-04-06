@@ -80,6 +80,17 @@ public class ReservaChaleService{
     }
 
     public List<ReservaChale> getReservasDoClube(){
-        return reservaRepository.findAllDiferenteDePagamentoVencido();
+        return reservaRepository.findAllOrd();
+    }
+
+    @Transactional
+    public void cancelarReservarComPagamentoVencido(){
+        List<ReservaChale> reservasASeremCanceladas = reservaRepository.findReservasPagamentoVencido();
+        if(reservasASeremCanceladas!=null){
+            for (ReservaChale reserva : reservasASeremCanceladas) {
+                reserva.setPagamento("vencido");
+                reservaRepository.save(reserva);
+            }
+        }
     }
 }

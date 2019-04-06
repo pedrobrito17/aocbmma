@@ -50,7 +50,10 @@ public class SistemaController{
 
     @RequestMapping(value="", method=RequestMethod.GET)
     public ModelAndView pageIndex() {
-        
+        reservaCampoService.cancelarReservarComPagamentoVencido();
+        reservaCajueiroService.cancelarReservarComPagamentoVencido();
+        reservaChaleService.cancelarReservarComPagamentoVencido();
+
         socioLogado = socioService.getSocioByEmail();
 
         mv = new ModelAndView("paginas-sistema/sisaocbmma/index");

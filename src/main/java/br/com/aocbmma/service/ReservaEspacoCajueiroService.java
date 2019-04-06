@@ -70,7 +70,18 @@ public class ReservaEspacoCajueiroService{
     }
 
     public List<ReservaEspacoCajueiro> getReservasDoClube(){
-        return reservaCajueiroRepository.findAllDiferenteDePagamentoVencido();
+        return reservaCajueiroRepository.findAllOrd();
+    }
+
+    @Transactional
+    public void cancelarReservarComPagamentoVencido(){
+        List<ReservaEspacoCajueiro> reservasASeremCanceladas = reservaCajueiroRepository.findReservasPagamentoVencido();
+        if(reservasASeremCanceladas!=null){
+            for (ReservaEspacoCajueiro reserva : reservasASeremCanceladas) {
+                reserva.setPagamento("vencido");
+                reservaCajueiroRepository.save(reserva);
+            }
+        }
     }
 
 }

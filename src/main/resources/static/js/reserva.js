@@ -116,6 +116,9 @@ function pesquisarDisponibilidade(){
     var data_saida = $('#checkout').val();
     data_saida = data_saida.replace('/','-').replace('/','-');
 
+    var url = location.href; //pega endereço que esta no navegador
+    url = url.split("/"); //quebra o endeço de acordo com a / (barra)
+
     $('#chales-disponiveis').load('/sisaocbmma/pesquisar-chale/'+data_entrada+'/'+data_saida);
 
 }

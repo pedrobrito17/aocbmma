@@ -60,16 +60,14 @@
                 <br>
                 <nav class="">
                     <ul class="">
-                        <li class="text-center mb-4">
+                        <li class="text-center mb-4 perf">
                             <div class="avatar" th:if="${socio.path_foto_perfil != null}">
-                                <img class="foto" th:src="@{${socio.path_foto_perfil}}">
+                                <img class="user foto" th:src="@{${socio.path_foto_perfil}}">
                             </div>
                             <div class="" th:if="${socio.path_foto_perfil == null}">
-                                <img class="foto-avatar" th:src="@{/img/avatar-user.png}">
+                                <img class="user foto-avatar" th:src="@{/img/avatar-user.png}">
                             </div>
-                            <p class="mt-2"><b
-                                    th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}">Tenente
-                                    Coronel Celso Alves</b></p>
+                            <p class="mt-2"><b th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p>
                             <hr>
                         </li>
                         <li class="">
@@ -182,7 +180,7 @@
 
     <script th:src="@{/js/sistema.js}"></script>
     <script>
-        $('.foto').click(function () {
+        $('.user').click(function () {
             $('#alterar-foto-perfil').modal();
         });
     </script>

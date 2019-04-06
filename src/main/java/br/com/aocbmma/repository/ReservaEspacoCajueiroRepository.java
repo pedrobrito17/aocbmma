@@ -21,6 +21,9 @@ public interface ReservaEspacoCajueiroRepository extends JpaRepository<ReservaEs
     @Query(value="select * from reserva_cajueiro r inner join socio s on r.socio_id = s.id where s.id = :id order by r.data_reserva desc", nativeQuery=true)
     List<ReservaEspacoCajueiro> findBySocio(@Param("id") int id);
 
-    @Query(value="select * from reserva_cajueiro r where r.pagamento!='vencido' order by r.data_reserva desc", nativeQuery=true)
-    List<ReservaEspacoCajueiro> findAllDiferenteDePagamentoVencido();
+    @Query(value="select * from reserva_cajueiro r order by r.data_reserva desc", nativeQuery=true)
+    List<ReservaEspacoCajueiro> findAllOrd();
+
+    @Query(value="SELECT * FROM reserva_cajueiro WHERE pagamento='pendente' AND DATE_ADD(data_solicitacao, INTERVAL 3 DAY) <= CURDATE()", nativeQuery=true)
+    List<ReservaEspacoCajueiro> findReservasPagamentoVencido();
 }

@@ -3,7 +3,6 @@ package br.com.aocbmma.controller;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,8 +39,8 @@ public class SiteController {
         mv.addObject("ultimasNoticias", noticiaService.getUltimasDuasNoticias());
 
         // copiando a pasta das imagens dos convenios para o servidor
-        String pathDestination = servlet.getRealPath("/");
-        new FilesConvenio().copiarImagensConvenioParaServidor(pathDestination);
+        // String pathDestination = servlet.getRealPath("/");
+        // new FilesConvenio().copiarImagensConvenioParaServidor(pathDestination);
 
         return mv;
     }

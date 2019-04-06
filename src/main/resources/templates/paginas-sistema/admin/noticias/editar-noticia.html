@@ -41,6 +41,7 @@
                             <textarea id="summernote" name="noticia" th:field="*{noticia}"></textarea>
                         </div>
                         <input hidden type="date" name="data-postagem" th:value="${#dates.format(noticia.data_postagem, 'yyyy-MM-dd')}">
+                        <input hidden type="text" name="imagem" th:value="${noticia.imagem}">
                         <button type="submit" class="btn btn-danger btn-noticias float-right">SALVAR</button>
                     </form>
 

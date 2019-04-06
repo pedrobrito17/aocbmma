@@ -102,6 +102,17 @@ public class ReservaCampoFutebolService{
     }
 
     public List<ReservaCampoFutebol> getReservasDoClube(){
-        return reservaCampoFutebolRepository.findAllDiferenteDePagamentoVencido();
+        return reservaCampoFutebolRepository.findAllOrd();
+    }
+
+    @Transactional
+    public void cancelarReservarComPagamentoVencido(){
+        List<ReservaCampoFutebol> reservasASeremCanceladas = reservaCampoFutebolRepository.findReservasPagamentoVencido();
+        if(reservasASeremCanceladas!=null){
+            for (ReservaCampoFutebol reserva : reservasASeremCanceladas) {
+                reserva.setPagamento("vencido");
+                reservaCampoFutebolRepository.save(reserva);
+            }
+        }
     }
 }

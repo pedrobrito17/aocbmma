@@ -19,7 +19,7 @@ public class AocbmmaApplication extends SpringBootServletInitializer{
 		 return application.sources(AocbmmaApplication.class);
 	}
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		SpringApplication.run(AocbmmaApplication.class, args);
 
 		Runtime runtime = Runtime.getRuntime();
