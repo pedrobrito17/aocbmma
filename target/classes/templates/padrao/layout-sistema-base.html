@@ -53,12 +53,20 @@
             </div>
         </div>
     </header>
+    <div class="container-fluid mobile">
+        <div class="nav-mobile">
+            <a href="javascript:void(0);" class="icon-menu-mobile" onclick="menuMobile()">
+                <i class="fa fa-bars fa-2x"></i>
+            </a>
+            <div id="mobileLinks">
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid geral">
         <div class="row">
             <div class="col-lg-2 col-menu">
-                <br>
-                <nav class="">
+                <nav class="menu-sistema">
                     <ul class="">
                         <li class="text-center mb-4 perf">
                             <div class="avatar" th:if="${socio.path_foto_perfil != null}">
@@ -114,7 +122,10 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-10 row-conteudo">
+
+
+            
+            <div class="col-sm-12 col-lg-10 row-conteudo">
                 <div class="row">
                     <div class="col-12">
                         <br>
@@ -130,10 +141,10 @@
                     <div class="container-fluid ult-footer">
                         <hr>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-sm-12 col-lg-6">
                                 <p>&copy 2019 AOCBMMA | todos os direitos reservados.</p>
                             </div>
-                            <div class="col-6">
+                            <div class="col-sm-12 col-lg-6">
                                 <span class="float-lg-right">desenvolvido por <a href="http://www.italobrito.com.br"
                                         target="_blank">italobrito.com.br</a></span>
                             </div>
@@ -179,11 +190,6 @@
     </div>
 
     <script th:src="@{/js/sistema.js}"></script>
-    <script>
-        $('.user').click(function () {
-            $('#alterar-foto-perfil').modal();
-        });
-    </script>
 
 </body>
 

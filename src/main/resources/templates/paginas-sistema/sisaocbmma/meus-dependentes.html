@@ -49,7 +49,7 @@
                                     <div class="col-sm-10 col-lg-3">
                                         <select class="form-control form-custom" th:field="*{dependentes[__${i.index}__].parentesco}">
                                             <option value="" selected hidden>Parentesco</option>
-                                            <option th:if="${dep.getParentesco()} == 'Cônjugue' ? selected" value="Cônjugue">Cônjugue</option>
+                                            <option th:if="${dep.getParentesco()} == 'Cônjuge' ? selected" value="Cônjuge">Cônjuge</option>
                                             <option th:if="${dep.getParentesco()} == 'Filho(a)'" value="Filho(a)">Filho(a)</option>
                                             <option th:if="${dep.getParentesco()} == 'Pai'" value="Pai">Pai</option>
                                             <option th:if="${dep.getParentesco()} == 'Mãe'" value="Mãe">Mãe</option>

@@ -204,6 +204,10 @@ footer a:hover {
     margin-bottom: 3px;
 }
 
+/* =================================================
+= FOTO
+================================================= */
+
 .avatar {
     width: 70px;
     height: 70px;
@@ -227,4 +231,72 @@ footer a:hover {
 
 .foto:hover{
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+
+/* =================================================
+= MENU MOBILE
+================================================= */
+@media screen and (max-width: 992px) {
+    .col-menu{
+        display: none;
+    }
+    .mobile{
+        display: block !important;
+    }
+}
+
+.mobile{
+    display: none;
+}
+
+#mobileLinks{
+    display: none;
+}
+
+.icon-menu-mobile {
+    color: #f43340;
+    border:none;
+    height: 100%;
+    width: 50px;
+}
+
+.icon-menu-mobile:focus{
+    color: #f43340;    
+}
+
+.icon-menu-mobile:hover{
+    cursor: pointer;
+}
+
+.mobile{
+    background-color: #f4f5f6;
+    padding: .5em;
+}
+
+.menu-sistema{
+    background-color: #f4f5f6;
+    color: #3b3c40;
+    font-size: .9em;
+}
+
+.menu-sistema ul{
+    list-style: none;
+    padding-left: 10px;
+}
+
+.menu-sistema li{
+    margin-top: 12px;
+}
+
+.menu-sistema a{
+    color: #3b3c40;
+    display: block;
+}
+
+.menu-sistema a:hover{
+    text-decoration: none;
+    color: #f43340;
+    border-right: #f43340 solid 6px;
+    cursor: pointer;
 }
