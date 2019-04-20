@@ -64,19 +64,27 @@
     <div class="container-fluid geral">
         <div class="row">
             <div class="col-lg-2 col-menu">
+                <br>
                 <nav class="menu-sistema">
                     <ul class="">
                         <li class="">
                             <a id="home" th:href="@{/admin}"><i class="fas fa-home"></i><span> Home</span></a>
                         </li>
                         <li class="">
+                            <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
+                        </li>
+                        <li class="">
                             <a id="atas" href="#"><i class="far fa-file-alt"></i><span> Atas de assembleia</span></a>
                         </li>
-                        <li class="">
-                            <a id="financeiro" href="#"><i class="far fa-money-bill-alt"></i><span> Financeiro</span></a>
-                        </li>
-                        <li class="">
-                            <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
+                        <li class="menu-down">
+                            <a id="financeiro" href="javascript:void(0);">
+                                <i class="far fa-money-bill-alt"></i><span> Financeiro</span>
+                                <i class="fas fa-caret-down"></i>
+                            </a>
+                            <ul class="">
+                                <li class=""><a th:href="@{/admin/add-financeiro}">Adicionar documento financeiro</a></li>
+                                <li class=""><a th:href="@{/admin/listar-financeiro}">Todas documentos financeiros</a></li>
+                            </ul>
                         </li>
                         <li class="menu-down">
                             <a id="associados" href="javascript:void(0);">

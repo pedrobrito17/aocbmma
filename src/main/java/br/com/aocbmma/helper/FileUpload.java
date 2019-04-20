@@ -13,12 +13,24 @@ public class FileUpload {
     public static String DIRECTORY_CONVENIOS = "/uploads/img/convenios/";
     public static String DIRECTORY_FOTO_PERFIL = "/uploads/img/perfil/";
     public static String DIRECTORY_NOTICIAS = "/uploads/img/noticias/";
+    public static String DIRECTORY_FINANCEIRO = "/uploads/files/financeiro/";
 
-    public static String uploadServerImgConvenio(String diretorioServidor, String pathRoot, String fileName,
+    public static String uploadServerFile(String diretorioServidor, String pathRoot, String fileName,
             MultipartFile file) throws IOException {
 
         byte[] bytes = file.getBytes();
         String diretorio = criaDiretorio(pathRoot, diretorioServidor);
+        String file_path = pathRoot + diretorio + File.separator +  fileName;
+        gravarArquivo(file_path, bytes);
+
+        return diretorio;
+    }
+
+    public static String uploadServerFileFinanceiro(String diretorioServidor, String pathRoot, String fileName,
+            MultipartFile file, String ano) throws IOException {
+
+        byte[] bytes = file.getBytes();
+        String diretorio = criarDiretorioFinanceiro(pathRoot, diretorioServidor, ano);
         String file_path = pathRoot + diretorio + File.separator +  fileName;
         gravarArquivo(file_path, bytes);
 
@@ -39,6 +51,18 @@ public class FileUpload {
         else{
             return criarDiretorioNoticia(pathRoot, diretorioServidor);
         }
+    }
+
+    public static String criarDiretorioFinanceiro(String pathRoot, String diretorioServidor, String ano) {
+
+        File directory = new File(pathRoot + diretorioServidor + ano);
+        System.out.println(directory.getPath());
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("Diretório criado.");
+            }
+        }
+        return diretorioServidor + ano;
     }
 
     public static String criarDiretorioNoticia(String pathRoot, String diretorioServidor) {

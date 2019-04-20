@@ -48,7 +48,7 @@ public class NoticiaController {
 
         String fileName = request.getParameter("titulo")+nameFileOrig.substring(tam-4, tam);
         String pathRoot = servlet.getRealPath("/");
-        String diretorioCompleto = FileUpload.uploadServerImgConvenio(FileUpload.DIRECTORY_NOTICIAS ,pathRoot, fileName, imagem);
+        String diretorioCompleto = FileUpload.uploadServerFile(FileUpload.DIRECTORY_NOTICIAS ,pathRoot, fileName, imagem);
 
         Noticia noticia = new Noticia();
         noticia.setTitulo(request.getParameter("titulo"));
@@ -89,7 +89,7 @@ public class NoticiaController {
             String pathRoot = servlet.getRealPath("/");
             
             FileUpload.deleteFile(pathRoot, noticia.getImagem());
-            String diretorioCompleto = FileUpload.uploadServerImgConvenio(FileUpload.DIRECTORY_NOTICIAS ,pathRoot, fileName, imagem);
+            String diretorioCompleto = FileUpload.uploadServerFile(FileUpload.DIRECTORY_NOTICIAS ,pathRoot, fileName, imagem);
             noticia.setImagem(diretorioCompleto + File.separator + fileName);
         }
 

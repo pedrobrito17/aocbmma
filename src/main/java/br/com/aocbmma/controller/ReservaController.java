@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +37,6 @@ public class ReservaController {
     private ReservaChaleService reservaChaleService;
 
     @Autowired
-    private JavaMailSender mailSender;
-
-    @Autowired
     private SocioService socioService;
 
     private ModelAndView mv = null;
@@ -53,7 +49,7 @@ public class ReservaController {
     public ModelAndView salvarReservaCampo(ReservaCampoFutebol reserva) {
         reservaCampoService.salvarReservaCampoFutebol(reserva);
         mensageiroEmail = new MensageiroEmail();
-        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
+        mensageiroEmail.reservaRealizadaEnviarEmail();
         return aoIndex();
     }
 
@@ -61,7 +57,7 @@ public class ReservaController {
     public ModelAndView salvarReservaEspacoCajueiro(ReservaEspacoCajueiro reserva) {
         reservaCajueiroService.salvarReserva(reserva);
         mensageiroEmail = new MensageiroEmail();
-        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
+        mensageiroEmail.reservaRealizadaEnviarEmail();
         return aoIndex();
     }
 
@@ -114,7 +110,7 @@ public class ReservaController {
     public ModelAndView salvarReservaChale(ReservaChale reservaChale) {
         reservaChaleService.salvarReserva(reservaChale);
         mensageiroEmail = new MensageiroEmail();
-        mensageiroEmail.reservaRealizadaEnviarEmail(mailSender);
+        mensageiroEmail.reservaRealizadaEnviarEmail();
         return aoIndex();
     }
 

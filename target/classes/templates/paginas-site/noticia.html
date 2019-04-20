@@ -3,6 +3,7 @@
     layout:decorate="~{padrao/layout-site-base}">
 
 <head>
+    <title th:text="${noticia.titulo} + ' - AOCBMMA'"></title>
     <style>
         .news p {
             color: inherit !important;
@@ -39,9 +40,9 @@
             </div>
         <div class="container div-conteudo">
             <div class="row">
-                <div class="col-8 offset-2" id="conteudo" th:object="${noticia}">
+                <div class="col-8 offset-2" id="conteudo">
                     <div class="text-center">
-                        <img class="img-fluid" th:src="@{ ${noticia.imagem} }">
+                        <img class="img-fluid" th:src="@{ ${noticia.imagem} }" th:attr="alt=${noticia.titulo}">
                     </div>
                     <br>
                     <h2 th:text="${noticia.titulo}"></h2>

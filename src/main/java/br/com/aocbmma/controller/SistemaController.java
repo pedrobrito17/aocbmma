@@ -9,17 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+
 import br.com.aocbmma.model.ReservaCampoFutebol;
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
+import br.com.aocbmma.service.MovimentacaoFinanceiraService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
+
 
 
 @Controller
@@ -28,6 +32,9 @@ public class SistemaController{
 
     @Autowired
     private SocioService socioService;
+
+    @Autowired
+    private MovimentacaoFinanceiraService financeiraService;
 
     @Autowired
     private ConvenioService convenioService;
@@ -86,6 +93,15 @@ public class SistemaController{
         return mv;
     }
 
+    @RequestMapping(value="/financeiro", method=RequestMethod.GET)
+    public ModelAndView requestMethodName() {
+        mv = new ModelAndView("paginas-sistema/sisaocbmma/financeiro");
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
+        mv.addObject("financeiros", financeiraService.getTodasMovimentacoesFinanceiras());
+        return mv;
+    }
+    
     @PostMapping(value="/atualizar-socio")
     public ModelAndView atualizarSocio(Socio socio) {
         socioService.atualizarSocio(socio);

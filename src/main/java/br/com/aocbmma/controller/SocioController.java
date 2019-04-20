@@ -59,7 +59,7 @@ public class SocioController {
         String pathFile = FileUpload.DIRECTORY_FOTO_PERFIL + fileName;
 
         try {
-            FileUpload.uploadServerImgConvenio(FileUpload.DIRECTORY_FOTO_PERFIL, pathRoot, fileName, file);
+            FileUpload.uploadServerFile(FileUpload.DIRECTORY_FOTO_PERFIL, pathRoot, fileName, file);
             socio.setPath_foto_perfil(pathFile);
             socioService.salvarSocio(socio);
         } catch (IOException e) {

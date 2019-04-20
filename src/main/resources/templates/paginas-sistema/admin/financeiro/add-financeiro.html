@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-admin-base}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>NOVA MOVIMENTAÇÃO FINANCEIRA</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+
+                    <form enctype="multipart/form-data" th:action="@{/admin/salvar-financeiro}" th:method="POST">
+                        <div class="form-group">
+                            <label for="inicial">Período inicial</label>
+                            <input class="form-control form-custom" name="inicial" type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="final">Período final</label>
+                            <input class="form-control form-custom" name="final" type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="file">Arquivo PDF</label>
+                            <input class="form-control" name="file" type="file" accept="application/pdf" required>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-danger btn-noticias float-right">SALVAR</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    
+    </main>
+
+</body>
+
+</html>
