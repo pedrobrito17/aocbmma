@@ -121,8 +121,7 @@ public class NoticiaController {
         mv = new ModelAndView("paginas-sistema/admin/noticias/editar-noticia");
         mv.addObject("noticia", noticiaService.buscarNoticia(id));
         return mv;
-    }
-    
+    } 
 
 
 }

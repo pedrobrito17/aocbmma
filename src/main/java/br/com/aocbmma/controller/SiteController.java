@@ -131,6 +131,18 @@ public class SiteController {
         return mv;
     }
 
+    @RequestMapping(value = "/manuais", method = RequestMethod.GET)
+    public ModelAndView pageManuais() {
+        mv = new ModelAndView("paginas-site/institucional/manuais");
+        return mv;
+    }
+
+    @RequestMapping(value = "/juridico/artigos", method = RequestMethod.GET)
+    public ModelAndView pageJuridicoArtigos() {
+        mv = new ModelAndView("paginas-site/juridico/artigos");
+        return mv;
+    }
+
     @RequestMapping(value = "/enviar-email", method = RequestMethod.POST)
     public String postEnviarEmail(Mensagem mensagem, Model model) {
         MensageiroEmail mensageiro = new MensageiroEmail();

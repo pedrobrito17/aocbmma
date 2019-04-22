@@ -14,6 +14,7 @@ public class FileUpload {
     public static String DIRECTORY_FOTO_PERFIL = "/uploads/img/perfil/";
     public static String DIRECTORY_NOTICIAS = "/uploads/img/noticias/";
     public static String DIRECTORY_FINANCEIRO = "/uploads/files/financeiro/";
+    public static String DIRECTORY_FILES_NOTICIA = "/uploads/files/noticia/";
 
     public static String uploadServerFile(String diretorioServidor, String pathRoot, String fileName,
             MultipartFile file) throws IOException {
