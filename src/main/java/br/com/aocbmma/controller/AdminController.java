@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
@@ -32,47 +33,44 @@ public class AdminController{
 
     private ModelAndView mv = null;
 
+    private Socio socioLogado = null;
+
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String pageLogin() {
         return "paginas-sistema/login";
     }
-    
-    @RequestMapping(value="/admin", method=RequestMethod.GET)
-    public ModelAndView pageSistema() {
-        reservaCampoService.cancelarReservarComPagamentoVencido();
-        reservaCajueiroService.cancelarReservarComPagamentoVencido();
-        reservaChaleService.cancelarReservarComPagamentoVencido();
-
-        mv = new ModelAndView("paginas-sistema/admin/index");
-        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
-        mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
-        mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
-        mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
-        return mv;
-    }
 
     @RequestMapping(value="/admin/socios/{categoria}", method=RequestMethod.GET)
     public ModelAndView pageRelacaoAssociados(@PathVariable("categoria") String categoria) {
+
+        socioLogado = socioService.getSocioByEmail();
+        
         mv = new ModelAndView("paginas-sistema/admin/associados/relacao-socios");
         mv.addObject("socios", socioService.getSociosDesta(categoria));
         mv.addObject("categoria", categoria);
+        mv.addObject("socio", socioLogado);
         return mv;
     }
-
+    
     @GetMapping(value="/admin/reservas-clube")
     public ModelAndView pageReservasClube() {
+        socioLogado = socioService.getSocioByEmail();
+        
         mv = new ModelAndView("paginas-sistema/admin/reservas-clube");
         mv.addObject("eventCampo", reservaCampoService.getReservasDoClube());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservasDoClube());
         mv.addObject("eventChale", reservaChaleService.getReservasDoClube());
+        mv.addObject("socio", socioLogado);
         return mv;
     }    
-
+    
     @GetMapping(value="/admin/dados-socio/{id}")
     public ModelAndView pageDadosSocio(@PathVariable("id") int id) {
+        socioLogado = socioService.getSocioByEmail();
+        
         mv = new ModelAndView("paginas-sistema/admin/associados/dados-socio");
-        mv.addObject("socio", socioService.findSocio(id));
+        mv.addObject("socioFind", socioService.findSocio(id));
+        mv.addObject("socio", socioLogado);
         return mv;
     }
     

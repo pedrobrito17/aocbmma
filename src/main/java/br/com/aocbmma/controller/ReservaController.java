@@ -117,7 +117,7 @@ public class ReservaController {
     public ModelAndView aoIndex() {
         socio = socioService.getSocioByEmail();
 
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
+        mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socio);
         mv.addObject("msgSuccess",

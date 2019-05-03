@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <style>
+        .img-custom {
+            max-height: 300px !important;
+        }
+
+        .card-text p,
+        .card-text {
+            font-family: inherit !important;
+            color: inherit !important;
+            font-size: .9em !important;
+            line-height: 1 !important;
+            margin-bottom: 8px !important;
+        }
+        li a{
+            color: inherit !important;
+        }
+        li a:hover{
+            color: #f43340 !important;
+        }
+        .titulo h4{
+            color: white !important;
+        }
+        .perf p{
+            text-align: center !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container titulo-conteudo">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>CONVÊNIOS</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+        </div>
+        <div class="container div-conteudo mt-4">
+            <div class="row">
+                <div class="col-10 offset-1" id="conteudo">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="float-right">
+                                <select id="filtro" class="custom-select custom-select-sm form-custom">
+                                    <option value="Todos" selected>Todos</option>
+                                    <option th:each="categoria : ${categorias}" th:value="${categoria.categoria}"
+                                        th:text="${categoria.categoria}">Todos</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <div class="card-columns">
+                                <div th:each="convenio : ${convenios}"
+                                    th:class="'card '+${convenio.categoria.categoria}">
+                                    <img class="card-img-top img-custom" th:src="@{${convenio.path_logo}}"
+                                        alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${convenio.nome_empresa}"></h5>
+                                        <div class="card-text" th:utext="${convenio.beneficio}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br>
+        <script type="text/javascript">
+            $('#filtro').change(function () {
+
+                $("select option:selected").each(function () {
+                    var categoria = $(this).text();
+                    filtro(categoria);
+                });
+
+            });
+
+            function filtro(categoria) {
+                if (categoria == 'Todos') {
+                    $('.card').show();
+                } else {
+                    $('.card').hide();
+                    $('.' + categoria).show();
+                }
+            }
+        </script>
+    </main>
+
+</body>
+
+</html>

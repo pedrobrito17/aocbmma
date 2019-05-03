@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h2>Sistema da AOCBMMA</h2>
+                    <hr>
+                    <h6>Utilize o menu ao lado para navegar.</h6>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div sec:authorize="hasRole('ADMIN')">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <br>
+
+                        <div class="div-info-system">
+                            <h3><i class="fas fa-user-circle"></i> NOVOS SÓCIOS</h3><br>
+                            <h4 th:if="${sociosSolicitados.empty}">Nenhuma solicitação realizada.</h4>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+
+                                    <table class="table table-sm table-responsive-sm" th:if="${not sociosSolicitados.empty}">
+                                        <thead class="">
+                                            <th>Novo sócio</th>
+                                            <th>Corporação</th>
+                                            <th>Whatsapp</th>
+                                            <th>E-mail</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody th:each="socio : ${sociosSolicitados}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${socio.id})}"
+                                                th:text="${socio.dadosOficial.posto + ' '+ socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${socio.dadosOficial.corporacao}"></td>
+                                            <td class="align-middle" th:text="${socio.dadosContato.whatsapp}"></td>
+                                            <td class="align-middle" th:text="${socio.dadosContato.email}"></td>
+                                            <td class="align-middle text-center"><a th:href="@{/admin/aceitar-socio/{id}(id=${socio.id})}"
+                                                    class="btn btn-info btn-sm">Aceitar</a></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <br>
+
+                        <div class="div-info-system">
+                            <h3><i class="fas fa-glass-cheers"></i> NOVOS EVENTOS</h3><br>
+                            <h4 th:if="${eventCampo.empty and eventCajueiro.empty and eventChale.empty}">Nenhum evento solicitado.</h4>
+
+                            <div class="row" th:if="${not eventCampo.empty}">
+                                <div class="col-sm-12 col-lg-12">
+                                    <h6><b>Campo de futebol</b></h6>
+                                    <table class="table table-sm table-responsive-sm">
+                                        <thead>
+                                            <th>Sócio</th>
+                                            <th>Data</th>
+                                            <th>Horário inicio</th>
+                                            <th>Horário término</th>
+                                            <th>Valor da reserva</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody th:each="evento : ${eventCampo}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${evento.hora_inicio}"></td>
+                                            <td class="align-middle" th:text="${evento.hora_termino}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/campo/{id}(id=${evento.id})}"
+                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2" th:if="${not eventCajueiro.empty}">
+                                <div class="col-sm-12 col-lg-12">
+                                    <h6><b>Espaço Cajueiro</b></h6>
+                                    <table class="table table-sm table-responsive-sm">
+                                        <thead>
+                                            <th>Sócio</th>
+                                            <th>Data</th>
+                                            <th>Período</th>
+                                            <th>Valor da reserva</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody th:each="evento : ${eventCajueiro}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${evento.periodo}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/cajueiro/{id}(id=${evento.id})}"
+                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2" th:if="${not eventChale.empty}">
+                                <div class="col-sm-12 col-lg-12">
+                                    <h6><b>Chalé</b></h6>
+                                    <table class="table table-sm table-responsive-sm">
+                                        <thead>
+                                            <th>Sócio</th>
+                                            <th>Nº do chalé</th>
+                                            <th>Data entrada</th>
+                                            <th>Data saída</th>
+                                            <th>Valor da reserva</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody th:each="evento : ${eventChale}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_saida, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/chale/{id}(id=${evento.id})}"
+                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <br>
+
+                        <div class="div-info-system">
+                            <h3><i class="fas fa-birthday-cake"></i> ANIVERSARIANTES DO MÊS</h3><br>
+                            <h4 th:if="${aniversariantes.empty}">Neste mês não há aniversariantes.</h4>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div th:each="aniv : ${aniversariantes}">
+                                        <p class="aniv" th:text="${aniv.dadosOficial.posto +' '+ aniv.dadosOficial.nome_guerra +  ' - ' + #dates.format(aniv.getData_nascimento(), 'dd MMM') }"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <!-- </div> sec:authorize: ADMIN -->
+        </div>
+    </main>
+
+</body>
+
+</html>

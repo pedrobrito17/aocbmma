@@ -20,7 +20,7 @@ function addDependente() {
         '<input class="form-control form-custom dependente" type="text" name="dependentes[' + cont +
         '].nome" id="dependentes' + cont + '.nome" placeholder="Dependente">' +
         '</div>' +
-        '<div class="col-sm-12 col-lg-4">' +
+        '<div class="col-sm-12 col-lg-4 mt-4 mt-lg-0">' +
         '<select class="form-control form-custom" name="dependentes[' + cont +
         '].parentesco" id="dependentes' + cont + '.parentesco">' +
         '<option value="" disabled selected>Parentesco</option>' +
@@ -71,11 +71,11 @@ $('#popover').popover({
         '</ol>' +
         '</div>' +
         '</div>'
-})
+});
 
 $('#categoria').popover({
     trigger: 'hover',
-    placement: 'right',
+    placement: 'top',
     html: true,
     content: '<div class="popover-custom">' +
         '<div class="body-popover">' +
@@ -87,7 +87,7 @@ $('#categoria').popover({
         '</ol>' +
         '</div>' +
         '</div>'
-})
+});
 
 $(document).ready(function () {
     $('.date').mask('00/00/0000');

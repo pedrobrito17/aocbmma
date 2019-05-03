@@ -23,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.aocbmma.helper.FileUpload;
 import br.com.aocbmma.helper.FormatadorData;
 import br.com.aocbmma.model.MovimentacaoFinanceira;
+import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.MovimentacaoFinanceiraService;
+import br.com.aocbmma.service.SocioService;
 
 
 @Controller
@@ -35,20 +37,31 @@ public class FinanceiroController{
     @Autowired
     ServletContext servlet;
 
+    @Autowired
+    private SocioService socioService;
+
+    private Socio socioLogado = null;
+
     private ModelAndView mv = null;
 
     private String[] meses = {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"};
 
     @RequestMapping(value="/admin/add-financeiro", method=RequestMethod.GET)
     public ModelAndView pageAddFinanceiro() {
+        socioLogado = socioService.getSocioByEmail();
+        
         mv = new ModelAndView("paginas-sistema/admin/financeiro/add-financeiro");
+        mv.addObject("socio", socioLogado);
         return mv;
     }
-
+    
     @RequestMapping(value="/admin/listar-financeiro", method=RequestMethod.GET)
     public ModelAndView pageTodosFinanceiro() {
+        socioLogado = socioService.getSocioByEmail();
+
         mv = new ModelAndView("paginas-sistema/admin/financeiro/lista-financeiro");
         mv.addObject("financeiros", financeiraService.getTodasMovimentacoesFinanceiras());
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 

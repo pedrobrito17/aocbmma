@@ -63,7 +63,7 @@ public class SistemaController{
 
         socioLogado = socioService.getSocioByEmail();
 
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
+        mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socioLogado);
         return mv;
@@ -71,7 +71,7 @@ public class SistemaController{
 
     @RequestMapping(value="/meus-dados", method=RequestMethod.GET)
     public ModelAndView pageMeusDados() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/meus-dados");
+        mv = new ModelAndView("paginas-sistema/socio/meus-dados");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         return mv;
@@ -79,7 +79,7 @@ public class SistemaController{
 
     @RequestMapping(value="/meus-dependentes", method=RequestMethod.GET)
     public ModelAndView pageMeusDependentes() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/meus-dependentes");
+        mv = new ModelAndView("paginas-sistema/socio/meus-dependentes");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         return mv;
@@ -87,7 +87,7 @@ public class SistemaController{
 
     @RequestMapping(value="/alterar-senha", method=RequestMethod.GET)
     public ModelAndView pageAlterarSenha() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/alterar-senha");
+        mv = new ModelAndView("paginas-sistema/socio/alterar-senha");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         return mv;
@@ -95,7 +95,7 @@ public class SistemaController{
 
     @RequestMapping(value="/financeiro", method=RequestMethod.GET)
     public ModelAndView requestMethodName() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/financeiro");
+        mv = new ModelAndView("paginas-sistema/socio/financeiro");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         mv.addObject("financeiros", financeiraService.getTodasMovimentacoesFinanceiras());
@@ -111,7 +111,7 @@ public class SistemaController{
     @PostMapping(value="/alterar-senha")
     public ModelAndView alterarSenha(Socio socio) {
         socioService.atualizarSenhaSocio(socio);
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
+        mv = new ModelAndView("paginas-sistema/index");
         return aoIndex("Senha alterada com sucesso.");
     }
 
@@ -129,7 +129,7 @@ public class SistemaController{
 
     @RequestMapping(value="/reservar-clube", method=RequestMethod.GET)
     public ModelAndView pageAgendar() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/reservas/reservar-clube");
+        mv = new ModelAndView("paginas-sistema/socio/reservas/reservar-clube");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         mv.addObject("reservaCampo", new ReservaCampoFutebol());
@@ -140,7 +140,7 @@ public class SistemaController{
     
     @RequestMapping(value = "/convenios", method = RequestMethod.GET)
     public ModelAndView pageConvenios() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/convenios");
+        mv = new ModelAndView("paginas-sistema/socio/convenios");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         mv.addObject("convenios", convenioService.getConvenios());
@@ -150,7 +150,7 @@ public class SistemaController{
 
     @GetMapping(value="/minhas-reservas")
     public ModelAndView pageMeusEventos() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/reservas/minhas-reservas");
+        mv = new ModelAndView("paginas-sistema/socio/reservas/minhas-reservas");
         mv.addObject("eventCampo", reservaCampoService.getMinhasReserva());
         mv.addObject("eventCajueiro", reservaCajueiroService.getMinhasReserva());
         mv.addObject("eventChale", reservaChaleService.getMinhasReservas());
@@ -162,7 +162,7 @@ public class SistemaController{
 
     @GetMapping(value="/reservas-clube")
     public ModelAndView pageReservasClube() {
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/reservas/reservas-clube");
+        mv = new ModelAndView("paginas-sistema/socio/reservas/reservas-clube");
         mv.addObject("eventCampo", reservaCampoService.getReservasDoClube());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservasDoClube());
         mv.addObject("eventChale", reservaChaleService.getReservasDoClube());
@@ -175,7 +175,7 @@ public class SistemaController{
     public ModelAndView aoIndex(String mensagem){
         socioLogado = socioService.getSocioByEmail();
 
-        mv = new ModelAndView("paginas-sistema/sisaocbmma/index");
+        mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socioLogado);
         mv.addObject("msgSuccess", mensagem);

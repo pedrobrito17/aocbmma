@@ -9,7 +9,7 @@
   </parent>
   <groupId>br.com.aocbmma</groupId>
   <artifactId>aocbmma</artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
   <name>Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão</name>
   <description>Sistema da AOCBMMA</description>
   <packaging>war</packaging>
