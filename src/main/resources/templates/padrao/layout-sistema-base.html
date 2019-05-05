@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -69,11 +68,11 @@
                 <nav class="menu-sistema">
                     <ul class="">
                         <li class="text-center mb-4 perf">
-                            <div class="avatar" th:if="${socio.path_foto_perfil != null}">
+                            <div class="avatar" th:if="${#strings.isEmpty( socio.path_foto_perfil )} == false">
                                 <img class="user foto" th:src="@{${socio.path_foto_perfil}}">
                             </div>
-                            <div class="" th:if="${socio.path_foto_perfil == null}">
-                                <img class="user foto-avatar" th:src="@{/img/avatar-user.png}">
+                            <div class="" th:if="${#strings.isEmpty( socio.path_foto_perfil )}">
+                                <img class="user foto-avatar-perfil" th:src="@{/img/avatar-user.png}">
                             </div>
                             <p class="mt-2"><b th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p>
                             <hr>
@@ -120,9 +119,10 @@
                             </ul>
                         </li>
                     </ul>
-                    <hr>
+                    
                     <!-- MENU DO ADMINISTRADOR -->
-                    <div sec:authorize="hasRole('ADMIN')">
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <hr>
                         <ul>
                             <li class="">
                                 <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
@@ -166,11 +166,8 @@
                             </li>
                         </ul>
                     </div>
-
                 </nav>
             </div>
-
-
             
             <div class="col-sm-12 col-lg-10 row-conteudo">
                 <div class="row">
@@ -202,15 +199,7 @@
         </div>        
     </div>
 
-
-
-
-
-
-
-
-
-
+    <!-- MODAL PARA INSERIR FOTO NO PERFIL -->
     <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -228,7 +217,7 @@
                             <input type="file" class="form-control form-custom" id="foto" name="foto"
                                 accept="image/*"><br>
                         </div>
-                        <button type="submit" class="btn btn-danger btn-noticias btn-block">Salvar
+                        <button type="submit" class="btn btn-danger btn-sis btn-block">Salvar
                             foto</button>
                     </form>
                 </div>

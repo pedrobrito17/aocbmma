@@ -14,8 +14,6 @@ import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 
-
-
 @Controller
 public class AdminController{
 
@@ -34,11 +32,6 @@ public class AdminController{
     private ModelAndView mv = null;
 
     private Socio socioLogado = null;
-
-    @RequestMapping(value="/login", method=RequestMethod.GET)
-    public String pageLogin() {
-        return "paginas-sistema/login";
-    }
 
     @RequestMapping(value="/admin/socios/{categoria}", method=RequestMethod.GET)
     public ModelAndView pageRelacaoAssociados(@PathVariable("categoria") String categoria) {

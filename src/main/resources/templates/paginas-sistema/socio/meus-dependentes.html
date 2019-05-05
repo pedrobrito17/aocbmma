@@ -35,9 +35,6 @@
                                 <a class="text-muted" href="javascript:addDependente()" data-toggle="popover" id="popover">
                                     <i class="fas fa-plus-circle"></i>
                                 </a>
-                                <!-- <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover" id="popover">
-                                    <i class="fas fa-minus-circle"></i>
-                                </a> -->
                             </legend>
                             <div id="dependente">
                                 <div th:each="dep, i : ${socio.getDependentes()}" class="row mt-4">
@@ -66,7 +63,7 @@
                         <br>
                         <div class="row">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-danger btn-noticias mt-4 mb-4">SALVAR</button>
+                                <button type="submit" class="btn btn-danger btn-sis mt-4 mb-4">SALVAR</button>
                             </div>
                         </div>
 

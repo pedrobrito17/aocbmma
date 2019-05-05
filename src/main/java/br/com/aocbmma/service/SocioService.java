@@ -8,7 +8,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -140,7 +139,7 @@ public class SocioService {
 
     @Transactional
     public Socio getSocioByEmail() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         Socio socioIncompleto = socios.findByEmail(email);
         Socio socio = socios.findById(socioIncompleto.getId()).get();

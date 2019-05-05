@@ -21,11 +21,15 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "socio")
+@Component
+@Scope("session")
 public class Socio{
     
     @Id
@@ -60,7 +64,7 @@ public class Socio{
     private String senha;
 
     @Column
-    private int ativo = 0;
+    private int ativo = 1;
 
     @OneToOne(mappedBy = "socio", cascade = CascadeType.ALL)
     private DadosContato dadosContato;

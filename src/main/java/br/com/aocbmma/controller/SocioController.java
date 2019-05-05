@@ -42,7 +42,7 @@ public class SocioController {
     @PostMapping(value = "/cadastrar-novo-socio")
     public ModelAndView cadastrarSocio(@Valid Socio socio, BindingResult result, RedirectAttributes attributes) {
         String msgRetornoErro = socioService.salvarSocio(socio);
-        mv = new ModelAndView("paginas-site/retorno");
+        mv = new ModelAndView("paginas-sistema/retorno");
         mv.addObject("msg", msgRetornoErro.isEmpty());
         mv.addObject("msg_erro", msgRetornoErro);
         return mv;
@@ -51,12 +51,12 @@ public class SocioController {
     @GetMapping(value = "/admin/aceitar-socio/{id}")
     public ModelAndView aceitarSocio(@PathVariable("id") int id) {
         socioService.atualizarSituacaoSocio(id);
-        mv = new ModelAndView("redirect:/admin");
+        mv = new ModelAndView("redirect:/");
         return mv;
     }
 
     @PostMapping(value = "/sisaocbmma/salvar-foto-perfil/{id}")
-    public ModelAndView salvarConvenio(@RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
+    public ModelAndView salvarFotoPerfil(@RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
 
         String nameFileOrig = file.getOriginalFilename();
         int tam = nameFileOrig.length();

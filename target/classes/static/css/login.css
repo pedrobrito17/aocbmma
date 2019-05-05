@@ -2,23 +2,32 @@ body{
     height: 100%;
     background-color:#ecf0f1;
     font-size: .9em;
+    color: #444;
 }
 
-.block-login{
-    width: 400px;
-    height: 450px;
+/* 
+=============================
+= LOGIN
+=============================
+*/
+.block-login, 
+.block-alterar-senha, 
+.block-esqueceu-senha{
     margin-top: 100px;
     padding: 1.2em;
     background-color: white;
     border: 1px solid #d8dee2;
     border-radius: 5px;
-
     margin-left: auto;
     margin-right: auto;
-
     display: flex;
     align-items: center;
     flex-direction: column;
+}
+
+.block-login{
+    width: 400px;
+    height: 450px;
 }
 
 @media screen and (max-width: 600px) {
@@ -33,25 +42,19 @@ body{
     opacity: .9;
 }
 
-/* button{
-    width: 100%;
-    margin-top: 10px;
-    font-size: 1.2em !important;
-} */
-
 .form-custom:focus{
     border-color: 	#6495ED !important;
     box-shadow: 0px 0px 0px white !important;
 }
 
-.btn-noticias {
+.btn-sis {
     color: #fff;
     background-color: #f43340;
     border-color: #f43340;
     font-size: .9em !important;
 }
 
-.btn-noticias:hover {
+.btn-sis:hover {
     background-color: #f43340;
     color: #fff;
     cursor: pointer;
@@ -70,4 +73,32 @@ a:hover {
 
 .modal p{
     margin: 0px;
+}
+
+/* 
+=============================
+= ESQUECEU SENHA
+=============================
+*/
+
+.block-esqueceu-senha{
+    width: 400px;
+    height: 480px;
+}
+
+@media screen and (max-width: 600px) {
+    .block-esqueceu-senha{
+        width: 300px;
+    }
+}
+
+.block-alterar-senha{
+    width: 400px;
+    height: 430px;
+}
+
+@media screen and (max-width: 600px) {
+    .block-alterar-senha{
+        width: 300px;
+    }
 }

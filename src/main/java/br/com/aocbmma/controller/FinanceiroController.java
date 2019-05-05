@@ -96,7 +96,7 @@ public class FinanceiroController{
     }
 
     @GetMapping(value="/admin/excluir-financeiro/{id}")
-    public ModelAndView excluirNoticia(@PathVariable Integer id) {
+    public ModelAndView excluirDocFinanceiro(@PathVariable Integer id) {
         financeiraService.deletarFinanceiro(id);
         mv = new ModelAndView("redirect:/admin/listar-financeiro");
         return mv;

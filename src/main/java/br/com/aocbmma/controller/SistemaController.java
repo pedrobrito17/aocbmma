@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,8 +22,6 @@ import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
-
-
 
 @Controller
 @RequestMapping("/sisaocbmma")
@@ -54,20 +51,6 @@ public class SistemaController{
     private Socio socioLogado = null;
 
     private ModelAndView mv = null;
-
-    @RequestMapping(value="", method=RequestMethod.GET)
-    public ModelAndView pageIndex() {
-        reservaCampoService.cancelarReservarComPagamentoVencido();
-        reservaCajueiroService.cancelarReservarComPagamentoVencido();
-        reservaChaleService.cancelarReservarComPagamentoVencido();
-
-        socioLogado = socioService.getSocioByEmail();
-
-        mv = new ModelAndView("paginas-sistema/index");
-        mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("socio", socioLogado);
-        return mv;
-    }
 
     @RequestMapping(value="/meus-dados", method=RequestMethod.GET)
     public ModelAndView pageMeusDados() {
@@ -105,7 +88,7 @@ public class SistemaController{
     @PostMapping(value="/atualizar-socio")
     public ModelAndView atualizarSocio(Socio socio) {
         socioService.atualizarSocio(socio);
-        return aoIndex("Os seus dados foram alteardos com sucesso.");
+        return aoIndex("Os seus dados foram alterados com sucesso.");
     }
 
     @PostMapping(value="/alterar-senha")
@@ -178,6 +161,10 @@ public class SistemaController{
         mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socioLogado);
+        mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
+        mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
+        mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
+        mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
         mv.addObject("msgSuccess", mensagem);
         return mv;
     }

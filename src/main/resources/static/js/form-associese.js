@@ -18,7 +18,7 @@ function addDependente() {
     $('#dependente').append('<div class="row mt-4">' +
         '<div class="col-sm-12 col-lg-8">' +
         '<input class="form-control form-custom dependente" type="text" name="dependentes[' + cont +
-        '].nome" id="dependentes' + cont + '.nome" placeholder="Dependente">' +
+        '].nome" id="dependentes' + cont + '.nome" placeholder="Dependente" autofocus>' +
         '</div>' +
         '<div class="col-sm-12 col-lg-4 mt-4 mt-lg-0">' +
         '<select class="form-control form-custom" name="dependentes[' + cont +
@@ -74,7 +74,7 @@ $('#popover').popover({
 });
 
 $('#categoria').popover({
-    trigger: 'hover',
+    trigger: 'focus',
     placement: 'top',
     html: true,
     content: '<div class="popover-custom">' +

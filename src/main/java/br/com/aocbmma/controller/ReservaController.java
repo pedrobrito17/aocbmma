@@ -90,7 +90,7 @@ public class ReservaController {
             reservaChaleService.confirmarReserva(id);
             break;
         }
-        mv = new ModelAndView("redirect:/admin");
+        mv = new ModelAndView("redirect:/");
         return mv;
     }
 
@@ -120,6 +120,10 @@ public class ReservaController {
         mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socio);
+        mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
+        mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
+        mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
+        mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
         mv.addObject("msgSuccess",
                 "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
                         + "a reserva estará novamente disponível no sistema.");
