@@ -158,4 +158,12 @@ public class SocioService {
     public List<Socio> getSociosDesta(String categoria){
         return socios.findByTipoSocio(categoria);
     }
+
+	public List<String> findAllNomesSocios() {
+		return socios.findAllNomesSocios();
+	}
+
+	public Socio findSocioByNome(String nomeSocio) {
+		return socios.findByNome(nomeSocio);
+	}
 }

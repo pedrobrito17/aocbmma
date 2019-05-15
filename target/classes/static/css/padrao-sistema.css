@@ -150,7 +150,7 @@ footer a:hover {
 }
 
 .menu-down{
-    padding-top: 10px;
+    padding-top: 0px;
 }
 
 .menu-down ul{
@@ -299,4 +299,16 @@ footer a:hover {
     color: #f43340;
     border-right: #f43340 solid 6px;
     cursor: pointer;
+}
+
+/* =================================================
+= CONTROLE DE PAGAMENTO
+================================================= */
+.form-custom-check{
+    cursor: pointer;
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    -ms-transform: scale(1.5);
 }

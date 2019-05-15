@@ -22,5 +22,10 @@ public interface Socios extends JpaRepository<Socio,Integer>{
 
     @Query(value="select * from socio where tipo_socio=:categoria order by nome asc", nativeQuery=true)
     List<Socio> findByTipoSocio(@Param("categoria") String categoria);
+    
+    @Query(value="select nome from socio", nativeQuery=true)
+	List<String> findAllNomesSocios();
+
+	Socio findByNome(String nomeSocio);
 
 }

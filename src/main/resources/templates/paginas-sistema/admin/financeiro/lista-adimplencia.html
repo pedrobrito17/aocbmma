@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>LISTA DE ADIMPLÊNCIA</b></h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1 mt-4">
+
+                    <table class="table table-sm table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NOME</th>
+                                <th>Posto</th>
+                                <th>CATEGORIA</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="adimp, var : ${sociosAdimplencia}">
+                                <td class="align-middle" th:text="${var.count}"></td>
+                                <td class="align-middle" th:text="${adimp.socio.nome}"></td>
+                                <td class="align-middle" th:text="${adimp.socio.dadosOficial.posto +' '+ adimp.socio.dadosOficial.quadro}"></td>
+                                <td class="align-middle" th:text="${adimp.socio.tipoSocio}"></td>
+                                <td class="align-middle" th:text="${adimp.status}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 10,
+                    paging: true,
+                    ordering: true,
+                    searching: true,
+                    info: false,
+                    lengthChange: true,
+                    lengthMenu: [10,20,40,60,80,100,150,200],
+                    language: {
+                        lengthMenu: "Exibir _MENU_ linhas",
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
+        </script>
+    </main>
+</body>
+</html>

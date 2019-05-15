@@ -14,6 +14,7 @@ import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 
+
 @Controller
 public class AdminController{
 
@@ -66,6 +67,5 @@ public class AdminController{
         mv.addObject("socio", socioLogado);
         return mv;
     }
-    
-    
+
 }
