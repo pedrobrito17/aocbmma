@@ -27,12 +27,22 @@
                         </div>
                     </div>  
 
-                    <form th:action="@{/admin/registrar-pagamento}" th:method="POST" class="mt-4">
+                    <div class="mt-4 mb-4">
+                        <h5><u>Instruções</u></h5>
+                        <p class="ml-3 mb-0"># Digite qualquer parte do nome do sócio que automaticamente o nome completo será visualizado.</p>
+                        <p class="ml-3 mb-0"># Para inserir mensalidades atrasadas, selecione os meses e não insira nenhuma data de pagamento.</p>
+                        <p class="ml-3 mb-0"># Não registre pagamentos com meses selecionados alternadamente. Isso não faz sentido para o controle de pagamento.</p>
+                        <p class="ml-3 mb-0"># Para tornar inadimplente os sócios que não pagaram a mensalidade do mês anterior,
+                            clique no botão <strong>ATUALIZAR INADIMPLÊNCIA</strong> localizado em Lista de adimplência. A ação somente será efetiva se tiver decorrido o prazo de 30 dias.</p>
+                    </div>
+
+                    <br>
+                    <form th:action="@{/admin/registrar-pagamento}" th:method="POST">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nomeSocio">Nome do sócio</label>
-                                    <input class="form-control form-custom" name="nomeSocio" type="text" id="nomeSocio">
+                                    <input class="form-control form-custom" name="nomeSocio" type="text" id="nomeSocio" required>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -44,7 +54,7 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group">
                                     <label for="ano">Ano</label>
-                                    <input class="form-control form-custom" name="ano" id="ano" type="text" placeholder="yyyy">
+                                    <input class="form-control form-custom" name="ano" id="ano" type="text" placeholder="yyyy" required>
                                 </div>
                             </div>
                         </div>

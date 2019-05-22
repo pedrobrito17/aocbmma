@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" 
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -93,7 +94,7 @@
                                     class="fas fa-key"></i><span> Alterar senha</span></a>
                         </li>
                         <li class="">
-                            <a id="alterar_senha" href="#"><i class="fas fa-fingerprint"></i><span> Solicitar
+                            <a id="alterar_senha" th:href="@{/sisaocbmma/solicitacao-carteira}"><i class="fas fa-fingerprint"></i><span> Solicitar
                                     carteira</span></a>
                         </li>
                         <li class="">
@@ -101,7 +102,7 @@
                                     Convênios</span></a>
                         </li>
                         <li class="">
-                            <a id="atas" href="#"><i class="far fa-file-alt"></i><span> Atas de assembleia</span></a>
+                            <a id="atas" th:href="@{/sisaocbmma/atas-assembleia}"><i class="far fa-file-alt"></i><span> Atas de assembleia</span></a>
                         </li>
                         <li class="">
                             <a id="financeiro" th:href="@{/sisaocbmma/financeiro}"><i class="far fa-money-bill-alt"></i><span>
@@ -127,8 +128,16 @@
                             <li class="">
                                 <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
                             </li>
-                            <li class="">
-                                <a id="atas" href="#"><i class="far fa-file-alt"></i><span> Atas de assembleia</span></a>
+                            <li class="menu-down">
+                                <a id="atas" href="javascript:void(0);">
+                                    <i class="far fa-file-alt"></i>
+                                    <span> Atas de assembleia</span>
+                                    <i class="fas fa-caret-down"></i>
+                                </a>
+                                <ul class="">
+                                    <li class=""><a th:href="@{/admin/add-ata-assembleia}">Adicionar ata de assembleia</a></li>
+                                    <li class=""><a th:href="@{/admin/listar-atas-assembleia}">Todas as atas de assembleia</a></li>
+                                </ul>
                             </li>
                             <li class="menu-down">
                                 <a id="financeiro" href="javascript:void(0);">

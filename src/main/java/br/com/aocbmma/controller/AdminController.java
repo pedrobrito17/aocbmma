@@ -13,6 +13,8 @@ import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
+import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
+
 
 
 @Controller
@@ -29,6 +31,9 @@ public class AdminController{
 
     @Autowired
     private ReservaChaleService reservaChaleService;
+
+    @Autowired
+    private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
 
     private ModelAndView mv = null;
 
@@ -67,5 +72,14 @@ public class AdminController{
         mv.addObject("socio", socioLogado);
         return mv;
     }
+
+    @RequestMapping(value="/admin/carteira-pronta/{cod}",  method=RequestMethod.GET)
+    public ModelAndView postAtualizarStatusDaSolicitacaoCarteira(@PathVariable("cod") String cod) {
+        int id = Integer.parseInt(cod);
+        solicitacaoCarteiraIdentificacaoService.atualizarStatusParaPronta(id);
+        mv = new ModelAndView("redirect:/");
+        return mv;
+    }
+    
 
 }

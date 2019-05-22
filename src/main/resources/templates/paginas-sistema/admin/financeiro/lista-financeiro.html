@@ -31,18 +31,21 @@
                                 <th>Movimentação financeira</th>
                                 <th>Período inicial</th>
                                 <th>Período final</th>
-                                <th sec:authorize="hasRole('ADMIN')"></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="finan, id : ${financeiros}">
                                 <td class="align-middle" th:text="${id.count}">1</td>
-                                <td class="align-middle"><a target="__blank" th:href="@{ ${finan.path_arquivo} }">download</a></td>
-                                <td class="align-middle" th:text="${#dates.format(finan.periodo_inicial, 'MMM yyyy')}"></td>
-                                <td class="align-middle" th:text="${#dates.format(finan.periodo_final, 'MMM yyyy')}"></td>
-                                <td sec:authorize="hasRole('ADMIN')" class="align-middle">
-                                    <!-- <a th:href="@{/admin/editar-financeiro/{id}(id=${finan.id})}"><button class="btn btn-outline-primary btn-sm">Editar</button></a> -->
-                                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/excluir-financeiro/{id}(id=${finan.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
+                                <td class="align-middle">
+                                    <a target="__blank" th:href="@{ ${finan.path_arquivo} }">
+                                            <img th:src="@{/img/icon-pdf.png}">
+                                    </a>
+                                </td>
+                                <td class="align-middle text-uppercase" th:text="${#dates.format(finan.periodo_inicial, 'MMM yyyy')}"></td>
+                                <td class="align-middle text-uppercase" th:text="${#dates.format(finan.periodo_final, 'MMM yyyy')}"></td>
+                                <td class="align-middle">
+                                    <a th:href="@{/admin/excluir-financeiro/{id}(id=${finan.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
                                 </td>
                             </tr>
                         </tbody>

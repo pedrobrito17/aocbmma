@@ -4,6 +4,7 @@
 
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
 </head>
 
 <body>
@@ -16,16 +17,23 @@
                     <hr>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1 mt-4">
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="alert alert-success" th:if="${msgSuccess}">
+                        <span th:utext="${msgSuccess}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-sm-12 col-md-8">
 
                     <table class="table table-sm table-striped table-responsive-sm">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>NOME</th>
-                                <th>Posto</th>
-                                <th>CATEGORIA</th>
                                 <th>STATUS</th>
                             </tr>
                         </thead>
@@ -33,16 +41,45 @@
                             <tr th:each="adimp, var : ${sociosAdimplencia}">
                                 <td class="align-middle" th:text="${var.count}"></td>
                                 <td class="align-middle" th:text="${adimp.socio.nome}"></td>
-                                <td class="align-middle" th:text="${adimp.socio.dadosOficial.posto +' '+ adimp.socio.dadosOficial.quadro}"></td>
-                                <td class="align-middle" th:text="${adimp.socio.tipoSocio}"></td>
-                                <td class="align-middle" th:text="${adimp.status}"></td>
+                                <td class="align-middle" ><a th:text="${adimp.status}" 
+                                    href="javascript:void(0)" th:onclick=" 'getDadosAdimplencia(' +${adimp.cod} + ');' "></a></td>
                             </tr>
                         </tbody>
                     </table>
 
                 </div>
+                <div class="col-sm-12 col-md-4 mt-4 mt-md-0">
+                    <div class="div-info-system">
+
+                        <div th:replace="padrao/elementos :: loading"></div>
+
+                        <div class="dados-adimplencia">
+                            <p><b>Nome</b></p>
+                            <p id="nome" class="mt-n3"></p>
+    
+                            <p><b>Status</b></p>
+                            <p id="status" class="mt-n3"></p>
+    
+                            <p><b>Primeira mensalidade registrada</b></p>
+                            <p id="menIni" class="mt-n3"></p>
+                            
+                            <p><b>Mensalidade atrasada</b></p>
+                            <div id="menAtrasadas">
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="mt-4">
+                        <form th:action="@{/admin/atualizar-inadimplencia}" th:method="POST">
+                            <button type="submit" class="btn btn-sis btn-block">ATUALIZAR INADIMPLÊNCIA</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+        <script th:src="@{/js/adimplencia.js}"></script>
         <script th:src="@{/js/datatables.min.js}"></script>
         <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
         <script>

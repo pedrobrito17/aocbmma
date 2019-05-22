@@ -19,10 +19,13 @@ import br.com.aocbmma.model.ReservaCampoFutebol;
 import br.com.aocbmma.model.ReservaChale;
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.service.PagamentoMensalidadeService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
+import br.com.aocbmma.service.SocioTransferenciaService;
+import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
 
 @Controller
 public class ReservaController {
@@ -37,28 +40,48 @@ public class ReservaController {
     private ReservaChaleService reservaChaleService;
 
     @Autowired
+    private PagamentoMensalidadeService pagamentoMensalidadeService;
+
+    @Autowired
+    private SocioTransferenciaService socioTransferenciaService;
+
+    @Autowired
+    private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
+
+    @Autowired
     private SocioService socioService;
 
     private ModelAndView mv = null;
 
     private MensageiroEmail mensageiroEmail = null;
 
-    private Socio socio = null;
+    private Socio socioLogado = null;
+
+    private String msgSuccess = "Solicitação da reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
+    + "a reserva estará novamente disponível no sistema.";
+
+    private String msgErro = "Não foi possível concluir a reserva. Você está inadimplente.";
 
     @PostMapping(value = "/sisaocbmma/salvar-reserva-campo-futebol")
     public ModelAndView salvarReservaCampo(ReservaCampoFutebol reserva) {
+        if(socioLogadoEstaInadimplente()){
+            return aoIndex("msgErro", msgErro);
+        }
         reservaCampoService.salvarReservaCampoFutebol(reserva);
         mensageiroEmail = new MensageiroEmail();
         mensageiroEmail.reservaRealizadaEnviarEmail();
-        return aoIndex();
+        return aoIndex("msgSuccess", msgSuccess);
     }
 
     @PostMapping(value = "/sisaocbmma/salvar-reserva-espaco-cajueiro")
     public ModelAndView salvarReservaEspacoCajueiro(ReservaEspacoCajueiro reserva) {
+        if(socioLogadoEstaInadimplente()){
+            return aoIndex("msgErro", msgErro);
+        }
         reservaCajueiroService.salvarReserva(reserva);
         mensageiroEmail = new MensageiroEmail();
         mensageiroEmail.reservaRealizadaEnviarEmail();
-        return aoIndex();
+        return aoIndex("msgSuccess", msgSuccess);
     }
 
     @GetMapping(value = "/sisaocbmma/horas-iniciais/{data}")
@@ -108,26 +131,41 @@ public class ReservaController {
 
     @PostMapping(value = "/sisaocbmma/salvar-reserva-chale")
     public ModelAndView salvarReservaChale(ReservaChale reservaChale) {
+        if(socioLogadoEstaInadimplente()){
+            return aoIndex("msgErro", msgErro);
+        }
         reservaChaleService.salvarReserva(reservaChale);
         mensageiroEmail = new MensageiroEmail();
         mensageiroEmail.reservaRealizadaEnviarEmail();
-        return aoIndex();
+        return aoIndex("msgSuccess", msgSuccess);
     }
 
-    public ModelAndView aoIndex() {
-        socio = socioService.getSocioByEmail();
+    public ModelAndView aoIndex(String msgTipo, String msg) {
+        socioLogado = socioService.getSocioByEmail();
 
         mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
-        mv.addObject("socio", socio);
+        mv.addObject("socio", socioLogado);
         mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
         mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
         mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
-        mv.addObject("msgSuccess",
-                "Solicitação de reserva concluída. Garanta sua reserva realizando o pagamento da taxa em até 48H, caso contrário "
-                        + "a reserva estará novamente disponível no sistema.");
+        mv.addObject("statusAdimp", socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado));
+        mv.addObject("adimplencia", pagamentoMensalidadeService.getDadosAdimplenciaDo(socioLogado));
+        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacao());
+        mv.addObject(msgTipo, msg);
         return mv;
+    }
+
+    public boolean socioLogadoEstaInadimplente(){
+        socioLogado = socioService.getSocioByEmail();
+        String statusDoSocio = socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado);
+        if(statusDoSocio.equals("inadimplente")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 }

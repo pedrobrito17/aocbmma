@@ -1,5 +1,6 @@
 package br.com.aocbmma.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="socio_transferencia")
-public class SocioTransferencia{
+public class SocioTransferencia implements Serializable{
+
+    private static final long serialVersionUID = 8152280460580031734L;
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

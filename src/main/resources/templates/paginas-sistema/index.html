@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{padrao/layout-sistema-base}">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
 
 <head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+    <style>
+        .dia-aniversario{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f43340;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,10 +41,120 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-danger" th:if="${msgErro}">
+                        <span th:utext="${msgErro}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-8">
+                    <div sec:authorize="hasAuthority('SOCIO')">
+                        <div class="div-info-system">
+                            <h3><i class="fas fa-hand-holding-usd"></i> MENSALIDADES</h3><br>
+
+                            <div th:if="${#strings.isEmpty(statusAdimp)}">
+                                <h6>Status: ADIMPLENTE</h6>
+                                <p class="mt-4">Mensalidade descontada regularmente no contracheque.</p>
+                            </div>
+
+                            <div th:if="not ${#strings.isEmpty(statusAdimp)}"> 
+                                <h6>Status: <span th:class="${statusAdimp == 'adimplente'} ? 'normal' : 'text-danger'" th:text="${#strings.toUpperCase(statusAdimp)}"></span></h6>
+    
+                                <table class="table table-sm table-responsive-sm" id="table-adimplencia">
+                                    <thead>
+                                        <th>Código</th>
+                                        <th>Mensalidade</th>
+                                        <th>Data do pagamento</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="adimp : ${adimplencia}">
+                                            <td th:text="${adimp.cod}"></td>
+                                            <td th:text="${#dates.format(adimp.data_mensalidade, 'MMM, yyyy')}"></td>
+                                            <td th:class="${adimp.data_pagamento} ? 'normal' : 'text-danger'" 
+                                                
+                                                th:text="${adimp.data_pagamento} 
+                                                ?                                             
+                                                ${#dates.format(adimp.data_pagamento, 'dd MMM, yyyy')}
+                                                :
+                                                'aguardado pagamento'"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-4 mt-4 mt-md-0">
+                    <div class="div-info-system">
+                        <h3><i class="fas fa-birthday-cake"></i> ANIVERSARIANTES DO MÊS</h3><br>
+                        <h4 th:if="${aniversariantes.empty}">Neste mês não há aniversariantes.</h4>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                                <div th:each="aniv : ${aniversariantes}">
+                                    <div class="mb-2">
+                                        <div class="d-inline-block">
+                                            <div class="dia-aniversario">
+                                                <span class="font-weight-bold" th:text="${#dates.format(aniv.getData_nascimento(), 'dd') }"></span>
+                                            </div>
+                                        </div>
+                                        <span class="d-inline-block" th:text="${aniv.dadosOficial.posto +' '+ aniv.dadosOficial.nome_guerra}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+
+            <div class="row">
                 <div class="col-lg-12">
                     <div sec:authorize="hasAuthority('ADMIN')">
                         <br>
-                        <div class="div-info-system">
+                        <div class="div-info-system mb-4" th:if="${not carteirasSolicitadas.empty}">
+                            <h3><i class="fas fa-fingerprint"></i> CARTEIRAS DE IDENTIFICAÇÃO</h3><br>
+                            <h4 th:if="${carteirasSolicitadas.empty}">Nenhuma solicitação realizada.</h4>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                    <table class="table table-sm table-responsive-sm" th:if="${not carteirasSolicitadas.empty}">
+                                        <thead class="">
+                                            <th>Nome</th>
+                                            <th>CPF</th>
+                                            <th>Data de nascimento</th>
+                                            <th>Cargo</th>
+                                            <th>Órgão</th>
+                                            <th>Foto</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody th:each="carteira : ${carteirasSolicitadas}">
+                                            <td class="align-middle" th:text="${carteira.socio.nome}"></td>
+                                            <td class="align-middle" th:text="${carteira.socio.cpf}"></td>
+                                            <td class="align-middle" th:text="${#dates.format(carteira.socio.data_nascimento, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${carteira.socio.dadosOficial.posto}"></td>
+                                            <td class="align-middle" th:text="${carteira.socio.dadosOficial.corporacao}"></td>
+                                            <td class="align-middle">
+                                                <a target="_blank" th:href="@{ ${carteira.foto} }">
+                                                    <img style="max-width: 50px;" class="img-thumbnail" th:src="@{ ${carteira.foto} }">
+                                                </a>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a class="btn btn-sis btn-sis text-white" th:href="@{/admin/carteira-pronta/{cod}(cod=${carteira.cod})}">Pronta</a>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="div-info-system mb-4" th:if="${not sociosSolicitados.empty}">
                             <h3><i class="fas fa-user-circle"></i> NOVOS SÓCIOS</h3><br>
                             <h4 th:if="${sociosSolicitados.empty}">Nenhuma solicitação realizada.</h4>
 
@@ -54,18 +177,15 @@
                                             <td class="align-middle" th:text="${socio.dadosContato.whatsapp}"></td>
                                             <td class="align-middle" th:text="${socio.dadosContato.email}"></td>
                                             <td class="align-middle text-center"><a th:href="@{/admin/aceitar-socio/{id}(id=${socio.id})}"
-                                                    class="btn btn-info btn-sm">Aceitar</a></td>
+                                                    class="btn btn-sis btn-sm text-white">Aceitar</a></td>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
 
-                        <br>
-                        <hr>
-                        <br>
 
-                        <div class="div-info-system">
+                        <div class="div-info-system" th:if="${not eventCampo.empty}">
                             <h3><i class="fas fa-glass-cheers"></i> NOVOS EVENTOS</h3><br>
                             <h4 th:if="${eventCampo.empty and eventCajueiro.empty and eventChale.empty}">Nenhum evento solicitado.</h4>
 
@@ -90,7 +210,7 @@
                                             <td class="align-middle" th:text="${evento.hora_termino}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/campo/{id}(id=${evento.id})}"
-                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                                    class="btn btn-sis btn-sm text-white">Confirmar</a></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -115,7 +235,7 @@
                                             <td class="align-middle" th:text="${evento.periodo}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/cajueiro/{id}(id=${evento.id})}"
-                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                                    class="btn btn-sis btn-sm text-white">Confirmar</a></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -142,7 +262,7 @@
                                             <td class="align-middle" th:text="${#dates.format(evento.data_saida, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle text-center"><a th:href="@{/admin/confirmar-reserva/chale/{id}(id=${evento.id})}"
-                                                    class="btn btn-info btn-sm">Confirmar</a></td>
+                                                    class="btn btn-sis btn-sm text-white">Confirmar</a></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,25 +270,32 @@
                         </div>
 
                         <br>
-                        <hr>
                     </div> <!-- sec:authorize: ADMIN -->
-                    <br>
-                    <div class="div-info-system">
-                        <h3><i class="fas fa-birthday-cake"></i> ANIVERSARIANTES DO MÊS</h3><br>
-                        <h4 th:if="${aniversariantes.empty}">Neste mês não há aniversariantes.</h4>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-lg-12">
-                                <div th:each="aniv : ${aniversariantes}">
-                                    <p class="aniv" th:text="${aniv.dadosOficial.posto +' '+ aniv.dadosOficial.nome_guerra +  ' - ' + #dates.format(aniv.getData_nascimento(), 'dd MMM') }"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div> <!-- col-lg-12 -->
             </div> <!-- row -->
         </div>
+
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            $(document).ready(function(){
+                $('#table-adimplencia').DataTable({
+                    pageLength: 5,
+                    paging: true,
+                    ordering: false,
+                    searching: false,
+                    info: false,
+                    lengthChange: false,
+                    language: {
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
+        </script>
     </main>
 
 </body>

@@ -4,19 +4,28 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.aocbmma.helper.FormatadorData;
+import br.com.aocbmma.model.PagamentoMensalidade;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.model.SocioTransferencia;
+import br.com.aocbmma.model.aux.DadosAdimplencia;
 import br.com.aocbmma.service.PagamentoMensalidadeService;
 import br.com.aocbmma.service.SocioService;
 import br.com.aocbmma.service.SocioTransferenciaService;
+
 
 @Controller
 public class PagamentoMensalidadeController{
@@ -62,9 +71,11 @@ public class PagamentoMensalidadeController{
         Date dataDoPagamento = FormatadorData.getDataFormatadaNoPadraoSQL(data_pagamento);
         List<Date> datas_mensalidades = getListaDeDatasMensalidade(meses_pagos, ano);
         Date dataAdesao = datas_mensalidades.get(0);
-        SocioTransferencia socioTransferencia = socioTransferenciaService.salvarSocio(socio, dataAdesao);
 
+        SocioTransferencia socioTransferencia = socioTransferenciaService.salvarSocio(socio, dataAdesao);
+        pagamentoMensalidadeService.verificacaoDePagamentoNaoInseridoNoControleDePagamento(socioTransferencia, datas_mensalidades);
         pagamentoMensalidadeService.salvarPagamentos(socioTransferencia, dataDoPagamento, datas_mensalidades);
+        pagamentoMensalidadeService.registrarStatusDoSocioTransferencia(socioTransferencia);
         
         mv = pageControlePagamento();
         mv.addObject("msg", "Pagamento registrado.");
@@ -83,5 +94,33 @@ public class PagamentoMensalidadeController{
         return datas_mensalidades;
     }
 
+    @GetMapping(value="/admin/buscar-dados-adimplencia/{cod}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String getDadosAdimplenciaDoSocioTransferenciaEmJson(@PathVariable("cod") int cod) {
 
+        List<PagamentoMensalidade> pags = pagamentoMensalidadeService.getDadosAdimplenciaDoSocioTransferencia(cod);
+        DadosAdimplencia dadosAdimplencia = new DadosAdimplencia().criarObjetoDadosAdimplencia(pags);
+        
+        String dadosJson = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            dadosJson = objectMapper.writeValueAsString(dadosAdimplencia);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        
+        return dadosJson;
+    }
+
+    @PostMapping(value="/admin/atualizar-inadimplencia")
+    public ModelAndView postAtualizarInadimplencia() {
+        socioTransferenciaService.inserirInadimplenciaReferenteAoMesAnterior();
+        ModelAndView mv = pageListaAdimplencia();
+        mv.addObject("msgSuccess","Os sócios com a mensalidade do mês passado em atraso foram atualizados para o status de inadimplente.");
+        return mv;
+    }
+    
+
+
+    
 }

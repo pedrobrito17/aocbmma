@@ -9,19 +9,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import br.com.aocbmma.model.ReservaCampoFutebol;
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.service.AtaAssembleiaService;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
 import br.com.aocbmma.service.MovimentacaoFinanceiraService;
+import br.com.aocbmma.service.PagamentoMensalidadeService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
+import br.com.aocbmma.service.SocioTransferenciaService;
+import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
+
 
 @Controller
 @RequestMapping("/sisaocbmma")
@@ -32,6 +38,9 @@ public class SistemaController{
 
     @Autowired
     private MovimentacaoFinanceiraService financeiraService;
+
+    @Autowired
+    private AtaAssembleiaService ataAssembleiaService;
 
     @Autowired
     private ConvenioService convenioService;
@@ -47,6 +56,15 @@ public class SistemaController{
 
     @Autowired
     private ReservaChaleService reservaChaleService;
+
+    @Autowired
+    private SocioTransferenciaService socioTransferenciaService;
+
+    @Autowired
+    private PagamentoMensalidadeService pagamentoMensalidadeService;
+
+    @Autowired
+    private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
 
     private Socio socioLogado = null;
 
@@ -77,31 +95,40 @@ public class SistemaController{
     }
 
     @RequestMapping(value="/financeiro", method=RequestMethod.GET)
-    public ModelAndView requestMethodName() {
+    public ModelAndView pageFinanceiro() {
         mv = new ModelAndView("paginas-sistema/socio/financeiro");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
         mv.addObject("financeiros", financeiraService.getTodasMovimentacoesFinanceiras());
         return mv;
     }
+
+    @RequestMapping(value="/atas-assembleia", method=RequestMethod.GET)
+    public ModelAndView pageAtasAssembleia() {
+        mv = new ModelAndView("paginas-sistema/socio/atas-assembleia");
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
+        mv.addObject("atas", ataAssembleiaService.getTodasAtasAssembleia());
+        return mv;
+    }
     
     @PostMapping(value="/atualizar-socio")
     public ModelAndView atualizarSocio(Socio socio) {
         socioService.atualizarSocio(socio);
-        return aoIndex("Os seus dados foram alterados com sucesso.");
+        return aoIndex("msgSuccess" , "Os seus dados foram alterados com sucesso.");
     }
 
     @PostMapping(value="/alterar-senha")
     public ModelAndView alterarSenha(Socio socio) {
         socioService.atualizarSenhaSocio(socio);
         mv = new ModelAndView("paginas-sistema/index");
-        return aoIndex("Senha alterada com sucesso.");
+        return aoIndex("msgSuccess" , "Senha alterada com sucesso.");
     }
 
     @PostMapping(value="/atualizar-meus-dependentes")
     public ModelAndView atualizarMeusDependentes(Socio socio) {
         socioService.atualizarMeusDependentes(socio);
-        return aoIndex("Dependentes atualizados com sucesso.");
+        return aoIndex("msgSuccess" , "Dependentes atualizados com sucesso.");
     }
 
     @DeleteMapping(value="/deletar-dependente/{id}")
@@ -154,8 +181,31 @@ public class SistemaController{
 
         return mv;
     }
+
+    @RequestMapping(value="/solicitacao-carteira", method=RequestMethod.GET)
+    public ModelAndView pageSolicitarCarteira(){
+        mv = new ModelAndView("paginas-sistema/socio/solicitar-carteira");
+        socioLogado = socioService.getSocioByEmail();
+        mv.addObject("socio", socioLogado);
+        return mv;
+    }
     
-    public ModelAndView aoIndex(String mensagem){
+    @PostMapping(value="/solicitar-carteira")
+    public ModelAndView postSolicitarCarteira(@RequestParam("foto") MultipartFile foto) {
+        socioLogado = socioService.getSocioByEmail();
+        String statusDoSocio = socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado);
+        if(statusDoSocio.equals("inadimplente")){
+            mv = aoIndex("msgErro", "Não foi possível concluir a solicitação. Você está inadimplente.");
+            return mv;
+        }
+        else{
+            solicitacaoCarteiraIdentificacaoService.salvarSolicitacao(socioLogado, foto);
+            mv = aoIndex("msgSuccess","Solicitação da carteira de identificação concluída. Dentro de alguns dias entraremos em contato para realizar a entrega.");
+            return mv;
+        }
+    }
+    
+    public ModelAndView aoIndex(String tipoMensagem, String mensagem){
         socioLogado = socioService.getSocioByEmail();
 
         mv = new ModelAndView("paginas-sistema/index");
@@ -165,7 +215,10 @@ public class SistemaController{
         mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
         mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
-        mv.addObject("msgSuccess", mensagem);
+        mv.addObject("statusAdimp", socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado));
+        mv.addObject("adimplencia", pagamentoMensalidadeService.getDadosAdimplenciaDo(socioLogado));
+        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacao());
+        mv.addObject(tipoMensagem, mensagem);
         return mv;
     }
     

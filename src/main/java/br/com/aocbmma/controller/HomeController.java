@@ -11,10 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.aocbmma.helper.MensageiroEmail;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.service.PagamentoMensalidadeService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
+import br.com.aocbmma.service.SocioTransferenciaService;
+import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
 
 
 @Controller
@@ -31,6 +34,15 @@ public class HomeController{
 
     @Autowired
     private ReservaChaleService reservaChaleService;
+
+    @Autowired
+    private PagamentoMensalidadeService pagamentoMensalidadeService;
+
+    @Autowired
+    private SocioTransferenciaService socioTransferenciaService;
+
+    @Autowired
+    private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
 
     private Socio socioLogado = null;
 
@@ -61,6 +73,9 @@ public class HomeController{
         mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
         mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
+        mv.addObject("statusAdimp", socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado));
+        mv.addObject("adimplencia", pagamentoMensalidadeService.getDadosAdimplenciaDo(socioLogado));
+        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacao());
         return mv;
     }
 

@@ -12,6 +12,8 @@ public class FileUpload {
     public static String DIRECTORY_CONVENIOS = "/uploads/img/convenios/";
     public static String DIRECTORY_FOTO_PERFIL = "/uploads/img/perfil/";
     public static String DIRECTORY_FINANCEIRO = "/uploads/files/financeiro/";
+    public static String DIRECTORY_ATAS_ASSEMBLEIA = "/uploads/files/atas/";
+    public static String DIRECTORY_FOTO_CARTEIRA = "/uploads/files/carteira/";
 
     public static String uploadServerFile(String diretorioServidor, String pathRoot, String fileName,
             MultipartFile file) throws IOException {
@@ -24,11 +26,11 @@ public class FileUpload {
         return diretorio;
     }
 
-    public static String uploadServerFileFinanceiro(String diretorioServidor, String pathRoot, String fileName,
+    public static String uploadServerFileFinanceiroOuAtaAssembleia(String diretorioServidor, String pathRoot, String fileName,
             MultipartFile file, String ano) throws IOException {
 
         byte[] bytes = file.getBytes();
-        String diretorio = criarDiretorioFinanceiro(pathRoot, diretorioServidor, ano);
+        String diretorio = criarDiretorioPorAnoAtual(pathRoot, diretorioServidor, ano);
         String file_path = pathRoot + diretorio + File.separator +  fileName;
         gravarArquivo(file_path, bytes);
 
@@ -46,10 +48,9 @@ public class FileUpload {
         return diretorioServidor;
     }
 
-    public static String criarDiretorioFinanceiro(String pathRoot, String diretorioServidor, String ano) {
+    public static String criarDiretorioPorAnoAtual(String pathRoot, String diretorioServidor, String ano) {
 
         File directory = new File(pathRoot + diretorioServidor + ano);
-        System.out.println(directory.getPath());
         if (!directory.exists()) {
             if (directory.mkdirs()) {
                 System.out.println("Diretório criado.");
@@ -74,7 +75,7 @@ public class FileUpload {
     public static void deleteFile(String pathRoot, String pathFile) {
         File file = new File(pathRoot + pathFile);
         if (file.delete()) {
-            System.out.println("deletado");
+            System.out.println("Arquivo deletado");
         }
     }
 

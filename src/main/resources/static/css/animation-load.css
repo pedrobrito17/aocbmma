@@ -6,6 +6,12 @@
 	display: none;
 }
 
+.div-info-system #animacao{
+	position: absolute;
+	top: 12%;
+	left: 35%;
+}
+
 #circularG {
 	position: relative;
 	width: 98px;

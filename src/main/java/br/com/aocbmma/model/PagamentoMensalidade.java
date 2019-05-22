@@ -1,5 +1,6 @@
 package br.com.aocbmma.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="pagamento_mensalidade")
-public class PagamentoMensalidade{
+public class PagamentoMensalidade implements Serializable{
+
+    private static final long serialVersionUID = -3197704146306474441L;
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

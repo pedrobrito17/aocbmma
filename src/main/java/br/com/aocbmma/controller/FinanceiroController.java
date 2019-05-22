@@ -82,7 +82,7 @@ public class FinanceiroController{
         String fileName = getFileName(data_inicial, data_final);
         String ano = getDiretorioAno(data_inicial);
         String pathRoot = servlet.getRealPath("/");
-        String diretorioCompleto = FileUpload.uploadServerFileFinanceiro(FileUpload.DIRECTORY_FINANCEIRO ,pathRoot, fileName, file, ano);
+        String diretorioCompleto = FileUpload.uploadServerFileFinanceiroOuAtaAssembleia(FileUpload.DIRECTORY_FINANCEIRO ,pathRoot, fileName, file, ano);
 
         financeira.setPath_arquivo(diretorioCompleto + File.separator + fileName);;
 
