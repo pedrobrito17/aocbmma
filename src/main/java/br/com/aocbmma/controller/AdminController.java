@@ -17,6 +17,7 @@ import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
 
 
 
+
 @Controller
 public class AdminController{
 
@@ -72,7 +73,7 @@ public class AdminController{
         mv.addObject("socio", socioLogado);
         return mv;
     }
-
+    
     @RequestMapping(value="/admin/carteira-pronta/{cod}",  method=RequestMethod.GET)
     public ModelAndView postAtualizarStatusDaSolicitacaoCarteira(@PathVariable("cod") String cod) {
         int id = Integer.parseInt(cod);
@@ -80,6 +81,17 @@ public class AdminController{
         mv = new ModelAndView("redirect:/");
         return mv;
     }
+    
+    @RequestMapping(value="/admin/carteiras-identificacao", method=RequestMethod.GET)
+    public ModelAndView pageCarteirasIdentificacao() {
+        socioLogado = socioService.getSocioByEmail();
+        
+        mv = new ModelAndView("paginas-sistema/admin/carteiras-identificacao");
+        mv.addObject("carteiras", solicitacaoCarteiraIdentificacaoService.getTodasSolicitacoes());
+        mv.addObject("socio", socioLogado);
+        return mv;
+    }
+    
     
 
 }

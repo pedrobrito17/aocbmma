@@ -52,14 +52,22 @@ public class SolicitacaoCarteiraIdentificacaoService{
         return "";
     }
 
-	public List<SolicitacaoCarteiraIdentificacao> getSolicitacao() {
+	public List<SolicitacaoCarteiraIdentificacao> getSolicitacoesDeCarteiraDeIdentidade() {
 		return repository.findByStatus("solicitado");
 	}
 
 	public void atualizarStatusParaPronta(int cod) {
         SolicitacaoCarteiraIdentificacao carteira = repository.findById(cod).get();
-        carteira.setStatus("pronta");
+        carteira.setStatus("pronto");
         repository.save(carteira);
+	}
+
+	public List<SolicitacaoCarteiraIdentificacao> getMinhasSolicitacoesDeCarteiraDeIdentidade(Socio socioLogado) {
+		return repository.findBySocioOrderByDataSolicitacaoDesc(socioLogado.getId());
+	}
+
+	public List<SolicitacaoCarteiraIdentificacao> getTodasSolicitacoes() {
+		return repository.findAllOrderByDataSolicitacaoDesc();
 	}
     
 }

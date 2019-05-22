@@ -182,11 +182,12 @@ public class SistemaController{
         return mv;
     }
 
-    @RequestMapping(value="/solicitacao-carteira", method=RequestMethod.GET)
+    @RequestMapping(value="/carteira-identificacao", method=RequestMethod.GET)
     public ModelAndView pageSolicitarCarteira(){
-        mv = new ModelAndView("paginas-sistema/socio/solicitar-carteira");
+        mv = new ModelAndView("paginas-sistema/socio/carteira-identificacao");
         socioLogado = socioService.getSocioByEmail();
         mv.addObject("socio", socioLogado);
+        mv.addObject("solicitacoes", solicitacaoCarteiraIdentificacaoService.getMinhasSolicitacoesDeCarteiraDeIdentidade(socioLogado));
         return mv;
     }
     
@@ -217,7 +218,7 @@ public class SistemaController{
         mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
         mv.addObject("statusAdimp", socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado));
         mv.addObject("adimplencia", pagamentoMensalidadeService.getDadosAdimplenciaDo(socioLogado));
-        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacao());
+        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacoesDeCarteiraDeIdentidade());
         mv.addObject(tipoMensagem, mensagem);
         return mv;
     }

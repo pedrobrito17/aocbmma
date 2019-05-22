@@ -1,8 +1,5 @@
 package br.com.aocbmma.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.aocbmma.helper.FileUpload;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.SocioService;
 
@@ -29,9 +25,6 @@ public class SocioController {
     private SocioService socioService;
 
     private ModelAndView mv = null;
-
-    @Autowired
-    ServletContext servlet;
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
     public ModelAndView pageAssociese(Socio socio) {
@@ -57,23 +50,7 @@ public class SocioController {
 
     @PostMapping(value = "/sisaocbmma/salvar-foto-perfil/{id}")
     public ModelAndView salvarFotoPerfil(@RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
-
-        String nameFileOrig = file.getOriginalFilename();
-        int tam = nameFileOrig.length();
-
-        Socio socio = socioService.findSocio(socio_id);
-        String fileName = socio.getId() + nameFileOrig.substring(tam-4, tam);
-        String pathRoot = servlet.getRealPath("/");
-        String pathFile = FileUpload.DIRECTORY_FOTO_PERFIL + fileName;
-
-        try {
-            FileUpload.uploadServerFile(FileUpload.DIRECTORY_FOTO_PERFIL, pathRoot, fileName, file);
-            socio.setPath_foto_perfil(pathFile);
-            socioService.salvarSocio(socio);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+       socioService.salvarFotoDoPerfil(socio_id, file);
         mv = new ModelAndView("redirect:/");
         return mv;
     }

@@ -24,7 +24,7 @@ function addDependente() {
         '<select class="form-control form-custom" name="dependentes[' + cont +
         '].parentesco" id="dependentes' + cont + '.parentesco">' +
         '<option value="" disabled selected>Parentesco</option>' +
-        '<option value="Cônjugue">Cônjugue</option>' +
+        '<option value="Cônjuge">Cônjuge</option>' +
         '<option value="Filho(a)">Filho(a)</option>' +
         '<option value="Pai">Pai</option>' +
         '<option value="Mãe">Mãe</option>' +

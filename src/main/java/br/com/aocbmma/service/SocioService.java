@@ -1,17 +1,21 @@
 package br.com.aocbmma.service;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.com.aocbmma.helper.FileUpload;
 import br.com.aocbmma.model.Dependente;
 import br.com.aocbmma.model.Role;
 import br.com.aocbmma.model.Socio;
@@ -24,6 +28,9 @@ public class SocioService {
 
     @Autowired
     private Socios socios;
+
+    @Autowired
+    private ServletContext servlet;
 
     @Autowired
     private Roles roles;
@@ -91,6 +98,34 @@ public class SocioService {
         socio.setSituacao("ativo");
         socio.setAtivo(1);
         socios.save(socio);
+    }
+
+    public void salvarFotoDoPerfil(int socio_id, MultipartFile file){
+        
+        Socio socio = findSocio(socio_id);
+        if( !socio.getPath_foto_perfil().isEmpty() ){
+            apagaFotoSalvaNoServidor(socio);
+        }
+
+        String nameFileOrig = file.getOriginalFilename();
+        int tam = nameFileOrig.length();
+        String fileName = socio.getId() + nameFileOrig.substring(tam-4, tam);
+        String pathRoot = servlet.getRealPath("/");
+        String pathFile = FileUpload.DIRECTORY_FOTO_PERFIL + fileName;
+
+        try {
+            FileUpload.uploadServerFile(FileUpload.DIRECTORY_FOTO_PERFIL, pathRoot, fileName, file);
+            socio.setPath_foto_perfil(pathFile);
+            socios.save(socio);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void apagaFotoSalvaNoServidor(Socio socio){
+        String pathRoot = servlet.getRealPath("/");
+        String pathFile = socio.getPath_foto_perfil();
+        FileUpload.deleteFile(pathRoot, pathFile);
     }
 
     public void atualizarSocio(Socio socio) {
@@ -165,5 +200,6 @@ public class SocioService {
 
 	public Socio findSocioByNome(String nomeSocio) {
 		return socios.findByNome(nomeSocio);
-	}
+    }
+    
 }
