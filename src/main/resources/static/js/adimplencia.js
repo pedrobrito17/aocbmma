@@ -23,7 +23,7 @@ function getDadosAdimplencia(socioCod) {
             $('#animacao').css('display','none'); //encerra a animação
             $('.dados-adimplencia').css('display','block');
         }
-      });
+    });
 }
 
 function construtorDosDadosNaView(json){
@@ -37,7 +37,7 @@ function construtorDosDadosNaView(json){
     if(json.status == 'inadimplente'){
         for(let i = 0 ; i < tam ; i++){
             $('#menAtrasadas').append(
-                '<p class="mt-n3" style="color:red;">'
+                '<p class="mt-n3 text-danger">'
                 +
                     json.mensalidadesAtrasadas[i]
                 +

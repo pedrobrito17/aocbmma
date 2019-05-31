@@ -195,34 +195,22 @@
 
             <div th:replace="padrao/modal :: aceite-reserva"></div>
             <div th:replace="padrao/elementos :: loading"></div>
-
-
+            
+            
             <!-- Recebendo dados thymeleaf -->
             <script th:inline="javascript">
                 var disableddates = [];
-
+                
                 /*<![CDATA[*/
                 var dt = /*[[${datasReservaCajueiro}]]*/ "d";
-
+                var date_string;
+                
                 let tam = dt.length;
                 for (let i = 0; i < tam; i++) {
-                    disableddates.push(formatarData(dt[i]));
-                }
-
-                function formatarData(dt) {
-                    var ano = dt.substr(0, 4);
-                    var mesdia = dt.substr(5, 9);
-                    var data = mesdia.concat('-').concat(ano);
-
-                    var dataNova = new Date(data);
-                    var mes = dataNova.getMonth() + 1;
-                    var dat = dataNova.getDate();
-                    var ano = dataNova.getFullYear();
-
-                    return mes + '-' + dat + '-' + ano;
+                    disableddates.push( dt[i] );
                 }
                 /*]]*/
-            </script>
+                </script>
 
             <script th:src="@{/js/jquery-ui.min.js}"></script>
             <script th:src="@{/js/datepicker-custom.js}"></script>

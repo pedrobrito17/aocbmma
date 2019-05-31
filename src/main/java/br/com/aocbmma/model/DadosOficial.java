@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dados_oficial")
@@ -20,30 +19,24 @@ public class DadosOficial{
     private Integer id;
 
     @Column
-    @NotNull
     private String nome_guerra;
 
     @Column
-    @NotNull
     private String posto;
 
     @Column
     private String quadro;
 
     @Column
-    @NotNull
     private String corporacao;
 
     @Column
-    @NotNull
     private String lotacao;
 
     @Column
-    @NotNull
     private String rg_militar;
 
     @Column
-    @NotNull
     private String matricula;
 
     @OneToOne(cascade=CascadeType.ALL)

@@ -41,8 +41,14 @@
                             <tr th:each="adimp, var : ${sociosAdimplencia}">
                                 <td class="align-middle" th:text="${var.count}"></td>
                                 <td class="align-middle" th:text="${adimp.socio.nome}"></td>
-                                <td class="align-middle" ><a th:text="${adimp.status}" 
-                                    href="javascript:void(0)" th:onclick=" 'getDadosAdimplencia(' +${adimp.cod} + ');' "></a></td>
+                                <td class="align-middle" >
+                                    <a 
+                                        th:text="${adimp.status}" 
+                                        href="javascript:void(0)" 
+                                        th:onclick=" 'getDadosAdimplencia(' +${adimp.cod} + ');' "
+                                        th:class="${adimp.status}=='inadimplente' ? 'text-danger' : 'normal'">
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

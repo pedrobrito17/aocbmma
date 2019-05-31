@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.aocbmma.helper.FileUpload;
+import br.com.aocbmma.model.DadosOficial;
 import br.com.aocbmma.model.Dependente;
 import br.com.aocbmma.model.Role;
 import br.com.aocbmma.model.Socio;
@@ -140,8 +141,17 @@ public class SocioService {
         socio.getDadosBancarios().setSocio(socio);
         socio.getDadosContato().setId(socioBd.getId());
         socio.getDadosContato().setSocio(socio);
-        socio.getDadosOficial().setId(socioBd.getId());
-        socio.getDadosOficial().setSocio(socio);
+        try{
+            socio.getDadosOficial().setId(socioBd.getId());
+            socio.getDadosOficial().setSocio(socio);
+        }catch(NullPointerException e){
+            
+            socio.setDadosOficial(new DadosOficial());
+            socio.getDadosOficial().setId(socioBd.getId());
+            socio.getDadosOficial().setSocio(socio);
+
+            System.out.println("O SÓCIO É CIVIL POR ISSO NÃO POSSUI DADOS DE OFICIAL: " + e.getMessage() );
+        }
         
         socios.save(socio);
     }

@@ -103,7 +103,7 @@
                                                 <span class="font-weight-bold" th:text="${#dates.format(aniv.getData_nascimento(), 'dd') }"></span>
                                             </div>
                                         </div>
-                                        <span class="d-inline-block" th:text="${aniv.dadosOficial.posto +' '+ aniv.dadosOficial.nome_guerra}"></span>
+                                        <span class="d-inline-block" th:text="${#strings.isEmpty(aniv.dadosOficial.posto)} ? ${aniv.nome} : ${aniv.dadosOficial.posto + ' '+aniv.dadosOficial.nome_guerra}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -112,6 +112,7 @@
                 </div>
              
             </div>
+
 
             <div class="row">
                 <div class="col-lg-12">
@@ -166,7 +167,6 @@
                                     <table class="table table-sm table-responsive-sm" th:if="${not sociosSolicitados.empty}">
                                         <thead class="">
                                             <th>Novo sócio</th>
-                                            <th>Corporação</th>
                                             <th>Whatsapp</th>
                                             <th>E-mail</th>
                                             <th></th>
@@ -174,9 +174,8 @@
                                         <tbody>
                                             <tr th:each="socio : ${sociosSolicitados}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${socio.id})}"
-                                                    th:text="${socio.dadosOficial.posto + ' '+ socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${socio.nome}"></a>
                                                 </td>
-                                                <td class="align-middle" th:text="${socio.dadosOficial.corporacao}"></td>
                                                 <td class="align-middle" th:text="${socio.dadosContato.whatsapp}"></td>
                                                 <td class="align-middle" th:text="${socio.dadosContato.email}"></td>
                                                 <td class="align-middle text-center"><a th:href="@{/admin/aceitar-socio/{id}(id=${socio.id})}"
@@ -189,9 +188,8 @@
                         </div>
 
 
-                        <div class="div-info-system" th:if="${not eventCampo.empty}">
+                        <div class="div-info-system" th:if="${not eventCampo.empty or not eventCajueiro.empty or not eventChale.empty}">
                             <h3><i class="fas fa-glass-cheers"></i> NOVOS EVENTOS</h3><br>
-                            <h4 th:if="${eventCampo.empty and eventCajueiro.empty and eventChale.empty}">Nenhum evento solicitado.</h4>
 
                             <div class="row" th:if="${not eventCampo.empty}">
                                 <div class="col-sm-12 col-lg-12">
@@ -208,7 +206,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventCampo}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                                 <td class="align-middle" th:text="${evento.hora_inicio}"></td>
@@ -236,7 +235,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventCajueiro}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                                 <td class="align-middle" th:text="${evento.periodo}"></td>
@@ -264,7 +264,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventChale}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>
@@ -275,7 +276,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> 
                             </div>
                         </div>
 

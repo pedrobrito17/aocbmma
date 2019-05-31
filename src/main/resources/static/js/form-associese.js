@@ -82,7 +82,7 @@ $('#categoria').popover({
         '<ol style="list-style-type: upper-roman; margin: 0px;">' +
         '<li>Fundadores: oficiais que assinaram a Ata de Fundação. </li>' +
         '<li>Efetivos: cadetes, aspirantes e oficiais do CBMMA.</li>' +
-        '<li>Contribuintes: oficiais das Forças Armadas ou outras Forças Auxiliares.</li>' +
+        '<li>Contribuintes: oficiais das Forças Armadas ou Forças Auxiliares e também civis.</li>' +
         '<li>Honorários: reconhecidos por Assembléia Geral.</li>' +
         '</ol>' +
         '</div>' +
@@ -128,6 +128,7 @@ $(document).ready(function () {
 
 function validarForm(form) {
     var erros = validarInputsAndSelects();
+    console.log(erros);
 
     if (!validarSenha() || erros > 0) {
         console.log("Form com erros de validação");
@@ -144,12 +145,9 @@ function validarInputsAndSelects() {
     var dta_nascimento = $('input[name=data_nascimento]').val();
     var cep = $('#cep').val();
     var whatsapp = $('#whatsapp').val();
-    var posto = $('#posto').val();
     var categoria = $('#categoria').val();
     var banco = $('#banco').val();
-    var corporacao = $("#corporacao input[type=radio]:checked").val();
-    var quadro = $("#quadro input[type=radio]:checked").val();
-
+    
     var input_text = $('.validacao-input-text');
     for (let i = 0; i < input_text.length; i++) {
         if (input_text[i].value == '') {
@@ -178,11 +176,7 @@ function validarInputsAndSelects() {
         $('input[name=data_nascimento').addClass('is-invalid');
         erros++;
     }
-    if (posto.length == 0) {
-        $('#posto').focus();
-        $('#posto').addClass('is-invalid');
-        erros++;
-    }
+    
     if (categoria.length == 0) {
         $('#categoria').focus();
         $('#categoria').addClass('is-invalid');
@@ -193,13 +187,42 @@ function validarInputsAndSelects() {
         $('#banco').addClass('is-invalid');
         erros++;
     }
-    if (corporacao == undefined) {
-        $('#corporacao').focus();
-        $('#corporacao input[type=radio]').addClass('is-invalid');
-        erros++;
-    }
+    
+    erros = validarDadosOficial(erros);
 
     return erros;
+}
+
+function validarDadosOficial(erros){
+
+    if( $('#civil').is(':checked') ){
+        //limpar dados
+        return;
+    }
+    else{
+        var posto = $('#posto').val();
+        var corporacao = $("#corporacao input[type=radio]:checked").val();
+        
+        if (posto.length == 0) {
+            $('#posto').focus();
+            $('#posto').addClass('is-invalid');
+            erros++;
+        }
+        if (corporacao == undefined) {
+            $('#corporacao').focus();
+            $('#corporacao input[type=radio]').addClass('is-invalid');
+            erros++;
+        }
+        var input_text = $('.validacao-input-dados-oficial');
+        for (let i = 0; i < input_text.length; i++) {
+            if (input_text[i].value == '') {
+                input_text[i].focus();
+                input_text[i].classList.add('is-invalid');
+                erros++;
+            }
+        }
+        return erros;
+    }
 }
 
 function validarSenha() {
@@ -295,27 +318,35 @@ $("#cep").focusout(function () {
     });
 });
 
+$(function(){
+    $('#civil').click(function(){
+        if( $('#civil').is(':checked') ){
+            $('#dados-oficial').hide();
+        }
+    })
+});
 
 
-// $(document).ready(function(){
-//     $('input[name=nome]').val('Pedro');
-//     $('input[name=cpf]').val('001.881.933-83');
-//     // $('input[name=data_nascimento]').val('17/04/1988');
 
-//     $('#nome_guerra').val('Aragão');
-//     $('#lotacao').val('2 BBM');
-//     $('#rg_militar').val('2170');
-//     $('#matricula').val('435');
+$(document).ready(function(){
+    // $('input[name=nome]').val('Pedro');
+    // $('input[name=cpf]').val('001.881.933-83');
+    // $('input[name=data_nascimento]').val('17/04/1988');
 
-//     $('#agencia').val('5878-1');
-//     $('#conta_corrente').val('24973-4');
+    // $('#nome_guerra').val('Aragão');
+    // $('#lotacao').val('2 BBM');
+    // $('#rg_militar').val('2170');
+    // $('#matricula').val('435');
 
-//     $('#whatsapp').val('(98) 98204-5453');
-//     $('#celular').val('(98) 98204-5453');
-//     $('#email').val('aragao@cbm.ma.gov.br');
+    // $('#agencia').val('5878-1');
+    // $('#conta_corrente').val('24973-4');
 
-//     $('#cep').val('65070-400');
+    // $('#whatsapp').val('(98) 98204-5453');
+    // $('#celular').val('(98) 98204-5453');
+    // $('#email').val('aragao@cbm.ma.gov.br');
 
-//     $('#senha').val('fsadu');
-//     $('#conf_senha').val('fsadu');
-// });
+    // $('#cep').val('65070-400');
+
+    // $('#senha').val('fsadu');
+    // $('#conf_senha').val('fsadu');
+});

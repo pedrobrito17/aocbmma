@@ -3,6 +3,8 @@ package br.com.aocbmma.model;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,10 +32,10 @@ import org.springframework.stereotype.Component;
 @Table(name = "socio")
 @Component
 @Scope("session")
-public class Socio{
-    
+public class Socio {
+
     @Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column
@@ -73,6 +75,7 @@ public class Socio{
     private DadosBancarios dadosBancarios;
 
     @OneToOne(mappedBy = "socio", cascade = CascadeType.ALL)
+    @Nullable
     private DadosOficial dadosOficial;
 
     @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
@@ -82,8 +85,6 @@ public class Socio{
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "socio_role", joinColumns = @JoinColumn(name = "socio_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-
 
     public Integer getId() {
         return this.id;
@@ -196,7 +197,25 @@ public class Socio{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-   
 
+    public String primeiroNome() {
+        // Expressão regular a ser usada
+        String pattern = "^([a-zA-ZÈ-Úè-ú]+)\\s";
+        // Inicialização de RegExp Pattern
+        Pattern r = Pattern.compile(pattern);
+        // Inicialização do verificador de pattern em texto
+        Matcher m = r.matcher(this.nome);
+
+        // Se (matcher encontrou regexp na string)
+        if (m.find()) {
+            // escreva o grupo encontrado
+            System.out.println("Olá, " + m.group(0));
+            return m.group(0);
+        } else {
+            // mensagem de erro
+            System.out.println("Você não tem mais de um nome?");
+            return "sem nome";
+        }
+    }
 
 }

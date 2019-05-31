@@ -75,7 +75,7 @@
                             <div class="" th:if="${#strings.isEmpty( socio.path_foto_perfil )}">
                                 <img class="user foto-avatar-perfil" th:src="@{/img/avatar-user.png}">
                             </div>
-                            <p class="mt-2"><b th:text="${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p>
+                            <p class="mt-2"><b th:text="${#strings.isEmpty(socio.dadosOficial.posto)} ? ${socio.nome} : ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p>
                             <hr>
                         </li>
                         <li class="">

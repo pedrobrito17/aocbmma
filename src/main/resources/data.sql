@@ -6,8 +6,12 @@ insert into chale(disponivel,preco_atual) values(true,30),(true,30),(false,30),(
 insert into campo_futebol(disponivel,preco_atual_diurno,preco_atual_noturno) values(true,100,150);
 insert into espaco_cajueiro(disponivel,preco_atual_diurno,preco_atual_noturno,preco_atual_diaria) values(true,100,150,250);
 
-update socio set ativo=1,situacao='ativo' where id=1;
-insert into socio_role values(1,2);
+-- ALTER TABLE dados_oficial CHANGE COLUMN rg_militar rg_militar VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN corporacao corporacao VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN lotacao lotacao VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN matricula matricula VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN nome_guerra nome_guerra VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN posto posto VARCHAR(255) NULL;
+-- ALTER TABLE dados_oficial CHANGE COLUMN quadro quadro VARCHAR(255) NULL;
 
--- 06/04 (diaria) - cel roberio
--- 13/04 (diurno) - ten constantino
+insert into socio_role values(1,2);

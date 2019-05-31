@@ -42,7 +42,8 @@
                                         <tr th:each="evento : ${eventCampo}">
                                             <td class="align-middle"><a
                                                     th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle" th:text="${evento.hora_inicio}"></td>
@@ -58,7 +59,7 @@
                         <div class="row mt-4" th:if="${not eventCajueiro.empty}">
                             <div class="col-sm-12 col-lg-12">
                                 <h6><b>Espaço Cajueiro</b></h6>
-                                <table class="table table-sm table-striped">
+                                <table class="table table-sm table-striped table-responsive-sm">
                                     <thead>
                                         <tr>
                                             <th>Sócio</th>
@@ -71,7 +72,8 @@
                                     <tbody>
                                         <tr th:each="evento : ${eventCajueiro}">
                                             <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle" th:text="${evento.periodo}"></td>
@@ -86,7 +88,7 @@
                         <div class="row mt-4 mb-5" th:if="${not eventChale.empty}">
                             <div class="col-sm-12 col-lg-12">
                                 <h6><b>Chalé</b></h6>
-                                <table class="table table-sm table-striped">
+                                <table class="table table-sm table-striped table-responsive-sm">
                                     <thead>
                                         <tr>
                                             <th>Sócio</th>
@@ -100,7 +102,8 @@
                                     <tbody>
                                         <tr th:each="evento : ${eventChale}">
                                             <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                th:text="${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>

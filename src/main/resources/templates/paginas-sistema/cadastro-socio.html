@@ -15,9 +15,17 @@
     <!-- Estilos -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/padrao-sistema.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
         crossorigin="anonymous">
+
+    <style>
+        #label-civil{
+            position: relative;
+            bottom: -4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -82,14 +90,20 @@
                                 </div>
                             </div>
                         </fieldset>
-                        <br>
+                        
 
-                        <fieldset>
-                            <legend>Dados do oficialato <span class="color-obrigatorio">*</span></legend>
+                        <fieldset id="dados-oficial" class="mt-4">
+                            <div class="flex-row mb-2">
+                                <legend class="d-inline w-auto">Dados do oficialato <span class="color-obrigatorio">*</span></legend>
+                                <div class="d-inline form-check ml-3">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="civil">
+                                    <label class="form-check-label" for="civil" id="label-civil">Não sou militar</label>
+                                  </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                    <input class="form-control form-custom validacao-input-dados-oficial" type="text"
                                         name="nome_guerra" placeholder="Nome de guerra" id="nome_guerra"
                                         th:field="*{dadosOficial.nome_guerra}">
                                     <div class="invalid-feedback">
@@ -161,7 +175,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-12">
-                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                    <input class="form-control form-custom validacao-input-dados-oficial" type="text"
                                         name="lotacao" placeholder="Lotação" id="lotacao"
                                         th:field="*{dadosOficial.lotacao}">
                                     <div class="invalid-feedback">
@@ -172,7 +186,7 @@
                             <br>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
-                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                    <input class="form-control form-custom validacao-input-dados-oficial" type="text"
                                         name="rg_militar" placeholder="RG Militar" id="rg_militar"
                                         th:field="*{dadosOficial.rg_militar}">
                                     <div class="invalid-feedback">
@@ -180,7 +194,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
-                                    <input class="form-control form-custom validacao-input-text" type="text"
+                                    <input class="form-control form-custom validacao-input-dados-oficial" type="text"
                                         name="matricula" placeholder="Matrícula" id="matricula"
                                         th:field="*{dadosOficial.matricula}">
                                     <div class="invalid-feedback">
@@ -368,9 +382,9 @@
                         </fieldset>
 
                         <br>
-                        <div class="row">
+                        <div class="row mb-4">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-success mt-4 mb-4 float-right">ASSOCIAR</button>
+                                <button type="submit" class="btn btn-sis btn-block mt-4 mb-4">ASSOCIAR</button>
                             </div>
                         </div>
 
