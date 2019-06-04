@@ -1,8 +1,11 @@
 package br.com.aocbmma.controller;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.aocbmma.helper.FileSociosExcel;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.SocioService;
 
@@ -22,7 +26,13 @@ import br.com.aocbmma.service.SocioService;
 public class SocioController {
 
     @Autowired
+    ServletContext servlet;
+
+    @Autowired
     private SocioService socioService;
+
+    @Autowired
+    private FileSociosExcel fileSociosExcel;
 
     private ModelAndView mv = null;
 
@@ -55,4 +65,18 @@ public class SocioController {
         return mv;
     }
 
+    @RequestMapping(value="/admin/planilha-socios", method=RequestMethod.GET)
+    public HttpEntity<byte[]> getPlanilhaSocios() {
+        String path_root = servlet.getRealPath("/");
+        byte[] planilhaBytes = fileSociosExcel.criarArquivoExcel(path_root);
+        String name_file = FileSociosExcel.FILE;
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Disposition", "attachment; filename=\"" + name_file + "\"");
+
+        HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>( planilhaBytes, httpHeaders );
+        return httpEntity;
+    }
+    
+    
 }
