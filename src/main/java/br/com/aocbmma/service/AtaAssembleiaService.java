@@ -30,7 +30,7 @@ public class AtaAssembleiaService{
 	}
 
 	public List<AtaAssembleia> getTodasAtasAssembleia() {
-		return repository.findAll();
+		return repository.findAllOrderByDataDesc();
 	}
 
 	public void deletarAtaAssembleia(Integer id) {
