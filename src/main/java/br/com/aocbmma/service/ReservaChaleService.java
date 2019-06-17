@@ -93,4 +93,8 @@ public class ReservaChaleService{
             }
         }
     }
+
+	public void deletarReserva(int id_reserva) {
+        reservaRepository.deleteById(id_reserva);
+	}
 }

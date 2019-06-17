@@ -115,4 +115,8 @@ public class ReservaCampoFutebolService{
             }
         }
     }
+
+	public void deletarReserva(int id_reserva) {
+        reservaCampoFutebolRepository.deleteById(id_reserva);
+	}
 }

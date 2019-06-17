@@ -17,11 +17,14 @@ public interface Socios extends JpaRepository<Socio,Integer>{
     @Query(value="SELECT * FROM socio s INNER JOIN dados_oficial d ON s.id = d.socio_id WHERE month(s.data_nascimento) = :mes order by day(s.data_nascimento) asc", nativeQuery=true)
     List<Socio> getAniversariantes(@Param("mes") int mes);
 
-    @Query(value="SELECT * FROM dados_contato d INNER JOIN socio s ON s.id = d.socio_id WHERE d.email = :email", nativeQuery=true)
-    Socio findByEmail(@Param("email") String email);
+    @Query(value="SELECT d.socio_id FROM dados_contato d INNER JOIN socio s ON s.id = d.socio_id WHERE d.email = :email", nativeQuery=true)
+    int getSocioIdByEmail(@Param("email") String email);
 
     @Query(value="select * from socio where tipo_socio=:categoria order by nome asc", nativeQuery=true)
     List<Socio> findByTipoSocio(@Param("categoria") String categoria);
+
+    @Query(value="select * from socio where situacao='ativo' AND tipo_socio=:categoria order by nome asc", nativeQuery=true)
+    List<Socio> findByTipoSocioAtivo(@Param("categoria") String categoria);
     
     @Query(value="select nome from socio", nativeQuery=true)
 	List<String> findAllNomesSocios();

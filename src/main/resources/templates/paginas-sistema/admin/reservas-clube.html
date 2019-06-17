@@ -23,6 +23,14 @@
                     <div class="mt-4">
                         <h4 th:if="${eventCampo.empty and eventCajueiro.empty and eventChale.empty}">Nenhuma reserva
                             realizada.</h4>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-success" th:if="${msgSuccess}">
+                                    <span th:utext="${msgSuccess}"></span>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row" th:if="${not eventCampo.empty}">
                             <div class="col-sm-12 col-lg-12">
@@ -36,6 +44,7 @@
                                             <th>Horário término</th>
                                             <th>Valor da reserva</th>
                                             <th>Pagamento</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,6 +59,16 @@
                                             <td class="align-middle" th:text="${evento.hora_termino}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" title="Deletar reserva"
+                                                th:href="@{/admin/deletar-reserva/campo/{id}(id=${evento.id})}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" title="Pagamento realizado"
+                                                th:href="@{/admin/atualizar-status-reserva/campo/{id}(id=${evento.id})}">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -67,6 +86,7 @@
                                             <th>Período</th>
                                             <th>Valor da reserva</th>
                                             <th>Pagamento</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,6 +99,16 @@
                                             <td class="align-middle" th:text="${evento.periodo}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" 
+                                                th:href="@{/admin/deletar-reserva/cajueiro/{id}(id=${evento.id})}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" 
+                                                th:href="@{/admin/atualizar-status-reserva/cajueiro/{id}(id=${evento.id})}">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -97,6 +127,7 @@
                                             <th>Data saída</th>
                                             <th>Valor da reserva</th>
                                             <th>Pagamento</th>
+                                            <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -110,6 +141,16 @@
                                             <td class="align-middle" th:text="${#dates.format(evento.data_saida, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
                                             <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" 
+                                                th:href="@{/admin/deletar-reserva/chale/{id}(id=${evento.id})}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" 
+                                                th:href="@{/admin/atualizar-status-reserva/chale/{id}(id=${evento.id})}">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

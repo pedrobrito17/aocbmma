@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="titulo">
-                        <a th:href="@{/sisaocbmma}">
+                        <a th:href="@{/}">
                             <img class="d-inline-block" th:src="@{/img/brasao-sistema.png}" style="width:40px;"
                                 alt="brasao">
                             <h4 class="d-inline-block ml-2"><b>AOCBMMA</b></h4>
@@ -75,7 +75,8 @@
                             <div class="" th:if="${#strings.isEmpty( socio.path_foto_perfil )}">
                                 <img class="user foto-avatar-perfil" th:src="@{/img/avatar-user.png}">
                             </div>
-                            <p class="mt-2"><b th:text="${#strings.isEmpty(socio.dadosOficial.posto)} ? ${socio.nome} : ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p>
+                            <!-- <p class="mt-2"><b th:text="${#strings.isEmpty(socio.dadosOficial.posto)} ? ${socio.nome} : ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p> -->
+                            <p class="mt-2"><b th:text="${socio.dadosOficial} ? ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra} : ${socio.nome}"></b></p>
                             <hr>
                         </li>
                         <li class="">
@@ -127,6 +128,9 @@
                         <ul>
                             <li class="">
                                 <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
+                            </li>
+                            <li class="">
+                                <a id="reservas" th:href="@{/admin/download-files-doc-zip}"><i class="fas fa-file-download"></i></i><span> Documentação dos associados</span></a>
                             </li>
                             <li class="">
                                 <a id="carteiras_identificacao" 

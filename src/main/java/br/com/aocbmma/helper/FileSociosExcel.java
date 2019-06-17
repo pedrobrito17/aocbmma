@@ -117,7 +117,7 @@ public class FileSociosExcel {
     }
 
     public void inserirDadosDoSocioNaFolha(HSSFSheet folha, String categoria){
-        List<Socio> sociosEfetivos = getSociosDaCategoria(categoria);
+        List<Socio> sociosEfetivos = getSociosAtivosDaCategoria(categoria);
 
         int cont = 1;
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
@@ -127,14 +127,14 @@ public class FileSociosExcel {
 
             rowDados.createCell(0).setCellValue( cont );
             rowDados.createCell(1).setCellValue( socio.getNome() );
-            rowDados.createCell(2).setCellValue( socio.getDadosOficial().getPosto() + " " + socio.getDadosOficial().getQuadro() );
-            rowDados.createCell(3).setCellValue( socio.getDadosOficial().getNome_guerra() );
+            rowDados.createCell(2).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getPosto() + " " + socio.getDadosOficial().getQuadro() : " - " );
+            rowDados.createCell(3).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getNome_guerra() : " - " );
             rowDados.createCell(4).setCellValue( data_nascimento );
             rowDados.createCell(5).setCellValue( socio.getCpf() );
-            rowDados.createCell(6).setCellValue( socio.getDadosOficial().getCorporacao() );
-            rowDados.createCell(7).setCellValue( socio.getDadosOficial().getLotacao() );
-            rowDados.createCell(8).setCellValue( socio.getDadosOficial().getRg_militar() );
-            rowDados.createCell(9).setCellValue( socio.getDadosOficial().getMatricula() );
+            rowDados.createCell(6).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getCorporacao() : " - " );
+            rowDados.createCell(7).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getLotacao() : " - " );
+            rowDados.createCell(8).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getRg_militar() : " - ");
+            rowDados.createCell(9).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getMatricula() : " - ");
             rowDados.createCell(10).setCellValue( socio.getDadosContato().getEndereco() );
             rowDados.createCell(11).setCellValue( socio.getDadosContato().getNumero() );
             rowDados.createCell(12).setCellValue( socio.getDadosContato().getComplemento() );
@@ -191,8 +191,8 @@ public class FileSociosExcel {
         folha.setDefaultRowHeight( (short) 400);
     }
 
-    public List<Socio> getSociosDaCategoria(String categoria){
-        List<Socio> socios = socioService.getSociosDesta(categoria);
+    public List<Socio> getSociosAtivosDaCategoria(String categoria){
+        List<Socio> socios = socioService.getSociosAtivosDesta(categoria);
         return socios;
     }
 

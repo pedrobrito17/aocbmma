@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.aocbmma.helper.FormatadorData;
 import br.com.aocbmma.helper.MensageiroEmail;
@@ -26,6 +27,8 @@ import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 import br.com.aocbmma.service.SocioTransferenciaService;
 import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
+
+
 
 @Controller
 public class ReservaController {
@@ -139,6 +142,42 @@ public class ReservaController {
         mensageiroEmail.reservaRealizadaEnviarEmail();
         return aoIndex("msgSuccess", msgSuccess);
     }
+
+    @GetMapping(value="/admin/deletar-reserva/{item}/{id}")
+    public ModelAndView deletarReserva(@PathVariable("item") String item, @PathVariable("id") int id_reserva, RedirectAttributes redirectAttributes) {
+        switch(item){
+            case "campo":
+                reservaCampoService.deletarReserva(id_reserva);
+                break;
+            case "cajueiro":
+                reservaCajueiroService.deletarReserva(id_reserva);
+                break;
+            case "chale":
+                reservaChaleService.deletarReserva(id_reserva);
+                break;
+        }
+        redirectAttributes.addFlashAttribute("msgSuccess", "Reserva deletada com sucesso.");        
+        return new ModelAndView("redirect:/admin/reservas-clube");
+    }
+    
+    @GetMapping(value="/admin/atualizar-status-reserva/{item}/{id}")
+    public ModelAndView atualizarStatusReserva(@PathVariable("item") String item, @PathVariable("id") int id_reserva, RedirectAttributes redirectAttributes) {
+        switch(item){
+            case "campo":
+                reservaCampoService.confirmarReserva(id_reserva);
+                break;
+            case "cajueiro":
+                reservaCajueiroService.confirmarReserva(id_reserva);
+                break;
+            case "chale":
+                reservaChaleService.confirmarReserva(id_reserva);
+                break;
+        }
+        redirectAttributes.addFlashAttribute("msgSuccess", "Status de pagamento da reserva atualizado com sucesso.");        
+        return new ModelAndView("redirect:/admin/reservas-clube");
+    }
+    
+    
 
     public ModelAndView aoIndex(String msgTipo, String msg) {
         socioLogado = socioService.getSocioByEmail();

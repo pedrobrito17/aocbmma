@@ -2,6 +2,7 @@ package br.com.aocbmma.controller;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,7 +25,6 @@ import br.com.aocbmma.model.Convenio;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
-import br.com.aocbmma.service.SocioService;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -41,39 +41,32 @@ public class ConvenioController {
 
     private ModelAndView mv = null;
 
-    @Autowired
-    private SocioService socioService;
-
-    private Socio socioLogado = null;
+    //obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
+    @Resource(name = "getSessionScopedSocio") 
+    private Socio socioSession;
 
     @RequestMapping(value = "/add-convenio", method = RequestMethod.GET)
     public ModelAndView pageAddConvenio(Convenio convenio) {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/convenios/add-convenio");
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
     
     @RequestMapping(value = "/listar-convenios", method = RequestMethod.GET)
     public ModelAndView pageListarConvenios() {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/convenios/lista-convenios");
         mv.addObject("convenios", convenioService.getConvenios());
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
     
     @RequestMapping(value = "/editar-convenio/{id}", method = RequestMethod.GET)
     public ModelAndView pageEditarConvenio(@PathVariable Integer id) {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/convenios/editar-convenio");
         mv.addObject("convenio", convenioService.buscarConvenio(id));
         mv.addObject("categorias", categoriaConvenioService.getListCategoriaConvenios());
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
 

@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ZipDirectory",
+            "request": "launch",
+            "mainClass": "br.com.aocbmma.helper.ZipDirectory",
+            "projectName": "aocbmma"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - AocbmmaApplication",
             "request": "launch",
             "mainClass": "br.com.aocbmma.AocbmmaApplication",

@@ -1,6 +1,7 @@
 package br.com.aocbmma.controller;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.aocbmma.helper.FileSociosExcel;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.SocioService;
+
+
 
 @Controller
 public class SocioController {
@@ -50,17 +53,26 @@ public class SocioController {
         mv.addObject("msg_erro", msgRetornoErro);
         return mv;
     }
+    
+    @GetMapping(value="/admin/alterar-status-socio/{status}/{id}")
+    public ModelAndView alterarStatusParaInativo(@PathVariable("status") String status, @PathVariable("id") int socio_id, 
+    RedirectAttributes redirectAttributes) {
+        socioService.atualizarSituacaoSocioPara(status, socio_id);
+        redirectAttributes.addFlashAttribute("msgSuccess", "A situação do sócio foi alterada com sucesso");
+        mv = new ModelAndView("redirect:/");
+        return mv;
+    }
 
     @GetMapping(value = "/admin/aceitar-socio/{id}")
-    public ModelAndView aceitarSocio(@PathVariable("id") int id) {
-        socioService.atualizarSituacaoSocio(id);
+    public ModelAndView alterarStatusParaAtivo(@PathVariable("id") int id) {
+        socioService.atualizarSituacaoSocioPara("ativo", id);
         mv = new ModelAndView("redirect:/");
         return mv;
     }
 
     @PostMapping(value = "/sisaocbmma/salvar-foto-perfil/{id}")
-    public ModelAndView salvarFotoPerfil(@RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
-       socioService.salvarFotoDoPerfil(socio_id, file);
+    public ModelAndView salvarFotoPerfil(HttpServletRequest request, @RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
+        socioService.salvarFotoDoPerfil(socio_id, file);
         mv = new ModelAndView("redirect:/");
         return mv;
     }
@@ -77,6 +89,5 @@ public class SocioController {
         HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>( planilhaBytes, httpHeaders );
         return httpEntity;
     }
-    
     
 }

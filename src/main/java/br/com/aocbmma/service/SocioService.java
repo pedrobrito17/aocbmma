@@ -3,23 +3,35 @@ package br.com.aocbmma.service;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.aocbmma.helper.FileUpload;
+import br.com.aocbmma.model.DadosBancarios;
+import br.com.aocbmma.model.DadosContato;
 import br.com.aocbmma.model.DadosOficial;
 import br.com.aocbmma.model.Dependente;
 import br.com.aocbmma.model.Role;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.repository.DadosBancariosRepository;
+import br.com.aocbmma.repository.DadosContatoRepository;
+import br.com.aocbmma.repository.DadosOficialRepository;
 import br.com.aocbmma.repository.Dependentes;
 import br.com.aocbmma.repository.Roles;
 import br.com.aocbmma.repository.Socios;
@@ -29,6 +41,18 @@ public class SocioService {
 
     @Autowired
     private Socios socios;
+
+    @Autowired
+    private DadosOficialRepository oficialRepository;
+
+    @Autowired
+    private DadosBancariosRepository bancariosRepository;
+
+    @Autowired
+    private DadosContatoRepository contatoRepository;
+
+    @Autowired
+    private Dependentes dependentesRepository;
 
     @Autowired
     private ServletContext servlet;
@@ -44,33 +68,68 @@ public class SocioService {
 
     @Transactional
     public String salvarSocio(Socio socio) {
-        Socio socioExiste = socios.findByEmail(socio.getDadosContato().getEmail());
+        int socio_id = 0;
+        Socio socioExiste = null;
+        try {
+            socio_id = socios.getSocioIdByEmail(socio.getDadosContato().getEmail());
+            socioExiste = socios.findById(socio_id).get();
+        } catch (Exception e) {
+            System.out.println("NENHUM SÓCIO FOI ENCONTRADO E O RETORNO FOI NULL PARA UM TIPO PRIMITIVO.");
+        }
 
         if (socioExiste == null) {
-            verificarCadastroDependentes(socio.getDependentes());
-            relacionarEntidadePaiComEntidadeFilha(socio);
+
+            DadosOficial dadosOficial = socio.getDadosOficial();
+            DadosContato dadosContato = socio.getDadosContato();
+            DadosBancarios dadosBancarios = socio.getDadosBancarios();
+            List<Dependente> dependentes = socio.getDependentes();
+
+            dependentes = verificarCadastroDependentes(dependentes);
+            dadosOficial = verificarDadosOficial(dadosOficial);
 
             Role socioRole = roles.findByRole("SOCIO");
             socio.setRoles(new HashSet<Role>(Arrays.asList(socioRole)));
             socio.setSenha(bCryptPasswordEncoder.encode(socio.getSenha()));
-            socios.save(socio);
+            socio.setDadosBancarios(null);
+            socio.setDadosOficial(null);
+            socio.setDadosContato(null);
+            socio.setDependentes(null);
+            Socio socioSaved = socios.save(socio);
+
+            dadosContato.setSocio(socioSaved);
+            dadosContato = contatoRepository.save(dadosContato);
+            dadosBancarios.setSocio(socioSaved);
+            dadosBancarios = bancariosRepository.save(dadosBancarios);
+
+            if (dadosOficial != null) {
+                dadosOficial.setSocio(socioSaved);
+                dadosOficial = oficialRepository.save(dadosOficial);
+            }
+
+            if (dependentes != null) {
+                relacionarEntidadePaiComOsSeusDependentes(dependentes, socioSaved);
+                for (Dependente dep : dependentes) {
+                    dependentesRepository.save(dep);
+                }
+            }
 
             return "";
+
+        } else {
+            return "Este e-mail já está cadastrado. Tente novamente com outro e-mail.";
         }
-        return "Este e-mail já está cadastrado. Tente novamente com outro e-mail.";
 
     }
 
-    public void relacionarEntidadePaiComEntidadeFilha(Socio socio) {
-        socio.getDadosBancarios().setSocio(socio);
-        socio.getDadosContato().setSocio(socio);
-        socio.getDadosOficial().setSocio(socio);
-
-        List<Dependente> dependentes = socio.getDependentes();
-        relacionarEntidadePaiComOsSeusDependentes(dependentes, socio);
+    private DadosOficial verificarDadosOficial(DadosOficial d) {
+        if (d.getNome_guerra().isEmpty() && d.getPosto().isEmpty() && d.getLotacao().isEmpty()
+                && d.getRg_militar().isEmpty() && d.getMatricula().isEmpty()) {
+            return null;
+        }
+        return d;
     }
 
-    public void verificarCadastroDependentes(List<Dependente> socioDependentes) {
+    private List<Dependente> verificarCadastroDependentes(List<Dependente> socioDependentes) {
         for (int i = 0; i < socioDependentes.size(); i++) {
             if (socioDependentes.get(i).getNome().isEmpty() || socioDependentes.get(i).getParentesco().isEmpty()) {
                 socioDependentes.remove(i);
@@ -79,9 +138,10 @@ public class SocioService {
         if (socioDependentes.isEmpty()) {
             socioDependentes = null;
         }
+        return socioDependentes;
     }
 
-    public void relacionarEntidadePaiComOsSeusDependentes(List<Dependente> socioDependentes, Socio socio) {
+    private void relacionarEntidadePaiComOsSeusDependentes(List<Dependente> socioDependentes, Socio socio) {
         if (socioDependentes != null) {
             for (int i = 0; i < socioDependentes.size(); i++) {
                 socioDependentes.get(i).setSocio(socio);
@@ -94,23 +154,33 @@ public class SocioService {
     }
 
     @Transactional
-    public void atualizarSituacaoSocio(int id) {
+    public void atualizarSituacaoSocioPara(String situacao, int id) {
         Socio socio = socios.getOne(id);
-        socio.setSituacao("ativo");
-        socio.setAtivo(1);
-        socios.save(socio);
+        switch (situacao) {
+        case "ativo":
+            socio.setSituacao("ativo");
+            socio.setAtivo(1);
+            socios.save(socio);
+            break;
+        case "inativo":
+            socio.setSituacao("inativo");
+            socio.setAtivo(0);
+            socios.save(socio);
+            break;
+        }
     }
 
-    public void salvarFotoDoPerfil(int socio_id, MultipartFile file){
-        
+    public void salvarFotoDoPerfil(int socio_id, MultipartFile file) {
+
         Socio socio = findSocio(socio_id);
-        if( !socio.getPath_foto_perfil().isEmpty() ){
+        if (socio.getPath_foto_perfil() != null) {
             apagaFotoSalvaNoServidor(socio);
         }
 
         String nameFileOrig = file.getOriginalFilename();
         int tam = nameFileOrig.length();
-        String fileName = socio.getId() + nameFileOrig.substring(tam-4, tam);
+        int indexType = nameFileOrig.indexOf(".", tam - 5);
+        String fileName = socio.getId() + nameFileOrig.substring(indexType, tam);
         String pathRoot = servlet.getRealPath("/");
         String pathFile = FileUpload.DIRECTORY_FOTO_PERFIL + fileName;
 
@@ -123,7 +193,7 @@ public class SocioService {
         }
     }
 
-    public void apagaFotoSalvaNoServidor(Socio socio){
+    public void apagaFotoSalvaNoServidor(Socio socio) {
         String pathRoot = servlet.getRealPath("/");
         String pathFile = socio.getPath_foto_perfil();
         FileUpload.deleteFile(pathRoot, pathFile);
@@ -131,7 +201,7 @@ public class SocioService {
 
     public void atualizarSocio(Socio socio) {
         Socio socioBd = socios.findById(socio.getId()).get();
-        
+
         socio.setRoles(socioBd.getRoles());
         socio.setDependentes(socioBd.getDependentes());
         socio.setSenha(socioBd.getSenha());
@@ -141,30 +211,30 @@ public class SocioService {
         socio.getDadosBancarios().setSocio(socio);
         socio.getDadosContato().setId(socioBd.getId());
         socio.getDadosContato().setSocio(socio);
-        try{
+        try {
             socio.getDadosOficial().setId(socioBd.getId());
             socio.getDadosOficial().setSocio(socio);
-        }catch(NullPointerException e){
-            
+        } catch (NullPointerException e) {
+
             socio.setDadosOficial(new DadosOficial());
             socio.getDadosOficial().setId(socioBd.getId());
             socio.getDadosOficial().setSocio(socio);
 
-            System.out.println("O SÓCIO É CIVIL POR ISSO NÃO POSSUI DADOS DE OFICIAL: " + e.getMessage() );
+            System.out.println("O SÓCIO É CIVIL POR ISSO NÃO POSSUI DADOS DE OFICIAL: " + e.getMessage());
         }
-        
+
         socios.save(socio);
     }
 
-    public void atualizarSenhaSocio(Socio socio){
+    public void atualizarSenhaSocio(Socio socio) {
         Socio socioBd = socios.findById(socio.getId()).get();
         socioBd.setSenha(bCryptPasswordEncoder.encode(socio.getSenha()));
         socios.save(socioBd);
     }
 
-    public void atualizarMeusDependentes(Socio socio){
+    public void atualizarMeusDependentes(Socio socio) {
         Socio socioBd = socios.findById(socio.getId()).get();
-        
+
         verificarCadastroDependentes(socio.getDependentes());
         relacionarEntidadePaiComOsSeusDependentes(socio.getDependentes(), socioBd);
 
@@ -179,16 +249,35 @@ public class SocioService {
     }
 
     public Socio findSocioByEmail(String email) {
-        return socios.findByEmail(email);
+        int socio_id = socios.getSocioIdByEmail(email);
+        return socios.findById(socio_id).get();
+    }
+
+    // Cria um objeto do socioLogado na sessão ativa
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    @Transactional
+    public Socio getSessionScopedSocio() {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        int socio_id = socios.getSocioIdByEmail(email);
+        Socio socio = socios.findById(socio_id).get();
+        return socio;
     }
 
     @Transactional
     public Socio getSocioByEmail() {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        Socio socioIncompleto = socios.findByEmail(email);
-        Socio socio = socios.findById(socioIncompleto.getId()).get();
+        int socio_id = socios.getSocioIdByEmail(email);
+        Socio socio = socios.findById(socio_id).get();
         return socio;
+    }
+
+    public Collection<? extends GrantedAuthority> getRolesBySocio() {
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> rols = auth.getAuthorities();
+        return rols;
     }
 
 	public boolean deletarDependente(int id) {
@@ -204,6 +293,10 @@ public class SocioService {
         return socios.findByTipoSocio(categoria);
     }
 
+    public List<Socio> getSociosAtivosDesta(String categoria){
+        return socios.findByTipoSocioAtivo(categoria);
+    }
+
 	public List<String> findAllNomesSocios() {
 		return socios.findAllNomesSocios();
 	}
@@ -211,5 +304,16 @@ public class SocioService {
 	public Socio findSocioByNome(String nomeSocio) {
 		return socios.findByNome(nomeSocio);
     }
+
+	public String getNomeBy(int id) {
+		return socios.findById(id).get().getNome();
+	}
+
+    @Transactional
+	public void deletarSocio(int socio_id) {
+        Socio socio = socios.findById(socio_id).get();
+        socio.setRoles(null);
+        socios.delete(socio);
+	}
     
 }

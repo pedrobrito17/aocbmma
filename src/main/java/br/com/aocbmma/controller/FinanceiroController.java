@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,7 +26,6 @@ import br.com.aocbmma.helper.FormatadorData;
 import br.com.aocbmma.model.MovimentacaoFinanceira;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.MovimentacaoFinanceiraService;
-import br.com.aocbmma.service.SocioService;
 
 
 @Controller
@@ -37,10 +37,9 @@ public class FinanceiroController{
     @Autowired
     ServletContext servlet;
 
-    @Autowired
-    private SocioService socioService;
-
-    private Socio socioLogado = null;
+    //obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
+    @Resource(name = "getSessionScopedSocio") 
+    private Socio socioSession;
 
     private ModelAndView mv = null;
 
@@ -48,20 +47,16 @@ public class FinanceiroController{
 
     @RequestMapping(value="/admin/add-financeiro", method=RequestMethod.GET)
     public ModelAndView pageAddFinanceiro() {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/financeiro/add-financeiro");
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
     
     @RequestMapping(value="/admin/listar-financeiro", method=RequestMethod.GET)
     public ModelAndView pageTodosFinanceiro() {
-        socioLogado = socioService.getSocioByEmail();
-
         mv = new ModelAndView("paginas-sistema/admin/financeiro/lista-financeiro");
         mv.addObject("financeiros", financeiraService.getTodasMovimentacoesFinanceiras());
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
 

@@ -322,28 +322,34 @@ $(function(){
     $('#civil').click(function(){
         if( $('#civil').is(':checked') ){
             $('#dados-oficial').hide();
+            $('#nome_guerra').val(null);
+            $('#posto').val(null);
+            $('#lotacao').val(null);
+            $('#rg_militar').val(null);
+            $('#matricula').val(null);
         }
     })
 });
 
-
-
 $(document).ready(function(){
     // $('input[name=nome]').val('Pedro');
     // $('input[name=cpf]').val('001.881.933-83');
+    // $('#categoria').val('efetivo');
     // $('input[name=data_nascimento]').val('17/04/1988');
 
     // $('#nome_guerra').val('Aragão');
+    // $('#posto').val('Capitão');
     // $('#lotacao').val('2 BBM');
     // $('#rg_militar').val('2170');
     // $('#matricula').val('435');
 
+    // $('#banco').val('Banco do Brasil S.A.');
     // $('#agencia').val('5878-1');
     // $('#conta_corrente').val('24973-4');
 
     // $('#whatsapp').val('(98) 98204-5453');
     // $('#celular').val('(98) 98204-5453');
-    // $('#email').val('aragao@cbm.ma.gov.br');
+    // $('#email').val('');
 
     // $('#cep').val('65070-400');
 

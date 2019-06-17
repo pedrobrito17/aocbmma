@@ -312,3 +312,20 @@ footer a:hover {
     -o-transform: scale(1.5);
     -ms-transform: scale(1.5);
 }
+
+/* =================================================
+= TABELA
+================================================= */
+
+.table-sis thead{
+    background-color:#f43340;
+    color: #ffe;
+    box-shadow: inset 0px 1px 0px #ee8f95;
+}
+.table-sis thead th{
+    text-align: center;
+}
+.table-sis tbody+tbody,.table-sis td,.table-sis th,.table-sis thead th{
+    /* border-color:#f3626c; */
+    border-color:#ac2831;
+}

@@ -77,6 +77,13 @@
         <version>1.4</version>
     </dependency>
 
+    <!-- Dependência para criar json -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.9</version>
+    </dependency>
+
     <!-- OUTRAS DEPENDENCIAS -->
     <dependency>
       <groupId>commons-io</groupId>
@@ -110,10 +117,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-mail</artifactId>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
     </dependency>
   </dependencies>
 

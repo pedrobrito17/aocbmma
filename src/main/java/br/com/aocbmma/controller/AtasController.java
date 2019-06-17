@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,13 +26,9 @@ import br.com.aocbmma.helper.FormatadorData;
 import br.com.aocbmma.model.AtaAssembleia;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.AtaAssembleiaService;
-import br.com.aocbmma.service.SocioService;
 
 @Controller
 public class AtasController{
-
-    @Autowired
-    private SocioService socioService;
 
     @Autowired
     private AtaAssembleiaService ataAssembleiaService;
@@ -39,7 +36,9 @@ public class AtasController{
     @Autowired
     ServletContext servlet;
     
-    private Socio socioLogado = null;
+    //obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
+    @Resource(name = "getSessionScopedSocio") 
+    private Socio socioSession;
 
     private ModelAndView mv = null;
 
@@ -47,10 +46,8 @@ public class AtasController{
 
     @RequestMapping(value="/admin/add-ata-assembleia", method=RequestMethod.GET)
     public ModelAndView pageAddAta() {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/atas/add-ata");
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
 
@@ -71,11 +68,9 @@ public class AtasController{
 
     @RequestMapping(value="/admin/listar-atas-assembleia", method=RequestMethod.GET)
     public ModelAndView pageTodasAtasAssembleia() {
-        socioLogado = socioService.getSocioByEmail();
-
         mv = new ModelAndView("paginas-sistema/admin/atas/listar-atas-assembleia");
         mv.addObject("atas", ataAssembleiaService.getTodasAtasAssembleia());
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         return mv;
     }
 

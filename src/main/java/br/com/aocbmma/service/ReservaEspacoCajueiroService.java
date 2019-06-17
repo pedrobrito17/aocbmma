@@ -84,4 +84,8 @@ public class ReservaEspacoCajueiroService{
         }
     }
 
+	public void deletarReserva(int id_reserva) {
+        reservaCajueiroRepository.deleteById(id_reserva);
+	}
+
 }

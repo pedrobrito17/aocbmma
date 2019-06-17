@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -40,24 +42,22 @@ public class PagamentoMensalidadeController{
 
     private ModelAndView mv = null;
 
-    private Socio socioLogado = null;
+    //obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
+    @Resource(name = "getSessionScopedSocio") 
+    private Socio socioSession;
 
     @GetMapping(value="/admin/controle-pagamento")
     public ModelAndView pageControlePagamento() {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/financeiro/controle-pagamento");
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         mv.addObject("todosSocios", socioService.findAllNomesSocios());
         return mv;
     }    
 
     @GetMapping(value="/admin/lista-adimplencia")
     public ModelAndView pageListaAdimplencia() {
-        socioLogado = socioService.getSocioByEmail();
-        
         mv = new ModelAndView("paginas-sistema/admin/financeiro/lista-adimplencia");
-        mv.addObject("socio", socioLogado);
+        mv.addObject("socio", socioSession);
         mv.addObject("sociosAdimplencia", socioTransferenciaService.getSociosInadimplentesEAdimplentes());
         return mv;
     }    

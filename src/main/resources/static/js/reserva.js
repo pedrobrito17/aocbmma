@@ -47,19 +47,19 @@ function getHorasTerminaisReservadasDoDiaSelecionado(data) { // recupera as hora
     url = url.split("/"); //quebra o endeço de acordo com a / (barra)
 
     $.ajax({
-            url: '/sisaocbmma/horas-terminais/' + data,
-            type: 'GET',
-            async: false
-        })
-        .done(function (resposta) {
-            horas_terminais = resposta;
-        })
-        .always(function () {
-            $('#animacao').css('display','none'); //encerra a animação
-        })
-        .fail(function (jqXHR, textStatus, errorThrown) {
-            alert("Desculpe! Houve um erro: " + jqXHR.status);
-        });
+        url: '/sisaocbmma/horas-terminais/' + data,
+        type: 'GET',
+        async: false
+    })
+    .done(function (resposta) {
+        horas_terminais = resposta;
+    })
+    .always(function () {
+        $('#animacao').css('display','none'); //encerra a animação
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        alert("Desculpe! Houve um erro: " + jqXHR.status);
+    });
 
 }
 

@@ -1,6 +1,10 @@
 package br.com.aocbmma.controller;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +22,7 @@ import br.com.aocbmma.service.ReservaEspacoCajueiroService;
 import br.com.aocbmma.service.SocioService;
 import br.com.aocbmma.service.SocioTransferenciaService;
 import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
+import br.com.aocbmma.service.UploadFilesDocService;
 
 
 @Controller
@@ -44,6 +49,9 @@ public class HomeController{
     @Autowired
     private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
 
+    @Autowired
+    private UploadFilesDocService uploadFilesDocService;
+
     private Socio socioLogado = null;
 
     private ModelAndView mv = null;
@@ -60,22 +68,32 @@ public class HomeController{
     
     @RequestMapping(value="/", method=RequestMethod.GET)
     public ModelAndView pageIndex() {
-        reservaCampoService.cancelarReservarComPagamentoVencido();
-        reservaCajueiroService.cancelarReservarComPagamentoVencido();
-        reservaChaleService.cancelarReservarComPagamentoVencido();
-
-        socioLogado = socioService.getSocioByEmail();
         
+        socioLogado = socioService.getSocioByEmail();
         mv = new ModelAndView("paginas-sistema/index");
         mv.addObject("aniversariantes", socioService.getAniversariantesDoMes());
         mv.addObject("socio", socioLogado);
-        mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
-        mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
-        mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
-        mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
         mv.addObject("statusAdimp", socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado));
         mv.addObject("adimplencia", pagamentoMensalidadeService.getDadosAdimplenciaDo(socioLogado));
-        mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacoesDeCarteiraDeIdentidade());
+        mv.addObject("uploadfiles", uploadFilesDocService.getAllUploadFilesDocBySocioLogado(socioLogado));
+        
+        Collection<? extends GrantedAuthority> roles = socioService.getRolesBySocio();
+        Iterator<? extends GrantedAuthority> iterator = roles.iterator();
+        while(iterator.hasNext()){
+            GrantedAuthority granted = iterator.next();
+            String role = granted.getAuthority();
+            if(role.equals("ADMIN")){
+                reservaCampoService.cancelarReservarComPagamentoVencido();
+                reservaCajueiroService.cancelarReservarComPagamentoVencido();
+                reservaChaleService.cancelarReservarComPagamentoVencido();
+                
+                mv.addObject("sociosSolicitados", socioService.getSociosSolicitados());
+                mv.addObject("eventCampo", reservaCampoService.getReservaCampoSolicitada());
+                mv.addObject("eventCajueiro", reservaCajueiroService.getReservaEspacoCajueiroSolicita());
+                mv.addObject("eventChale", reservaChaleService.getReservasChaleSolicitas());
+                mv.addObject("carteirasSolicitadas", solicitacaoCarteiraIdentificacaoService.getSolicitacoesDeCarteiraDeIdentidade());
+            }
+        }
         return mv;
     }
 
