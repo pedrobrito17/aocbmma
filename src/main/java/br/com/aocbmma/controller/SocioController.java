@@ -40,7 +40,7 @@ public class SocioController {
     private ModelAndView mv = null;
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
-    public ModelAndView pageAssociese(Socio socio) {
+    public ModelAndView pageAssociese(Socio socio) throws Exception {
         mv = new ModelAndView("paginas-sistema/cadastro-socio"); 
         return mv;
     }

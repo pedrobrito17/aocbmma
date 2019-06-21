@@ -14,6 +14,23 @@
     
     <!-- Estilos -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        html{
+            font-size: 120%;
+        }
+        body{
+            background-color: #ecf0f1;
+            color: #333;
+        }
+        p{
+            margin: 0px;
+        }
+        .background-div{
+            background-color: #333;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,8 +42,10 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             
-                            <h1>ERRO 500</h1>
-                            <span>Erro no servidor. Caso o erro continue, entre em contato com o desenvolvedor.</span>
+                            <p class="text-warning mb-2"><i class="fas fa-exclamation-triangle fa-10x"></i></p>
+                            <h1><b>ERRO 500</b></h1>
+                            <h3 class="mb-3">Desculpe! Houve um erro interno no sistema.</h3>
+                            <p>O desenvolvedor foi informado via e-mail sobre o ocorrido e corrigirá assim que possível.</p>
                             
                         </div>
                     </div>

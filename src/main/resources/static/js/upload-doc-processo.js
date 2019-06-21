@@ -24,15 +24,15 @@ function usuarioEscolheuAnexo(size_file, input){
     var temTresArquivos = impedirUploadDeMaisDe3Arquivos();
     var arquivoMaiorQue2Mb = verificadorDeTamanho(size_file);
     if(temTresArquivos){
-        $('#text-error').append('<p class="text-danger">Não permitido. O máximo são 3 arquivos.</p>');
+        $('#text-return').append('<p class="text-danger">Não permitido. O máximo são 3 arquivos.</p>');
         input.value='';
     }
     else if(arquivoMaiorQue2Mb){
-        $('#text-error').append('<p class="text-danger">Não permitido. O arquivo é maior que 2mb.</p>');
+        $('#text-return').append('<p class="text-danger">Não permitido. O arquivo é maior que 2mb.</p>');
         input.value='';
     }
     else{
-        $('#text-error').empty();
+        $('#text-return').empty();
         var inputFile = input.value;
         $('#names_files').append(
             '<div class="col-sm-12 col-md-4 row-file">'+getNameFile(inputFile)+'</div>'+
@@ -80,7 +80,7 @@ function getNameFile(path){
 }
 function limparListaDeArquivosASeremEnviados(){
     $('#names_files').empty();
-    $('#text-error').empty();
+    $('#text-return').empty();
     $('#labelfiles').prop('for','file1');
     $('#file1').val('');
     $('#file2').val('');
@@ -134,6 +134,7 @@ function submitFormDocs(formDocs){
             setTimeout(function(){
                 inserirDadosNaTabela(dados);
                 limparListaDeArquivosASeremEnviados();
+                $('#text-return').append('<p class="text-success">Documento enviado com sucesso!</p>');
             }, 1000);
         }
     })
@@ -183,6 +184,7 @@ function deletarArquivo(id){
     .done(function (resposta) {
         if(resposta=='true'){
             deleteRowFile(id);
+            $('#text-return').append('<p class="text-success">Documento deletado com sucesso!</p>');            
         }
         else{
             alert('Desculpe! Não foi possível deletar. Tente novamente.')

@@ -14,10 +14,27 @@
     
     <!-- Estilos -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        html{
+            font-size: 120%;
+        }
+        body{
+            background-color: #ecf0f1;
+            color: #333;
+        }
+        p{
+            margin: 0px;
+        }
+        .background-div{
+            background-color: #333;
+        }
+    </style>
 </head>
 
 <body>
-    <main layout:fragment="conteudo">
+    <main>
         <br><br><br>
         <div class="container div-conteudo">
             <div class="row">
@@ -25,8 +42,9 @@
                     <div class="row mt-2">
                         <div class="col-12">
                             
-                            <h1>ERRO 404</h1>
-                            <span>Página não encontrada. Caso o erro continue, entre em contato com o desenvolvedor.</span>
+                            <p class="text-warning mb-2"><i class="fas fa-exclamation-triangle fa-10x"></i></p>
+                            <h1><b>ERRO 404</b></h1>
+                            <h3 class="mb-3">Desculpe! A página que você procura não existe.</h3>
                             
                         </div>
                     </div>

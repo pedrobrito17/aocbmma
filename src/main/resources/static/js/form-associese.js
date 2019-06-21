@@ -147,6 +147,8 @@ function validarInputsAndSelects() {
     var whatsapp = $('#whatsapp').val();
     var categoria = $('#categoria').val();
     var banco = $('#banco').val();
+    var email = $('#email').val();
+    var confEmail = $('#conf-email').val();
     
     var input_text = $('.validacao-input-text');
     for (let i = 0; i < input_text.length; i++) {
@@ -155,6 +157,11 @@ function validarInputsAndSelects() {
             input_text[i].classList.add('is-invalid');
             erros++;
         }
+    }
+    if(email != confEmail){
+        $('#conf-email').focus();
+        $('#conf-email').addClass('is-invalid');
+        erros++;
     }
     if (cep.length != 9) {
         $('#cep').focus();
@@ -188,7 +195,7 @@ function validarInputsAndSelects() {
         erros++;
     }
     
-    erros = validarDadosOficial(erros);
+    erros += validarDadosOficial(erros);
 
     return erros;
 }
@@ -197,7 +204,7 @@ function validarDadosOficial(erros){
 
     if( $('#civil').is(':checked') ){
         //limpar dados
-        return;
+        return 0;
     }
     else{
         var posto = $('#posto').val();

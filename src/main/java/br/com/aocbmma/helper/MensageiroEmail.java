@@ -1,5 +1,6 @@
 package br.com.aocbmma.helper;
 
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -71,6 +72,23 @@ public class MensageiroEmail {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public void enviarExceptionAoDesenvolvedor(String error, String url){
+        Message message = new MimeMessage(getSession());
+        try {
+            message.setFrom(new InternetAddress("contato@aocbmma.com.br"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("pedrobrito17@gmail.com"));
+            message.setSubject("Error 500");
+            message.setContent(
+                "<p>URL: "+ url +"</p>"+
+                "<p>Datetime: " + new Date() + "</p>"+
+                "<p>Erro: "+ error +"</p>" 
+                , "text/html");
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 
