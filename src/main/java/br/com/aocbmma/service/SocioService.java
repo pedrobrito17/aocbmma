@@ -249,8 +249,15 @@ public class SocioService {
     }
 
     public Socio findSocioByEmail(String email) {
-        int socio_id = socios.getSocioIdByEmail(email);
-        return socios.findById(socio_id).get();
+        int socio_id = 0;
+        Socio socio = null;
+        try{
+            socio_id = socios.getSocioIdByEmail(email);
+            socio = socios.findById(socio_id).get();
+        }catch(Exception e) {
+            System.out.println("NENHUM SÓCIO FOI ENCONTRADO E O RETORNO FOI NULL PARA UM TIPO PRIMITIVO.");
+        }
+        return socio;
     }
 
     // Cria um objeto do socioLogado na sessão ativa

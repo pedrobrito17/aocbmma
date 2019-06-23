@@ -111,7 +111,7 @@ public class HomeController{
         }
         
         ModelAndView mv = new ModelAndView("paginas-sistema/esqueceu-senha");
-        mv.addObject("msgerro", "Seu e-mail está incorreto.");
+        mv.addObject("msgerro", "Seu e-mail está incorreto ou você não possui cadastro.");
         return mv;
     }
 

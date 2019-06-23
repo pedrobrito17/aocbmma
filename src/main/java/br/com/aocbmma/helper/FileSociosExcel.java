@@ -32,15 +32,14 @@ public class FileSociosExcel {
 
     private HSSFWorkbook planilha;
 
-    public byte[] criarArquivoExcel(String path_root){
+    public byte[] criarArquivoExcel(String path_root) {
         planilha = new HSSFWorkbook();
-        
 
         FileOutputStream fileOutputStream = null;
-        try{
+        try {
             File file = new File(path_root + FILE);
             apagarArquivoCriadoAnteriormente(file);
-            fileOutputStream = new FileOutputStream( file );
+            fileOutputStream = new FileOutputStream(file);
 
             criarFolhaPorCategoriaDoSocio("fundador");
             criarFolhaPorCategoriaDoSocio("efetivo");
@@ -49,10 +48,10 @@ public class FileSociosExcel {
 
             planilha.write(fileOutputStream);
             return FileUtils.readFileToByteArray(file);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("ERRO AO CRIAR A PLANILHA DO EXCEL COM OS DADOS DOS SÓCIOS");
-        }finally{
+        } finally {
             try {
                 fileOutputStream.flush();
                 fileOutputStream.close();
@@ -63,12 +62,16 @@ public class FileSociosExcel {
         }
         return null;
     }
-    
-    public void criarFolhaPorCategoriaDoSocio(String categoria){
+
+    public void criarFolhaPorCategoriaDoSocio(String categoria) {
         HSSFSheet folha = planilha.createSheet(categoria);
         definirAlturaPadraoDasLinhas(folha);
         criarCabecalho(folha);
-        inserirDadosDoSocioNaFolha(folha, categoria);
+        try {
+            inserirDadosDoSocioNaFolha(folha, categoria);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         definirComprimentoDasColunas(folha);
     }
 
@@ -116,7 +119,7 @@ public class FileSociosExcel {
         }
     }
 
-    public void inserirDadosDoSocioNaFolha(HSSFSheet folha, String categoria){
+    public void inserirDadosDoSocioNaFolha(HSSFSheet folha, String categoria) throws Exception{
         List<Socio> sociosEfetivos = getSociosAtivosDaCategoria(categoria);
 
         int cont = 1;
