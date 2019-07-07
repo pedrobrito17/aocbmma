@@ -135,7 +135,4 @@ public class HomeController{
         mv.addObject("msg", "Senha alterada com sucesso.");
         return mv;
     }
-    
-    
-    
 }

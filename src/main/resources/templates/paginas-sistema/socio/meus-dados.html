@@ -3,7 +3,8 @@
     layout:decorate="~{padrao/layout-sistema-base}">
 
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-socio.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
 </head>
 
 <body>
@@ -19,144 +20,116 @@
                 </div>
             </div>
 
-
             <div class="row">
                 <div class="col-sm-12 col-lg-8 offset-lg-2">
 
-
-                    <form th:action="@{/sisaocbmma/atualizar-socio}" th:method="POST" th:object="${socio}" name="form1"
-                        onsubmit="validarFormAtualizarMeusDados(this); return false;">
+                    <form th:action="@{/sisaocbmma/atualizar-socio}" th:method="POST" th:object="${socio}" id="form-meus-dados">
                         
                         <fieldset>
                             <legend>Dados pessoais</legend>
                             <div class="row">
                                 <div class="col-12">
                                     <label for="nome">Nome completo</label>
-                                    <input type="text" class="form-control form-custom validacao-input-text" name="nome"
-                                        id="nome" autofocus placeholder="Nome completo" th:field="*{nome}">
-                                    <div class="invalid-feedback">
-                                        Digite seu nome
-                                    </div>
+                                    <input type="text" class="form-control form-custom" th:field="*{nome}">
                                 </div>
-                            </div><br>
-                            <div class="row">
+                            </div>
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="cpf">CPF</label>
-                                    <input class="form-control form-custom cpf" type="text" name="cpf" placeholder="CPF"
-                                        th:field="*{cpf}">
-                                    <div class="invalid-feedback">
-                                        Digite seu cpf
-                                    </div>
+                                    <input class="form-control form-custom cpf" type="text" th:field="*{cpf}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="data_nascimento">Data de nascimento</label>
-                                    <input id="data_nascimento" class="form-control form-custom" type="text" th:field="*{data_nascimento}"
-                                        onfocus="(this.type='date')" placeholder="Data de nascimento">
-                                    <div class="invalid-feedback">
-                                        Digite sua data de nascimento
-                                    </div>
+                                    <input class="form-control form-custom data_nascimento" type="text" th:field="*{data_nascimento}">
                                 </div>
                             </div>
                         </fieldset>
-                        
 
-                        <fieldset class="mt-4" th:if="not ${#strings.isEmpty(socio.dadosOficial.posto)}">
+                        <fieldset class="mt-4" th:if="${socio.dadosOficial}">
                             <legend>Dados do oficialato</legend>
 
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="nome_guerra">Nome de guerra</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="nome_guerra"
-                                        placeholder="Nome de guerra" id="nome_guerra" th:field="*{dadosOficial.nome_guerra}">
-                                    <div class="invalid-feedback">
-                                        Digite seu nome de guerra
-                                    </div>
+                                    <input class="form-control form-custom" type="text" th:field="*{dadosOficial.nome_guerra}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="posto">Posto</label>
-                                    <select id="posto" class="form-control form-custom" th:field="*{dadosOficial.posto}">
+                                    <select class="form-control form-custom" th:field="*{dadosOficial.posto}">
                                         <option value="" selected hidden>Posto</option>
-                                        <option value="Cadete">Cadete</option>
-                                        <option value="Aspirante a Oficial">Aspirante a Oficial</option>
-                                        <option value="2º Tenente">2º Tenente</option>
-                                        <option value="1º Tenente">1º Tenente</option>
-                                        <option value="Capitão">Capitão</option>
-                                        <option value="Major">Major</option>
-                                        <option value="Tenente Coronel">Tenente Coronel</option>
-                                        <option value="Coronel">Coronel</option>
+                                        <option value="CADETE">CADETE</option>
+                                        <option value="ASPIRANTE A OFICIAL">ASPIRANTE A OFICIAL</option>
+                                        <option value="2º TENENTE">2º TENENTE</option>
+                                        <option value="1º TENENTE">1º TENENTE</option>
+                                        <option value="CAPITÃO">CAPITÃO</option>
+                                        <option value="MAJOR">MAJOR</option>
+                                        <option value="TENENTE CORONEL">TENENTE CORONEL</option>
+                                        <option value="CORONEL">CORONEL</option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        Selecione seu posto
-                                    </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6" id="quadro">
                                     <label for="quadro">Quadro</label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qoc" th:field="*{dadosOficial.quadro}"
-                                            value="QOC">
-                                        <label class="form-check-label" for="qoc">QOC</label>
+                                        <input class="form-check-input" type="radio"
+                                        th:field="*{dadosOficial.quadro}" value="QOC">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOC</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="qoa" th:field="*{dadosOficial.quadro}"
-                                            value="QOA">
-                                        <label class="form-check-label" for="qoa">QOA</label>
+                                        <input class="form-check-input" type="radio"
+                                        th:field="*{dadosOficial.quadro}" value="QOA">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                        th:field="*{dadosOficial.quadro}" value="QOE">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOE</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                        th:field="*{dadosOficial.quadro}" value="QOS">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOS</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6" id="corporacao">
                                     <label for="corporacao">Corporação</label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="cbmma" th:field="*{dadosOficial.corporacao}"
+                                        <input class="form-check-input" type="radio" th:field="*{dadosOficial.corporacao}"
                                             value="CBMMA">
-                                        <label class="form-check-label" for="cbmma">CBMMA</label>
+                                        <label class="form-check-label" for="dadosOficial.corporacao">CBMMA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pmma" th:field="*{dadosOficial.corporacao}"
+                                        <input class="form-check-input" type="radio" th:field="*{dadosOficial.corporacao}"
                                             value="PMMA">
-                                        <label class="form-check-label" for="pmma">PMMA</label>
+                                        <label class="form-check-label" for="dadosOficial.corporacao">PMMA</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="forcas" th:field="*{dadosOficial.corporacao}"
+                                        <input class="form-check-input" type="radio" th:field="*{dadosOficial.corporacao}"
                                             value="Forças Armadas">
-                                        <label class="form-check-label" for="forcas">Forças Armadas</label>
+                                        <label class="form-check-label" for="dadosOficial.corporacao">Forças Armadas</label>
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-12">
                                     <label for="lotacao">Lotação</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="lotacao"
-                                        placeholder="Lotação" id="lotacao" th:field="*{dadosOficial.lotacao}">
-                                    <div class="invalid-feedback">
-                                        Digite sua lotação
-                                    </div>
+                                    <input class="form-control form-custom" type="text" th:field="*{dadosOficial.lotacao}">
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="rg_militar">RG Militar</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="rg_militar"
-                                        placeholder="RG Militar" id="rg_militar" th:field="*{dadosOficial.rg_militar}">
-                                    <div class="invalid-feedback">
-                                        Digite seu rg militar
-                                    </div>
+                                    <input class="form-control form-custom rg_militar" type="text" th:field="*{dadosOficial.rg_militar}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="matricula">Matrícula</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="matricula"
-                                        placeholder="Matrícula" id="matricula" th:field="*{dadosOficial.matricula}">
-                                    <div class="invalid-feedback">
-                                        Digite sua matricula
-                                    </div>
+                                    <input class="form-control form-custom matricula" type="text" th:field="*{dadosOficial.matricula}">
                                 </div>
                             </div>
                         </fieldset>
-                        <br>
-                        <fieldset>
+                        
+                        <fieldset  class="mt-4">
                             <legend>Dados bancários</legend>
                             <div class="row">
                                 <div class="col-12">
@@ -173,128 +146,88 @@
                                         <option value="Banco Safra S.A.">422 - Banco Safra S.A.</option>
                                         <option value="Banco Rendimento S.A.">633 - Banco Rendimento S.A.</option>
                                     </select>
-                                    <div class="invalid-feedback">
-                                        Selecione seu banco
-                                    </div>
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="agencia">Agência</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="agencia"
-                                        placeholder="Agência" id="agencia" th:field="*{dadosBancarios.agencia}">
-                                    <div class="invalid-feedback">
-                                        Digite sua agência
-                                    </div>
+                                    <input class="form-control form-custom agencia" type="text" th:field="*{dadosBancarios.agencia}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="conta_corrente">Conta corrente</label>
-                                    <input class="form-control form-custom validacao-input-text" type="text" name="conta"
-                                        placeholder="Conta corrente" id="conta_corrente" th:field="*{dadosBancarios.conta_corrente}">
-                                    <div class="invalid-feedback">
-                                        Digite sua conta corrente
-                                    </div>
+                                    <input class="form-control form-custom conta_corrente" type="text" th:field="*{dadosBancarios.conta_corrente}">
                                 </div>
                             </div>
                         </fieldset>
 
-
-                        <br>
-                        <fieldset>
+                        <fieldset class="mt-4">
                             <legend>Endereço</legend>
+                            <div th:replace="padrao/elementos :: loading"></div>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="cep">CEP</label>
-                                    <input id="cep" class="form-control form-custom cep" type="text" name="cep"
-                                        placeholder="CEP" th:field="*{dadosContato.cep}">
-                                    <div class="invalid-feedback">
-                                        Digite o CEP
-                                    </div>
+                                    <input class="form-control form-custom cep" type="text" th:field="*{dadosContato.cep}">
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-6">
                                     <label for="endereco">Endereço</label>
-                                    <input id="logradouro" class="form-control form-custom" type="text" name="endereço"
-                                        placeholder="Endereço" th:field="*{dadosContato.endereco}" readonly>
+                                    <input class="form-control form-custom endereco" type="text" th:field="*{dadosContato.endereco}" readonly>
                                 </div>
                                 <div class="col-6">
                                     <label for="numero">Número</label>
-                                    <input id="numero" class="form-control form-custom" type="text" name="numero"
-                                        placeholder="Número" th:field="*{dadosContato.numero}">
+                                    <input class="form-control form-custom" type="text" th:field="*{dadosContato.numero}">
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-6">
                                     <label for="complemento">Complemento</label>
-                                    <input id="complemento" class="form-control form-custom" type="text" name="complemento"
-                                        placeholder="Complemento" th:field="*{dadosContato.complemento}">
+                                    <input class="form-control form-custom" type="text" th:field="*{dadosContato.complemento}">
                                 </div>
                                 <div class="col-6">
                                     <label for="bairro">Bairro</label>
-                                    <input id="bairro" class="form-control form-custom" type="text" name="bairro"
-                                        placeholder="Bairro" th:field="*{dadosContato.bairro}" readonly>
+                                    <input class="form-control form-custom bairro" type="text" th:field="*{dadosContato.bairro}" readonly>
                                 </div>
                             </div>
-                            <br>
-
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="cidade">Cidade</label>
-                                    <input id="cidade" class="form-control form-custom" type="text" name="cidade"
-                                        placeholder="Cidade" th:field="*{dadosContato.cidade}" readonly>
+                                    <input class="form-control form-custom cidade" type="text" th:field="*{dadosContato.cidade}" readonly>
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="uf">UF</label>
-                                    <input id="uf" class="form-control form-custom" type="text" name="uf" placeholder="UF"
-                                        th:field="*{dadosContato.uf}" readonly>
+                                    <input class="form-control form-custom uf" type="text" th:field="*{dadosContato.uf}" readonly>
                                 </div>
                             </div>
-
                         </fieldset>
-                        <br>
 
-                        <fieldset>
+                        <fieldset class="mt-4">
                             <legend>Contato</legend>
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="whatsapp">Whatsapp</label>
-                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="whatsapp"
-                                        id="whatsapp" placeholder="WhatsApp" th:field="*{dadosContato.whatsapp}">
-                                    <div class="invalid-feedback">
-                                        Digite seu whatsapp
-                                    </div>
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" th:field="*{dadosContato.whatsapp}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="celular">Celular</label>
-                                    <input class="form-control form-custom phone_with_ddd" type="tel" name="celular" id="celular"
-                                        placeholder="Celular" th:field="*{dadosContato.celular}">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" th:field="*{dadosContato.celular}">
                                 </div>
                             </div>
-                            <br>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col-sm-12 col-lg-6">
                                     <label for="email">E-mail</label>
-                                    <input class="form-control form-custom validacao-input-text" type="email" name="email"
-                                        id="email" placeholder="E-mail" th:field="*{dadosContato.email}">
-                                    <div class="invalid-feedback">
-                                        Digite seu e-mail
-                                    </div>
+                                    <input class="form-control form-custom email" type="email" th:field="*{dadosContato.email}">
                                 </div>
                             </div>
                         </fieldset>
-                        <br>
 
                         <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
-                        <input name="id" th:field="*{id}" type="text" hidden>
-                        <input name="path_foto_perfil" th:field="*{path_foto_perfil}" type="text" hidden>
-                        <input name="tipo_socio" th:field="*{tipoSocio}" type="text" hidden>
-                        <input name="situacao" th:field="*{situacao}" type="text" hidden>
+                        <input th:field="*{id}" type="text" hidden>
+                        <input th:field="*{path_foto_perfil}" type="text" hidden>
+                        <input th:field="*{tipoSocio}" type="text" hidden>
+                        <input th:field="*{situacao}" type="text" hidden>
 
-                        <div class="row">
+                        <div class="row mt-4">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-danger btn-sis btn-block mt-4 mb-4">SALVAR</button>
                             </div>
@@ -304,11 +237,12 @@
                 </div>
             </div>
         </div>
-        <br><br><br>
+        
         <script th:src="@{/js/jquery.mask.min.js}"></script>
-        <script th:src="@{/js/form-associese.js}"></script>
+        <script th:src="@{/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/js/additional-methods.min.js}"></script>
+        <script th:src="@{/js/form-validation.js}"></script>
+        <script th:src="@{/js/form-socio.js}"></script>
     </main>
-
 </body>
-
 </html>

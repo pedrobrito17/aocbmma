@@ -2,13 +2,11 @@ package br.com.aocbmma.controller;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +44,7 @@ public class SocioController {
     }
 
     @PostMapping(value = "/cadastrar-novo-socio")
-    public ModelAndView cadastrarSocio(@Valid Socio socio, BindingResult result, RedirectAttributes attributes) {
+    public ModelAndView cadastrarSocio(Socio socio) {
         String msgRetornoErro = socioService.salvarSocio(socio);
         mv = new ModelAndView("paginas-sistema/retorno");
         mv.addObject("msg", msgRetornoErro.isEmpty());

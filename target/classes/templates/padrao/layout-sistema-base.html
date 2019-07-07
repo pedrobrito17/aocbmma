@@ -75,7 +75,6 @@
                             <div class="" th:if="${#strings.isEmpty( socio.path_foto_perfil )}">
                                 <img class="user foto-avatar-perfil" th:src="@{/img/avatar-user.png}">
                             </div>
-                            <!-- <p class="mt-2"><b th:text="${#strings.isEmpty(socio.dadosOficial.posto)} ? ${socio.nome} : ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra}"></b></p> -->
                             <p class="mt-2"><b th:text="${socio.dadosOficial} ? ${socio.dadosOficial.posto + ' '+socio.dadosOficial.nome_guerra} : ${socio.nome}"></b></p>
                             <hr>
                         </li>
@@ -222,33 +221,8 @@
     </div>
 
     <!-- MODAL PARA INSERIR FOTO NO PERFIL -->
-    <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Selecionar foto do perfil</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data"
-                        th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
-                        <div class="">
-                            <input type="file" class="form-control form-custom" id="foto" name="foto"
-                                accept="image/*"><br>
-                        </div>
-                        <button type="submit" class="btn btn-danger btn-sis btn-block">Salvar
-                            foto</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:replace="padrao/modal :: alterar-foto-perfil"></div>
 
     <script th:src="@{/js/sistema.js}"></script>
-
 </body>
-
 </html>

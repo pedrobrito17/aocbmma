@@ -53,7 +53,7 @@ public class Socio {
     @Column
     @NotNull
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date data_nascimento;
 
     @Column

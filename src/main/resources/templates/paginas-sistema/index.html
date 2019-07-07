@@ -103,18 +103,15 @@
                                                 <span class="font-weight-bold" th:text="${#dates.format(aniv.getData_nascimento(), 'dd') }"></span>
                                             </div>
                                         </div>
-                                        <span class="d-inline-block" th:text="${#strings.isEmpty(aniv.dadosOficial.posto)} ? ${aniv.nome} : ${aniv.dadosOficial.posto + ' '+aniv.dadosOficial.nome_guerra}"></span>
+                                        <span class="d-inline-block" style="font-size: .9em;" th:text="${aniv.dadosOficial} ? ${aniv.dadosOficial.posto + ' '+aniv.dadosOficial.nome_guerra} : ${aniv.nome}"></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Envio dos arquivos para processo -->
-            <div th:replace="padrao/elementos :: arquivos-processo"></div>
-
+            </div>       
+            
             <div class="row">
                 <div class="col-lg-12">
                     <div sec:authorize="hasAuthority('ADMIN')">
@@ -140,8 +137,10 @@
                                                 <td class="align-middle" th:text="${carteira.socio.nome}"></td>
                                                 <td class="align-middle" th:text="${carteira.socio.cpf}"></td>
                                                 <td class="align-middle" th:text="${#dates.format(carteira.socio.data_nascimento, 'dd/MM/yyyy')}"></td>
-                                                <td class="align-middle" th:text="${carteira.socio.dadosOficial.posto}"></td>
-                                                <td class="align-middle" th:text="${carteira.socio.dadosOficial.corporacao}"></td>
+                                                <td class="align-middle" 
+                                                    th:text="${carteira.socio.dadosOficial} ? ${carteira.socio.dadosOficial.posto} : CIVIL"></td>
+                                                <td class="align-middle" 
+                                                    th:text="${carteira.socio.dadosOficial} ? ${carteira.socio.dadosOficial.corporacao} : CIVIL"></td>
                                                 <td class="align-middle text-center">
                                                     <a target="_blank" th:href="@{ ${carteira.foto} }">
                                                         <img style="max-width: 50px;" class="img-thumbnail" 
@@ -208,8 +207,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventCampo}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${evento.socio.dadosOficial} ?
+                                                     ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra} : ${evento.socio.nome}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                                 <td class="align-middle" th:text="${evento.hora_inicio}"></td>
@@ -237,8 +236,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventCajueiro}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${evento.socio.dadosOficial} ?
+                                                    ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra} : ${evento.socio.nome}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                                 <td class="align-middle" th:text="${evento.periodo}"></td>
@@ -266,8 +265,8 @@
                                         <tbody>
                                             <tr th:each="evento : ${eventChale}">
                                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                    th:text="${evento.socio.dadosOficial} ?
+                                                     ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra} : ${evento.socio.nome}"></a>
                                                 </td>
                                                 <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
                                                 <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>

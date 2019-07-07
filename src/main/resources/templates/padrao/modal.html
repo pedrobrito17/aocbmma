@@ -30,6 +30,49 @@
     </div>
 </div>
 
+<div th:fragment="alterar-foto-perfil">
+    <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Selecionar foto do perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data"
+                        th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
+                        <div class="">
+                            <input type="file" class="form-control form-custom" id="foto" name="foto"
+                                accept="image/*"><br>
+                        </div>
+                        <div id="foto-perfil" class="">
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-sis btn-block mt-4">Salvar
+                            foto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#foto').change(function () {
+            var file = this.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadend = function () {
+                var error = fileReader.error;
+                if (error == null) {
+                    $('#foto-perfil').addClass('avatar-preview');
+                    $('#foto-perfil').html('<img src="'+ fileReader.result +'" class="user foto-preview">');
+                }
+            }
+        });
+    </script>
+</div>
+
 <div th:fragment="aceite-reserva">
     <div class="modal fade" id="termo" tabindex="-1" role="dialog" aria-labelledby="termo" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -41,7 +84,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-justify mt-3">Na qualidade de sócio declaro ter conhecimento das normas de utilização da
+                    <p class="text-justify mt-3">Na qualidade de sócio declaro ter conhecimento das normas de utilização
+                        da
                         sede social da
                         AOCBMMA, solicitando a reserva da área escolhida, para evento particular, para a data e
                         horários especificados, tempo no qual assumirei os compromissos e responsabilidades de: </p>
@@ -65,8 +109,10 @@
                         <li class="text-justify mt-3">
                             Pagar a taxa de utilização da área reservada via depósito ou transferência na conta
                             corrente da AOCBMMA. Agencia BB 1414-1, CC 34847-3. A reserva somente será confirmada e
-                            efetivada após a confirmação de pagamento da taxa de manutenção. O comprovante de pagamento deverá ser enviado
-                            ao email da AOCBMMA em até 48 horas, caso contrário a data da reserva estará novamente disponível. 
+                            efetivada após a confirmação de pagamento da taxa de manutenção. O comprovante de pagamento
+                            deverá ser enviado
+                            ao email da AOCBMMA em até 48 horas, caso contrário a data da reserva estará novamente
+                            disponível.
                         </li>
                         <li class="text-justify mt-3">
                             O associado locatário terá a obrigação de estar presente durante toda a realização do
@@ -80,7 +126,8 @@
 
                         </li>
                         <li class="text-justify mt-3 mt-3">
-                            Estar ciente do regulamento interno de uso da Associação dos Oficiais do CBMMA e suas dependências (Portaria nº 01/2019 - Diretoria Executiva).
+                            Estar ciente do regulamento interno de uso da Associação dos Oficiais do CBMMA e suas
+                            dependências (Portaria nº 01/2019 - Diretoria Executiva).
                         </li>
                         <li class="text-justify mt-3 mt-3">
                             O uso de som automotivo é proibido no clube.
@@ -99,19 +146,17 @@
         </div>
     </div>
     <script>
-        $(function(){
+        $(function () {
             $('#btn-reservar').hide();
 
-            $('#aceito').change(function(){
-                if($(this).is(':checked')){
+            $('#aceito').change(function () {
+                if ($(this).is(':checked')) {
                     $('#btn-reservar').show();
-                }
-                else{
+                } else {
                     $('#btn-reservar').hide();
                 }
             });
         });
-
     </script>
 
 </div>

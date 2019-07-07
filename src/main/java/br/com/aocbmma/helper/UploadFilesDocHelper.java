@@ -21,8 +21,6 @@ public class UploadFilesDocHelper {
         path_file = DIRECTORY_DOCS + socio_id + File.separator;
         path_root_file = pathRoot + path_file + file.getOriginalFilename();
 
-        System.out.println(pathRoot);
-
         if (diretorioFoiCriado) {
             deleteFileIfExist();
             return writeFileServer(pathRoot, file);
@@ -48,7 +46,6 @@ public class UploadFilesDocHelper {
             byte[] bytes = file.getBytes();
             fout = new FileOutputStream(pathRoot + path_file + name);
             fout.write(bytes);
-            return true;
         }catch(Exception e){
             e.printStackTrace();
             return false;
@@ -58,8 +55,10 @@ public class UploadFilesDocHelper {
                 fout.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         }
+        return true;
     }
     
     public void deleteFileIfExist(){

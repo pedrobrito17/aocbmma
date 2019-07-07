@@ -3,7 +3,7 @@
     layout:decorate="~{padrao/layout-sistema-base}">
 
 <head>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-socio.css}">
 </head>
 
 <body>
@@ -20,8 +20,7 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-8 offset-lg-2">
 
-                    <form th:action="@{/sisaocbmma/alterar-senha}" th:method="POST" th:object="${socio}" name="form1"
-                        onsubmit="validarAlterarSenha(this); return false;">
+                    <form th:action="@{/sisaocbmma/alterar-senha}" th:method="POST" th:object="${socio}" id="form-alterar-senha">
 
                          <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
                          <input name="id" th:field="*{id}" type="text" hidden>
@@ -32,12 +31,9 @@
                                 <div class="col-sm-12 col-lg-6">
                                     <input class="form-control form-custom" type="password" name="senha" placeholder="Nova Senha"
                                         id="senha" th:field="*{senha}" autofocus>
-                                    <div class="invalid-feedback">
-                                        A senha não confere.
-                                    </div>
                                 </div>
                                 <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
-                                    <input class="form-control form-custom" type="password" name="conf_senha" id="conf_senha"
+                                    <input class="form-control form-custom" type="password" name="conf-senha" id="conf-senha"
                                         placeholder="Confirmar nova Ssenha">
                                 </div>
                             </div>
@@ -56,9 +52,9 @@
                 </div>
             </div>
         </div>
-        <script th:src="@{/js/form-associese.js}"></script>
+        <script th:src="@{/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/js/additional-methods.min.js}"></script>
+        <script th:src="@{/js/form-validation.js}"></script>
     </main>
-
 </body>
-
 </html>

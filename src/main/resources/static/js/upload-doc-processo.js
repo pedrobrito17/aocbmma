@@ -1,10 +1,10 @@
-var tam_file = 0;
 $(function(){
     var count_rows = $('#table-files tbody tr').length;
     if(count_rows>1){
         $('#table-files tbody tr:first-child').remove();  
     }
 });
+
 $(function(){
     $('#file1').change(function(){
         var tam = this.files[0].size;
@@ -19,6 +19,8 @@ $(function(){
         usuarioEscolheuAnexo(tam, this);
     });
 });
+
+var tam_file = 0;
 var num_input = 1;
 function usuarioEscolheuAnexo(size_file, input){
     var temTresArquivos = impedirUploadDeMaisDe3Arquivos();
@@ -34,23 +36,41 @@ function usuarioEscolheuAnexo(size_file, input){
     else{
         $('#text-return').empty();
         var inputFile = input.value;
+        var file = input.files[0];
         $('#names_files').append(
-            '<div class="col-sm-12 col-md-4 row-file">'+getNameFile(inputFile)+'</div>'+
-            '<div class="col-sm-3 col-md-4">'+
-                '<div class="progress">'+
-                    '<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" '+
-                        'role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" '+
-                        'aria-valuemax="100">'+
-                            '<span class="status-bar">0% enviado</span>'+
+            '<div class="row mb-4">'+
+                '<div class="col-sm-12 col-md-2 offset-md-1 img-preview"></div>'+
+                '<div class="col-sm-12 col-md-2 row-file align-middle"><span class="align-middle">'+getNameFile(inputFile)+'</span></div>'+
+                '<div class="col-sm-3 col-md-4">'+
+                    '<div class="progress">'+
+                        '<div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" '+
+                            'role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" '+
+                            'aria-valuemax="100">'+
+                                '<span class="status-bar">0% enviado</span>'+
+                        '</div>'+
                     '</div>'+
                 '</div>'+
-            '</div>'+
-            '<div class="col-sm-3 col-md-2">'+tam_file+' Kb</div>'
+                '<div class="col-sm-3 col-md-3">'+tam_file+' Kb</div>'+
+            '</div>'
         );
+        insertSrcImgInput(file);
         $('#labelfiles').prop('for','file'+(num_input+1) );
         num_input = (num_input + 1) == 4 ? 1 : num_input+1;
     }
 }
+
+function insertSrcImgInput(file){
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onloadend = function(){
+        var error = fileReader.error;
+        var file_type = file.type;
+        if(error==null && file_type != 'application/pdf'){
+            $('.img-preview').last().append('<img src="'+ fileReader.result +'" class="img-thumbnail rounded">');
+        }
+    }
+}
+
 function verificadorDeTamanho(tam){
     if(tam > 2097152){
         return true;
@@ -60,6 +80,7 @@ function verificadorDeTamanho(tam){
         return false;
     }
 }
+
 function impedirUploadDeMaisDe3Arquivos(){
     var count_files = $('#names_files').find('.row-file').length;
     var count_rows = $('#table-files tbody tr').length;
@@ -73,11 +94,13 @@ function impedirUploadDeMaisDe3Arquivos(){
     }
     return false;
 }
+
 function getNameFile(path){
     var id0 = path.lastIndexOf("\\");
     var idlast = path.length;
     return path.slice(id0+1, idlast);
 }
+
 function limparListaDeArquivosASeremEnviados(){
     $('#names_files').empty();
     $('#text-return').empty();
@@ -86,13 +109,8 @@ function limparListaDeArquivosASeremEnviados(){
     $('#file2').val('');
     $('#file3').val('');
 }
-//Submeter o formulário
-function submitFormDocs(formDocs){
-    // var inputsFiles = $('form#docs input[type="file"]');
-    // console.log(inputsFiles[0].files[0]);
-    // console.log(inputsFiles[1].files[0]);
-    // console.log(inputsFiles[2].files[0]);
 
+function submitFormDocs(formDocs){
     var formData = getFormData();
     $.ajax({
         url: '/sisaocbmma/upload-files',
@@ -143,6 +161,7 @@ function submitFormDocs(formDocs){
         limparListaDeArquivosASeremEnviados();
     });
 }
+
 function getFormData(){
     var formData = new FormData();
     var inputsFiles = $('form#docs input[type="file"]');
@@ -154,6 +173,7 @@ function getFormData(){
     }
     return formData;
 }
+
 function inserirDadosNaTabela(dados){
     $('table#table-files tbody tr').remove();  
     for(let i = 0 ; i < dados.length ; i++){
@@ -172,10 +192,10 @@ function inserirDadosNaTabela(dados){
                     '</a>'+
                 '</td>'+
             '</tr>'
-
         );  
     }
 }
+
 function deletarArquivo(id){
     $.ajax({
         url: '/sisaocbmma/deletar-upload-file-doc/'+id,
@@ -194,6 +214,7 @@ function deletarArquivo(id){
         alert("Desculpe! Houve um erro: " + jqXHR.status);
     });
 }
+
 function deleteRowFile(id){
     $('#table-files tbody #'+id).remove();  
     var children = $('#table-files tbody').children();  

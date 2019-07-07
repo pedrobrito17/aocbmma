@@ -43,9 +43,9 @@
                                     <p class="mb-1"><b>Nome:</b> <span th:text="${socio.nome}"></span></p>
                                     <p class="mb-1"><b>CPF:</b> <span th:text="${socio.cpf}"></span></p>
                                     <p class="mb-1"><b>Data de nascimento:</b> <span th:text="${#dates.format(socio.data_nascimento, 'dd/MM/yyyy')}"></span></p>
-                                    <p class="mb-1"><b>RG Militar:</b> <span th:text="${socio.dadosOficial.rg_militar}"></span></p>
-                                    <p class="mb-1"><b>Cargo:</b> <span th:text="${socio.dadosOficial.posto}"></span></p>
-                                    <p class="mb-1"><b>Órgão:</b> <span th:text="${socio.dadosOficial.corporacao}"></span></p>
+                                    <p class="mb-1" th:if="${socio.dadosOficial}"><b>RG Militar:</b> <span th:text="${socio.dadosOficial.rg_militar}"></span></p>
+                                    <p class="mb-1" th:if="${socio.dadosOficial}"><b>Cargo:</b> <span th:text="${socio.dadosOficial.posto}"></span></p>
+                                    <p class="mb-1" th:if="${socio.dadosOficial}"><b>Órgão:</b> <span th:text="${socio.dadosOficial.corporacao}"></span></p>
                                 </div>
                             </div>
         

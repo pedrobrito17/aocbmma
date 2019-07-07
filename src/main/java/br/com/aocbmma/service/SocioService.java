@@ -89,6 +89,7 @@ public class SocioService {
             Role socioRole = roles.findByRole("SOCIO");
             socio.setRoles(new HashSet<Role>(Arrays.asList(socioRole)));
             socio.setSenha(bCryptPasswordEncoder.encode(socio.getSenha()));
+            socio.setPath_foto_perfil(null);
             socio.setDadosBancarios(null);
             socio.setDadosOficial(null);
             socio.setDadosContato(null);
@@ -112,9 +113,7 @@ public class SocioService {
                     dependentesRepository.save(dep);
                 }
             }
-
             return "";
-
         } else {
             return "Este e-mail já está cadastrado. Tente novamente com outro e-mail.";
         }
@@ -207,22 +206,18 @@ public class SocioService {
         socio.setSenha(socioBd.getSenha());
         socio.setAtivo(socioBd.getAtivo());
 
-        socio.getDadosBancarios().setId(socioBd.getId());
+        socio.getDadosBancarios().setId( socioBd.getDadosBancarios().getId() );
         socio.getDadosBancarios().setSocio(socio);
-        socio.getDadosContato().setId(socioBd.getId());
+
+        socio.getDadosContato().setId( socioBd.getDadosContato().getId() );
         socio.getDadosContato().setSocio(socio);
         try {
-            socio.getDadosOficial().setId(socioBd.getId());
+            socio.getDadosOficial().setId(socioBd.getDadosOficial().getId());
             socio.getDadosOficial().setSocio(socio);
         } catch (NullPointerException e) {
-
-            socio.setDadosOficial(new DadosOficial());
-            socio.getDadosOficial().setId(socioBd.getId());
-            socio.getDadosOficial().setSocio(socio);
-
+            socio.setDadosOficial(null);
             System.out.println("O SÓCIO É CIVIL POR ISSO NÃO POSSUI DADOS DE OFICIAL: " + e.getMessage());
         }
-
         socios.save(socio);
     }
 

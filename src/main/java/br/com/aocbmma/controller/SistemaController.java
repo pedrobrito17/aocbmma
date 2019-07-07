@@ -74,8 +74,9 @@ public class SistemaController{
 
     @RequestMapping(value="/meus-dados", method=RequestMethod.GET)
     public ModelAndView pageMeusDados() {
+        Socio socioLogado = socioService.getSocioByEmail();
         mv = new ModelAndView("paginas-sistema/socio/meus-dados");
-        mv.addObject("socio", socioSession);
+        mv.addObject("socio", socioLogado);
         return mv;
     }
 

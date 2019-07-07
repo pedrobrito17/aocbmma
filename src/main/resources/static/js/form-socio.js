@@ -73,7 +73,7 @@ $('#popover').popover({
         '</div>'
 });
 
-$('#categoria').popover({
+$('#tipoSocio').popover({
     trigger: 'focus',
     placement: 'top',
     html: true,
@@ -90,11 +90,15 @@ $('#categoria').popover({
 });
 
 $(document).ready(function () {
-    $('.date').mask('00/00/0000');
+    $('#data_nascimento').mask('00/00/0000');
+    $('.agencia').mask('#-0', {reverse: true});
+    $('.conta_corrente').mask('#-0', {reverse: true});
+    $('.matricula').mask('#-00', {reverse: true});
+    $('.rg_militar').mask('000000');
     $('.cep').mask('00000-000');
     $('.phone_with_ddd').mask('(00) 00000-0000');
     $('.mixed').mask('AAA 000-S0S');
-    $('.cpf').mask('000.000.000-00', {
+    $('#cpf').mask('000.000.000-00', {
         reverse: true
     });
     $('.money').mask('000.000.000.000.000,00', {
@@ -126,195 +130,17 @@ $(document).ready(function () {
     });
 });
 
-function validarForm(form) {
-    var erros = validarInputsAndSelects();
-    console.log(erros);
-
-    if (!validarSenha() || erros > 0) {
-        console.log("Form com erros de validação");
-        return false;
-    } else {
-        form.submit();
-    }
-}
-
-function validarInputsAndSelects() {
-    var erros = 0;
-    var nome = $('input[name=nome]').val();
-    var cpf = $('input[name=cpf]').val();
-    var dta_nascimento = $('input[name=data_nascimento]').val();
-    var cep = $('#cep').val();
-    var whatsapp = $('#whatsapp').val();
-    var categoria = $('#categoria').val();
-    var banco = $('#banco').val();
-    var email = $('#email').val();
-    var confEmail = $('#conf-email').val();
-    
-    var input_text = $('.validacao-input-text');
-    for (let i = 0; i < input_text.length; i++) {
-        if (input_text[i].value == '') {
-            input_text[i].focus();
-            input_text[i].classList.add('is-invalid');
-            erros++;
-        }
-    }
-    if(email != confEmail){
-        $('#conf-email').focus();
-        $('#conf-email').addClass('is-invalid');
-        erros++;
-    }
-    if (cep.length != 9) {
-        $('#cep').focus();
-        $('#cep').addClass('is-invalid');
-        erros++;
-    }
-    if (whatsapp.length != 15) {
-        $('#whatsapp').focus();
-        $('#whatsapp').addClass('is-invalid');
-        erros++;
-    }
-    if (cpf.length != 14) {
-        $('input[name=cpf]').focus();
-        $('input[name=cpf').addClass('is-invalid');
-        erros++;
-    }
-    if (dta_nascimento.length != 10) {
-        $('input[name=data_nascimento]').focus();
-        $('input[name=data_nascimento').addClass('is-invalid');
-        erros++;
-    }
-    
-    if (categoria.length == 0) {
-        $('#categoria').focus();
-        $('#categoria').addClass('is-invalid');
-        erros++;
-    }
-    if (banco.length == 0) {
-        $('#banco').focus();
-        $('#banco').addClass('is-invalid');
-        erros++;
-    }
-    
-    erros += validarDadosOficial(erros);
-
-    return erros;
-}
-
-function validarDadosOficial(erros){
-
-    if( $('#civil').is(':checked') ){
-        //limpar dados
-        return 0;
-    }
-    else{
-        var posto = $('#posto').val();
-        var corporacao = $("#corporacao input[type=radio]:checked").val();
-        
-        if (posto.length == 0) {
-            $('#posto').focus();
-            $('#posto').addClass('is-invalid');
-            erros++;
-        }
-        if (corporacao == undefined) {
-            $('#corporacao').focus();
-            $('#corporacao input[type=radio]').addClass('is-invalid');
-            erros++;
-        }
-        var input_text = $('.validacao-input-dados-oficial');
-        for (let i = 0; i < input_text.length; i++) {
-            if (input_text[i].value == '') {
-                input_text[i].focus();
-                input_text[i].classList.add('is-invalid');
-                erros++;
-            }
-        }
-        return erros;
-    }
-}
-
-function validarSenha() {
-    var senha = $('input[name=senha]').val();
-    var conf_senha = $('input[name=conf_senha]').val();
-    if (senha != conf_senha || senha.length == 0 || conf_senha == 0) {
-        $('input[name=senha]').addClass('is-invalid');
-        $('input[name=conf_senha]').addClass('is-invalid');
-        return false;
-    }
-    return true;
-}
-
-function validarAlterarSenha(form) {
-    if (validarSenha()) {
-        form.submit();
-    }
-}
-
-function validarFormAtualizarMeusDados(form) {
-    var erros = validarInputsAndSelects();
-    if (erros == 0) {
-        form.submit();
-    }
-}
-
-$(".validacao-input-text").focusout(function () {
-    if (!$(this).val()) {
-        $(this).addClass('is-invalid');
-    } else {
-        $(this).removeClass('is-invalid');
-    }
-});
-
-$("#cpf").focusout(function () {
-    if ($(this).val().length != 14) {
-        $(this).addClass('is-invalid');
-    } else {
-        $(this).removeClass('is-invalid');
-    }
-});
-
-$("#cep").focusout(function () {
-    if ($(this).val().length != 9) {
-        $(this).addClass('is-invalid');
-    } else {
-        $(this).removeClass('is-invalid');
-    }
-});
-
-$("#whatsapp").focusout(function () {
-    if ($(this).val().length != 15) {
-        $(this).addClass('is-invalid');
-    } else {
-        $(this).removeClass('is-invalid');
-    }
-});
-
-$("#data_nascimento").focusout(function () {
-    if ($(this).val().length != 10) {
-        $(this).addClass('is-invalid');
-    } else {
-        $(this).removeClass('is-invalid');
-    }
-});
-
-$('input').focus(function () {
-    $(this).removeClass('is-invalid');
-});
-$('select').focus(function () {
-    $(this).removeClass('is-invalid');
-});
-
-$("#cep").focusout(function () {
+$(".cep").focusout(function () {
     $('#animacao').css('display','block'); //inicia a animação
     $.ajax({
         url: 'https://viacep.com.br/ws/' + $(this).val() + '/json/unicode/',
         dataType: 'json',
         success: function (resposta) {
-            $("#logradouro").val(resposta.logradouro);
-            $("#complemento").val(resposta.complemento);
-            $("#bairro").val(resposta.bairro);
-            $("#cidade").val(resposta.localidade);
-            $("#uf").val(resposta.uf);
-            $("#numero").focus();
+            $(".endereco").val(resposta.logradouro);
+            $(".bairro").val(resposta.bairro);
+            $(".cidade").val(resposta.localidade);
+            $(".uf").val(resposta.uf);
+            $(".numero").focus();
             
             $('#animacao').css('display','none'); //encerra a animação
         },
@@ -329,13 +155,26 @@ $(function(){
     $('#civil').click(function(){
         if( $('#civil').is(':checked') ){
             $('#dados-oficial').hide();
-            $('#nome_guerra').val(null);
-            $('#posto').val(null);
-            $('#lotacao').val(null);
-            $('#rg_militar').val(null);
-            $('#matricula').val(null);
+            $('#dadosOficial.nome_guerra').val(null);
+            $('#dadosOficial.posto').val(null);
+            $('#dadosOficial.lotacao').val(null);
+            $('#dadosOficial.rg_militar').val(null);
+            $('#dadosOficial.matricula').val(null);
         }
     })
+});
+
+//Formatando o texto de entrada nos inputs
+$(function(){
+    $("[type='email']").keyup(function(){
+        $(this).val($(this).val().toLowerCase());
+    });
+    $('#nome').keyup(function(){
+        $(this).val($(this).val().toUpperCase());
+    });
+    $("[name='dadosOficial.nome_guerra']").keyup(function(){
+        $(this).val($(this).val().toUpperCase());
+    });
 });
 
 $(document).ready(function(){
@@ -361,5 +200,5 @@ $(document).ready(function(){
     // $('#cep').val('65070-400');
 
     // $('#senha').val('fsadu');
-    // $('#conf_senha').val('fsadu');
+    // $('#conf-senha').val('fsadu');
 });
