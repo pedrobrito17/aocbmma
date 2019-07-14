@@ -45,10 +45,10 @@ public class SocioController {
 
     @PostMapping(value = "/cadastrar-novo-socio")
     public ModelAndView cadastrarSocio(Socio socio) {
-        String msgRetornoErro = socioService.salvarSocio(socio);
+        String msgRetorno = socioService.salvarSocio(socio);
         mv = new ModelAndView("paginas-sistema/retorno");
-        mv.addObject("msg", msgRetornoErro.isEmpty());
-        mv.addObject("msg_erro", msgRetornoErro);
+        mv.addObject("msg", msgRetorno.isEmpty());
+        mv.addObject("msg_erro", msgRetorno);
         return mv;
     }
     

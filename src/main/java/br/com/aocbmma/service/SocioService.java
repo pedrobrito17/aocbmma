@@ -67,16 +67,10 @@ public class SocioService {
 
     @Transactional
     public String salvarSocio(Socio socio) {
-        int socio_id = 0;
-        Socio socioExiste = null;
-        try {
-            socio_id = socios.getSocioIdByEmail(socio.getDadosContato().getEmail());
-            socioExiste = socios.findById(socio_id).get();
-        } catch (Exception e) {
-            System.out.println("NENHUM SÓCIO FOI ENCONTRADO E O RETORNO FOI NULL PARA UM TIPO PRIMITIVO.");
-        }
+        String email = socio.getDadosContato().getEmail();
+        DadosContato dadosContatoExiste = contatoRepository.findByEmail(email);
 
-        if (socioExiste == null) {
+        if (dadosContatoExiste == null) {
 
             DadosOficial dadosOficial = socio.getDadosOficial();
             DadosContato dadosContato = socio.getDadosContato();
@@ -117,7 +111,6 @@ public class SocioService {
         } else {
             return "Este e-mail já está cadastrado. Tente novamente com outro e-mail.";
         }
-
     }
 
     private DadosOficial verificarDadosOficial(DadosOficial d) {
@@ -244,15 +237,8 @@ public class SocioService {
     }
 
     public Socio findSocioByEmail(String email) {
-        int socio_id = 0;
-        Socio socio = null;
-        try{
-            socio_id = socios.getSocioIdByEmail(email);
-            socio = socios.findById(socio_id).get();
-        }catch(Exception e) {
-            System.out.println("NENHUM SÓCIO FOI ENCONTRADO E O RETORNO FOI NULL PARA UM TIPO PRIMITIVO.");
-        }
-        return socio;
+        DadosContato dadosContato = contatoRepository.findByEmail(email);
+        return dadosContato.getSocio();
     }
 
     // Cria um objeto do socioLogado na sessão ativa
@@ -262,18 +248,16 @@ public class SocioService {
     public Socio getSessionScopedSocio() {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        int socio_id = socios.getSocioIdByEmail(email);
-        Socio socio = socios.findById(socio_id).get();
-        return socio;
+        DadosContato dadosContato = contatoRepository.findByEmail(email);
+        return dadosContato.getSocio();
     }
 
     @Transactional
     public Socio getSocioByEmail() {
         org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
-        int socio_id = socios.getSocioIdByEmail(email);
-        Socio socio = socios.findById(socio_id).get();
-        return socio;
+        DadosContato dadosContato = contatoRepository.findByEmail(email);
+        return dadosContato.getSocio();
     }
 
     public Collection<? extends GrantedAuthority> getRolesBySocio() {
