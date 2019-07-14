@@ -16,60 +16,40 @@ public class UploadFilesDocHelper {
 
     private String path_root_file;
 
-    public boolean uploadFileServer(String pathRoot, MultipartFile file, int socio_id) {
-        boolean diretorioFoiCriado = createDirectory(pathRoot, socio_id);
+    public void uploadFileServer(String pathRoot, MultipartFile file, int socio_id) throws IOException {
         path_file = DIRECTORY_DOCS + socio_id + File.separator;
         path_root_file = pathRoot + path_file + file.getOriginalFilename();
 
-        if (diretorioFoiCriado) {
-            deleteFileIfExist();
-            return writeFileServer(pathRoot, file);
-        } else {
-            return false;
+        createDirectory(pathRoot, socio_id);
+        deleteFileIfExist();
+        writeFileServer(pathRoot, file);
+    }
+
+    public void createDirectory(String pathRoot, int socio_id) throws IOException{
+        File directory = new File(pathRoot + DIRECTORY_DOCS + socio_id);
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
     }
 
-    public boolean createDirectory(String pathRoot, int socio_id) {
-        File directory = new File(pathRoot + DIRECTORY_DOCS + socio_id);
-        if (!directory.exists()) {
-            return directory.mkdirs();
-        }else{
-            return true;
-        }
+    public void writeFileServer(String pathRoot, MultipartFile file) throws IOException {
+        String name = file.getOriginalFilename();
+        byte[] bytes = file.getBytes();
+        FileOutputStream fout = new FileOutputStream(pathRoot + path_file + name);
+        fout.write(bytes);
+        fout.flush();
+        fout.close();
     }
-    
-    public boolean writeFileServer(String pathRoot, MultipartFile file){
-        FileOutputStream fout = null;
-        try{
-            String name = file.getOriginalFilename();
-            System.out.println(name);
-            byte[] bytes = file.getBytes();
-            fout = new FileOutputStream(pathRoot + path_file + name);
-            fout.write(bytes);
-        }catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }finally{
-            try {
-                fout.flush();
-                fout.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public void deleteFileIfExist(){
+
+    public void deleteFileIfExist() throws IOException{
         File file = new File(path_root_file);
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
         }
     }
-    
-    public void deleteFile(String pathRoot, UploadFilesDoc uploadFile){
-        File file = new File(pathRoot+uploadFile.getPath_file());
+
+    public void deleteFile(String pathRoot, UploadFilesDoc uploadFile) throws IOException{
+        File file = new File(pathRoot + uploadFile.getPath_file());
         file.delete();
     }
 

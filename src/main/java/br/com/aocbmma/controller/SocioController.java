@@ -1,5 +1,7 @@
 package br.com.aocbmma.controller;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +23,6 @@ import br.com.aocbmma.helper.FileSociosExcel;
 import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.SocioService;
 
-
-
 @Controller
 public class SocioController {
 
@@ -39,7 +39,7 @@ public class SocioController {
 
     @RequestMapping(value = "/associese", method = RequestMethod.GET)
     public ModelAndView pageAssociese(Socio socio) throws Exception {
-        mv = new ModelAndView("paginas-sistema/cadastro-socio"); 
+        mv = new ModelAndView("paginas-sistema/cadastro-socio");
         return mv;
     }
 
@@ -51,10 +51,10 @@ public class SocioController {
         mv.addObject("msg_erro", msgRetorno);
         return mv;
     }
-    
-    @GetMapping(value="/admin/alterar-status-socio/{status}/{id}")
-    public ModelAndView alterarStatusParaInativo(@PathVariable("status") String status, @PathVariable("id") int socio_id, 
-    RedirectAttributes redirectAttributes) {
+
+    @GetMapping(value = "/admin/alterar-status-socio/{status}/{id}")
+    public ModelAndView alterarStatusParaInativo(@PathVariable("status") String status,
+            @PathVariable("id") int socio_id, RedirectAttributes redirectAttributes) {
         socioService.atualizarSituacaoSocioPara(status, socio_id);
         redirectAttributes.addFlashAttribute("msgSuccess", "A situação do sócio foi alterada com sucesso");
         mv = new ModelAndView("redirect:/");
@@ -69,23 +69,32 @@ public class SocioController {
     }
 
     @PostMapping(value = "/sisaocbmma/salvar-foto-perfil/{id}")
-    public ModelAndView salvarFotoPerfil(HttpServletRequest request, @RequestParam("foto") MultipartFile file, @PathVariable("id") int socio_id) {
+    public ModelAndView salvarFotoPerfil(HttpServletRequest request, @RequestParam("foto") MultipartFile file,
+            @PathVariable("id") int socio_id) {
         socioService.salvarFotoDoPerfil(socio_id, file);
         mv = new ModelAndView("redirect:/");
         return mv;
     }
 
-    @RequestMapping(value="/admin/planilha-socios", method=RequestMethod.GET)
+    @RequestMapping(value = "/admin/planilha-socios", method = RequestMethod.GET)
     public HttpEntity<byte[]> getPlanilhaSocios() {
         String path_root = servlet.getRealPath("/");
-        byte[] planilhaBytes = fileSociosExcel.criarArquivoExcel(path_root);
-        String name_file = FileSociosExcel.FILE;
+        byte[] planilhaBytes;
+        
+        try {
+            planilhaBytes = fileSociosExcel.criarArquivoExcel(path_root);
+            String name_file = FileSociosExcel.FILE;
+    
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.add("Content-Disposition", "attachment; filename=\"" + name_file + "\"");
+    
+            HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>( planilhaBytes, httpHeaders );
+            return httpEntity;
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-Disposition", "attachment; filename=\"" + name_file + "\"");
-
-        HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>( planilhaBytes, httpHeaders );
-        return httpEntity;
+        } catch (NullPointerException | IOException e) {
+            e.printStackTrace();
+            return new HttpEntity<byte[]>(null, null);
+        }
     }
     
 }

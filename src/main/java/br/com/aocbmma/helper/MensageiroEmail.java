@@ -103,7 +103,7 @@ public class MensageiroEmail {
 
         Authenticator auth = new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("contato@aocbmma.com.br", "@miguel10");
+                return new PasswordAuthentication("contato@aocbmma.com.br", "FUSh3WTSn0Cy");
             }
         };
 

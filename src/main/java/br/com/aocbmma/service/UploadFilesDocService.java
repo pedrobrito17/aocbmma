@@ -41,38 +41,32 @@ public class UploadFilesDocService {
     private UploadFilesDocHelper uploadHelper = new UploadFilesDocHelper();
 
     @Transactional
-    public boolean saveFiles(MultipartFile[] files) {
+    public void saveFiles(MultipartFile[] files) throws IOException {
         socioLogado = socioService.getSocioByEmail();
         String status = socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado);
 
         if (status.equals("adimplente") || status.isEmpty()) {
-            return save(files);
+            save(files);
         }
-        return false;
     }
 
-    public boolean save(MultipartFile[] files) {
+    public void save(MultipartFile[] files) throws IOException {
         String pathRoot = servlet.getRealPath("/");
         int socio_id = socioLogado.getId();
 
         for (MultipartFile file : files) {
-            boolean uploadServer = uploadHelper.uploadFileServer(pathRoot, file, socio_id);
+            uploadHelper.uploadFileServer(pathRoot, file, socio_id);
             String name = file.getOriginalFilename();
-
-            if (uploadServer) {
-                String path_file = getPathFile(file);
-                UploadFilesDoc uploadFiles = new UploadFilesDoc();
-                uploadFiles.setSocio(socioLogado);
-                uploadFiles.setPath_file(path_file);
-                uploadFiles.setName_file(name);
-                uploadFiles.setTamanho(file.getSize());
-                uploadFiles.setDataInsercao(new Date());
-                repository.save(uploadFiles);
-            } else {
-                return false;
-            }
+            
+            String path_file = getPathFile(file);
+            UploadFilesDoc uploadFiles = new UploadFilesDoc();
+            uploadFiles.setSocio(socioLogado);
+            uploadFiles.setPath_file(path_file);
+            uploadFiles.setName_file(name);
+            uploadFiles.setTamanho(file.getSize());
+            uploadFiles.setDataInsercao(new Date());
+            repository.save(uploadFiles);
         }
-        return true;
     }
 
     public String getPathFile(MultipartFile file) {
@@ -103,7 +97,7 @@ public class UploadFilesDocService {
         return listDados;
     }
 
-    public void deletarUploadFile(int id) {
+    public void deletarUploadFile(int id) throws IOException {
         String pathRoot = servlet.getRealPath("/");
         UploadFilesDoc uploadFile = repository.getOne(id);
         repository.deleteById(id);

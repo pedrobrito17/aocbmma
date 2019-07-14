@@ -32,46 +32,30 @@ public class FileSociosExcel {
 
     private HSSFWorkbook planilha;
 
-    public byte[] criarArquivoExcel(String path_root) {
+    public byte[] criarArquivoExcel(String path_root) throws NullPointerException, IOException{
         planilha = new HSSFWorkbook();
 
         FileOutputStream fileOutputStream = null;
-        try {
-            File file = new File(path_root + FILE);
-            apagarArquivoCriadoAnteriormente(file);
-            fileOutputStream = new FileOutputStream(file);
+        File file = new File(path_root + FILE);
+        apagarArquivoCriadoAnteriormente(file);
+        fileOutputStream = new FileOutputStream(file);
 
-            criarFolhaPorCategoriaDoSocio("fundador");
-            criarFolhaPorCategoriaDoSocio("efetivo");
-            criarFolhaPorCategoriaDoSocio("contribuinte");
-            criarFolhaPorCategoriaDoSocio("honorário");
+        criarFolhaPorCategoriaDoSocio("fundador");
+        criarFolhaPorCategoriaDoSocio("efetivo");
+        criarFolhaPorCategoriaDoSocio("contribuinte");
+        criarFolhaPorCategoriaDoSocio("honorário");
 
-            planilha.write(fileOutputStream);
-            return FileUtils.readFileToByteArray(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("ERRO AO CRIAR A PLANILHA DO EXCEL COM OS DADOS DOS SÓCIOS");
-        } finally {
-            try {
-                fileOutputStream.flush();
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("ERRO AO ENCERRAR O OBJETO FILEOUTPUTSTREAM");
-            }
-        }
-        return null;
+        planilha.write(fileOutputStream);
+        fileOutputStream.flush();
+        fileOutputStream.close();
+        return FileUtils.readFileToByteArray(file);
     }
 
-    public void criarFolhaPorCategoriaDoSocio(String categoria) {
+    public void criarFolhaPorCategoriaDoSocio(String categoria) throws NullPointerException{
         HSSFSheet folha = planilha.createSheet(categoria);
         definirAlturaPadraoDasLinhas(folha);
         criarCabecalho(folha);
-        try {
-            inserirDadosDoSocioNaFolha(folha, categoria);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        inserirDadosDoSocioNaFolha(folha, categoria);
         definirComprimentoDasColunas(folha);
     }
 
@@ -119,7 +103,7 @@ public class FileSociosExcel {
         }
     }
 
-    public void inserirDadosDoSocioNaFolha(HSSFSheet folha, String categoria) throws Exception{
+    public void inserirDadosDoSocioNaFolha(HSSFSheet folha, String categoria) throws NullPointerException{
         List<Socio> sociosEfetivos = getSociosAtivosDaCategoria(categoria);
 
         int cont = 1;
@@ -200,12 +184,7 @@ public class FileSociosExcel {
     }
 
     public void apagarArquivoCriadoAnteriormente(File file){
-        if( file.delete() ){
-            System.out.println("ARQUIVO APAGADO COM SUCESSO");
-        }else{
-            System.out.println("ARQUIVO NÃO EXISTE");
-        }
-
+        file.delete();
     }
     
 

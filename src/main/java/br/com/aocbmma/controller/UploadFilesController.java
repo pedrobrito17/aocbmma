@@ -1,5 +1,6 @@
 package br.com.aocbmma.controller;
 
+import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletContext;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,7 +24,6 @@ import br.com.aocbmma.model.aux.DadosUploadFilesDoc;
 import br.com.aocbmma.service.SocioService;
 import br.com.aocbmma.service.UploadFilesDocService;
 
-
 @Controller
 public class UploadFilesController {
 
@@ -36,39 +36,38 @@ public class UploadFilesController {
     @Autowired
     private ServletContext servlet;
 
-    @RequestMapping(value = "/sisaocbmma/upload-files", 
-        method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, 
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/sisaocbmma/upload-files", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody String postUploadFiles(@RequestParam("file") MultipartFile[] files) {
 
-        boolean osFilesForamSalvos = service.saveFiles(files);
-
-        if (osFilesForamSalvos) {
+        try {
+            service.saveFiles(files);
+            
             ObjectMapper mapperJson = new ObjectMapper();
             try {
                 List<DadosUploadFilesDoc> dados = service.getAllDadosUploadFilesDocBySocioLogado();
                 String json = mapperJson.writeValueAsString(dados);
                 return json;
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
                 return "{\"msg\": \"gravou\"}";
             }
-        }else{
+
+        } catch (IOException e) {
             return "{\"msg\": \"vazio\"}";
         }
     }
 
     @PostMapping(value="/sisaocbmma/deletar-upload-file-doc/{id}")
     public @ResponseBody String deletarUploadFile(@PathVariable("id") int id) {
-        service.deletarUploadFile(id);
-        return "true";
+        try {
+            service.deletarUploadFile(id);
+            return "true";
+        } catch (IOException e) {
+            return "false";
+        }
     }
 
     @RequestMapping(value="/admin/download-files-doc-zip", method=RequestMethod.GET)
     public ModelAndView pageUploadFilesDocAdmin() {
-        // String path_root = servlet.getRealPath("/");
-        // new ZipDirectory().deleteAllZipFiles(path_root);
-
         Socio socioLogado = socioService.getSocioByEmail();
         ModelAndView mv = new ModelAndView("paginas-sistema/admin/download-docs");
         mv.addObject("socio", socioLogado);

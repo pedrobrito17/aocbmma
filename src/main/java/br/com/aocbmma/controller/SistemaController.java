@@ -1,5 +1,7 @@
 package br.com.aocbmma.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,9 @@ import br.com.aocbmma.service.SocioService;
 import br.com.aocbmma.service.SocioTransferenciaService;
 import br.com.aocbmma.service.SolicitacaoCarteiraIdentificacaoService;
 
-
 @Controller
 @RequestMapping("/sisaocbmma")
-public class SistemaController{
+public class SistemaController {
 
     @Autowired
     private SocioService socioService;
@@ -66,13 +67,13 @@ public class SistemaController{
     @Autowired
     private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
 
-    //obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
-    @Resource(name = "getSessionScopedSocio") 
+    // obtém o objeto do sócio por meio do scopo da sessão criado em SocioService
+    @Resource(name = "getSessionScopedSocio")
     private Socio socioSession;
 
     private ModelAndView mv = null;
 
-    @RequestMapping(value="/meus-dados", method=RequestMethod.GET)
+    @RequestMapping(value = "/meus-dados", method = RequestMethod.GET)
     public ModelAndView pageMeusDados() {
         Socio socioLogado = socioService.getSocioByEmail();
         mv = new ModelAndView("paginas-sistema/socio/meus-dados");
@@ -80,7 +81,7 @@ public class SistemaController{
         return mv;
     }
 
-    @RequestMapping(value="/meus-dependentes", method=RequestMethod.GET)
+    @RequestMapping(value = "/meus-dependentes", method = RequestMethod.GET)
     public ModelAndView pageMeusDependentes() {
         Socio socioLogado = socioService.getSocioByEmail();
         mv = new ModelAndView("paginas-sistema/socio/meus-dependentes");
@@ -88,14 +89,14 @@ public class SistemaController{
         return mv;
     }
 
-    @RequestMapping(value="/alterar-senha", method=RequestMethod.GET)
+    @RequestMapping(value = "/alterar-senha", method = RequestMethod.GET)
     public ModelAndView pageAlterarSenha() {
         mv = new ModelAndView("paginas-sistema/socio/alterar-senha");
         mv.addObject("socio", socioSession);
         return mv;
     }
 
-    @RequestMapping(value="/financeiro", method=RequestMethod.GET)
+    @RequestMapping(value = "/financeiro", method = RequestMethod.GET)
     public ModelAndView pageFinanceiro() {
         mv = new ModelAndView("paginas-sistema/socio/financeiro");
         mv.addObject("socio", socioSession);
@@ -103,45 +104,45 @@ public class SistemaController{
         return mv;
     }
 
-    @RequestMapping(value="/atas-assembleia", method=RequestMethod.GET)
+    @RequestMapping(value = "/atas-assembleia", method = RequestMethod.GET)
     public ModelAndView pageAtasAssembleia() {
         mv = new ModelAndView("paginas-sistema/socio/atas-assembleia");
         mv.addObject("socio", socioSession);
         mv.addObject("atas", ataAssembleiaService.getTodasAtasAssembleia());
         return mv;
     }
-    
-    @PostMapping(value="/atualizar-socio")
+
+    @PostMapping(value = "/atualizar-socio")
     public ModelAndView atualizarSocio(Socio socio, RedirectAttributes redirectAttributes) {
         socioService.atualizarSocio(socio);
         mv = new ModelAndView("redirect:/");
-        redirectAttributes.addFlashAttribute("msgSuccess" , "Os seus dados foram alterados com sucesso.");
+        redirectAttributes.addFlashAttribute("msgSuccess", "Os seus dados foram alterados com sucesso.");
         return mv;
     }
 
-    @PostMapping(value="/alterar-senha")
+    @PostMapping(value = "/alterar-senha")
     public ModelAndView alterarSenha(Socio socio, RedirectAttributes redirectAttributes) {
         socioService.atualizarSenhaSocio(socio);
         mv = new ModelAndView("redirect:/");
-        redirectAttributes.addFlashAttribute("msgSuccess" , "Senha alterada com sucesso.");
+        redirectAttributes.addFlashAttribute("msgSuccess", "Senha alterada com sucesso.");
         return mv;
     }
 
-    @PostMapping(value="/atualizar-meus-dependentes")
+    @PostMapping(value = "/atualizar-meus-dependentes")
     public ModelAndView atualizarMeusDependentes(Socio socio, RedirectAttributes redirectAttributes) {
         socioService.atualizarMeusDependentes(socio);
         mv = new ModelAndView("redirect:/");
-        redirectAttributes.addFlashAttribute("msgSuccess" , "Dependentes atualizados com sucesso.");
+        redirectAttributes.addFlashAttribute("msgSuccess", "Dependentes atualizados com sucesso.");
         return mv;
     }
 
-    @DeleteMapping(value="/deletar-dependente/{id}")
+    @DeleteMapping(value = "/deletar-dependente/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deletarDependente(@PathVariable("id") int id) {
         socioService.deletarDependente(id);
     }
 
-    @RequestMapping(value="/reservar-clube", method=RequestMethod.GET)
+    @RequestMapping(value = "/reservar-clube", method = RequestMethod.GET)
     public ModelAndView pageAgendar() {
         mv = new ModelAndView("paginas-sistema/socio/reservas/reservar-clube");
         mv.addObject("socio", socioSession);
@@ -150,7 +151,7 @@ public class SistemaController{
         mv.addObject("datasReservaCajueiro", reservaCajueiroService.getDatasReservasRealizadas());
         return mv;
     }
-    
+
     @RequestMapping(value = "/convenios", method = RequestMethod.GET)
     public ModelAndView pageConvenios() {
         mv = new ModelAndView("paginas-sistema/socio/convenios");
@@ -160,7 +161,7 @@ public class SistemaController{
         return mv;
     }
 
-    @GetMapping(value="/minhas-reservas")
+    @GetMapping(value = "/minhas-reservas")
     public ModelAndView pageMeusEventos() {
         mv = new ModelAndView("paginas-sistema/socio/reservas/minhas-reservas");
         mv.addObject("eventCampo", reservaCampoService.getMinhasReserva());
@@ -170,7 +171,7 @@ public class SistemaController{
         return mv;
     }
 
-    @GetMapping(value="/reservas-clube")
+    @GetMapping(value = "/reservas-clube")
     public ModelAndView pageReservasClube() {
         mv = new ModelAndView("paginas-sistema/socio/reservas/reservas-clube");
         mv.addObject("eventCampo", reservaCampoService.getReservasDoClube());
@@ -180,28 +181,38 @@ public class SistemaController{
         return mv;
     }
 
-    @RequestMapping(value="/carteira-identificacao", method=RequestMethod.GET)
-    public ModelAndView pageSolicitarCarteira(){
+    @RequestMapping(value = "/carteira-identificacao", method = RequestMethod.GET)
+    public ModelAndView pageSolicitarCarteira() {
         mv = new ModelAndView("paginas-sistema/socio/carteira-identificacao");
         mv.addObject("socio", socioSession);
-        mv.addObject("solicitacoes", solicitacaoCarteiraIdentificacaoService.getMinhasSolicitacoesDeCarteiraDeIdentidade(socioSession));
+        mv.addObject("solicitacoes",
+                solicitacaoCarteiraIdentificacaoService.getMinhasSolicitacoesDeCarteiraDeIdentidade(socioSession));
         return mv;
     }
-    
-    @PostMapping(value="/solicitar-carteira")
-    public ModelAndView postSolicitarCarteira(@RequestParam("foto") MultipartFile foto, RedirectAttributes redirectAttributes) {
+
+    @PostMapping(value = "/solicitar-carteira")
+    public ModelAndView postSolicitarCarteira(@RequestParam("foto") MultipartFile foto,
+            RedirectAttributes redirectAttributes) {
         Socio socioLogado = socioService.getSocioByEmail();
         String statusDoSocio = socioTransferenciaService.getStatusDeAdimplenciaDo(socioLogado);
-        if(statusDoSocio.equals("inadimplente")){
+        if (statusDoSocio.equals("inadimplente")) {
             mv = new ModelAndView("redirect:/");
-            redirectAttributes.addFlashAttribute("msgErro", "Não foi possível concluir a solicitação. Você está inadimplente.");
+            redirectAttributes.addFlashAttribute("msgErro",
+                    "Não foi possível concluir a solicitação. Você está inadimplente.");
             return mv;
-        }
-        else{
-            solicitacaoCarteiraIdentificacaoService.salvarSolicitacao(socioLogado, foto);
-            mv = new ModelAndView("redirect:/");
-            redirectAttributes.addFlashAttribute("msgSuccess","Solicitação da carteira de identificação concluída. Dentro de alguns dias entraremos em contato para realizar a entrega.");
-            return mv;
+        } else {
+
+            try {
+                solicitacaoCarteiraIdentificacaoService.salvarSolicitacao(socioLogado, foto);
+                mv = new ModelAndView("redirect:/");
+                redirectAttributes.addFlashAttribute("msgSuccess","Solicitação da carteira de identificação concluída. Dentro de alguns dias entraremos em contato para realizar a entrega.");
+                return mv;
+            } catch (IOException e) {
+                mv = new ModelAndView("redirect:/");
+                redirectAttributes.addFlashAttribute("msgErro","Desculpe! Não foi possível realizar a sua solicitação.");
+                return mv;
+            }
+            
         }
     }
 }

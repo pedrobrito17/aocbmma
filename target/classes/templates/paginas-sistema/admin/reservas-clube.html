@@ -49,10 +49,10 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="evento : ${eventCampo}">
-                                            <td class="align-middle"><a
-                                                    th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${evento.socio.dadosOficial} ?  
+                                                ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}
+                                                : ${evento.socio.nome}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle" th:text="${evento.hora_inicio}"></td>
@@ -92,8 +92,9 @@
                                     <tbody>
                                         <tr th:each="evento : ${eventCajueiro}">
                                             <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                th:text="${evento.socio.dadosOficial} ?  
+                                                ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}
+                                                : ${evento.socio.nome}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
                                             <td class="align-middle" th:text="${evento.periodo}"></td>
@@ -133,8 +134,9 @@
                                     <tbody>
                                         <tr th:each="evento : ${eventChale}">
                                             <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
-                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
-                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                                th:text="${evento.socio.dadosOficial} ?  
+                                                ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}
+                                                : ${evento.socio.nome}"></a>
                                             </td>
                                             <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
                                             <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>
