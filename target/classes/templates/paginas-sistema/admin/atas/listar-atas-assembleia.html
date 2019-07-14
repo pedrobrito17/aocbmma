@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>ATAS DE ASSEMBLEIA GERAL</b></h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-10 offset-lg-1">
+
+                    <!-- MENSAGEM DE SUCESSO -->
+                    <div th:replace="padrao/mensagens-alerta :: mensagem-sucesso"></div>
+                    <!-- MENSAGEM DE ERRO -->
+                    <div th:replace="padrao/mensagens-alerta :: mensagem-erro"></div>
+
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Arquivo</th>
+                                <th>Data da assembleia</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="ata, id : ${atas}">
+                                <td class="align-middle" th:text="${id.count}">1</td>
+                                <td class="align-middle">
+                                    <a target="__blank" th:href="@{ ${ata.path_ata} }">
+                                        <img th:src="@{/img/icon-pdf.png}">
+                                    </a>
+                                </td>
+                                <td class="align-middle text-uppercase" th:text="${#dates.format(ata.data_assembleia, 'dd MMM yyyy')}"></td>
+                                <td class="align-middle">
+                                    <a th:href="@{/admin/excluir-ata-assembleia/{id}(id=${ata.id})}"><button class="btn btn-outline-danger btn-sm">Excluir</button></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 6,
+                    paging: true,
+                    ordering: true,
+                    searching: true,
+                    info: false,
+                    lengthChange: true,
+                    lengthMenu: [10,15,20],
+                    language: {
+                        lengthMenu: "Exibir _MENU_ linhas",
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
+        </script>
+        <br><br><br>
+    </main>
+</body>
+
+</html>

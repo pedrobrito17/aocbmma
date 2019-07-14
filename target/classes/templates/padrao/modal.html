@@ -1,0 +1,162 @@
+<div th:fragment="email-enviado">
+
+    <div class="alert alert-success alert-dismissible" th:if="${enviado} != null">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <span th:text="${enviado}"></span>
+    </div>
+
+    <div class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <div class="alert alert-success alert-dismissible" th:if="${enviado} != null">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 th:text="${enviado}"></h4>
+                    </div>
+
+                    <div class="alert alert-danger alert-dismissible" th:if="${erro} != null">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 th:text="${erro}"></h4>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="alterar-foto-perfil">
+    <div class="modal fade" id="alterar-foto-perfil" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Selecionar foto do perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form enctype="multipart/form-data"
+                        th:action="@{/sisaocbmma/salvar-foto-perfil/{id}(id=${socio.id})}" th:method="POST">
+                        <div class="">
+                            <input type="file" class="form-control form-custom" id="foto" name="foto"
+                                accept="image/*"><br>
+                        </div>
+                        <div id="foto-perfil" class="">
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-sis btn-block mt-4">Salvar
+                            foto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#foto').change(function () {
+            var file = this.files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onloadend = function () {
+                var error = fileReader.error;
+                if (error == null) {
+                    $('#foto-perfil').addClass('avatar-preview');
+                    $('#foto-perfil').html('<img src="'+ fileReader.result +'" class="user foto-preview">');
+                }
+            }
+        });
+    </script>
+</div>
+
+<div th:fragment="aceite-reserva">
+    <div class="modal fade" id="termo" tabindex="-1" role="dialog" aria-labelledby="termo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">TERMOS PARA RESERVA DO CLUBE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-justify mt-3">Na qualidade de sócio declaro ter conhecimento das normas de utilização
+                        da
+                        sede social da
+                        AOCBMMA, solicitando a reserva da área escolhida, para evento particular, para a data e
+                        horários especificados, tempo no qual assumirei os compromissos e responsabilidades de: </p>
+
+                    <ol>
+                        <li class="text-justify mt-3">
+                            Responsabilizar-me por todo e qualquer dano sofrido as instalações;
+                        </li>
+                        <li class="text-justify mt-3">
+                            Cumprir o disposto no regulamento interno no que se refere ao uso da área reservada e
+                            normas estabelecidas para tais, sobre o qual tenho total conhecimento e, assim sendo, assumo
+                            a responsabilidade de cumpri-las, zelando ainda pelo bom uso das áreas comuns utilizadas na
+                            recepção dos convidados e demais associados;
+                        </li>
+                        <li class="text-justify mt-3">
+                            A requisição é exclusiva aos associados da AOCBMMA, sendo vedado sua sublocação, sob
+                            qualquer pretexto, e o seu uso para atividades político partidárias e mercantis de jogos
+                            considerados de azar. A reserva de um dos espaços não é cumulativa para o outro;
+
+                        </li>
+                        <li class="text-justify mt-3">
+                            Pagar a taxa de utilização da área reservada via depósito ou transferência na conta
+                            corrente da AOCBMMA. Agencia BB 1414-1, CC 34847-3. A reserva somente será confirmada e
+                            efetivada após a confirmação de pagamento da taxa de manutenção. O comprovante de pagamento
+                            deverá ser enviado
+                            ao email da AOCBMMA em até 48 horas, caso contrário a data da reserva estará novamente
+                            disponível.
+                        </li>
+                        <li class="text-justify mt-3">
+                            O associado locatário terá a obrigação de estar presente durante toda a realização do
+                            evento. Em caso de extrapolação de horário do evento, diurno para o noturno, será cobrado o
+                            valor extra deste último.
+
+                        </li>
+                        <li class="text-justify mt-3">
+                            Comunicar ao Diretor Administrativo ou ao funcionário da AOCBMMA sobre qualquer dano ou
+                            irregularidade na área reservada, tão logo o problema seja percebido.
+
+                        </li>
+                        <li class="text-justify mt-3 mt-3">
+                            Estar ciente do regulamento interno de uso da Associação dos Oficiais do CBMMA e suas
+                            dependências (Portaria nº 01/2019 - Diretoria Executiva).
+                        </li>
+                        <li class="text-justify mt-3 mt-3">
+                            O uso de som automotivo é proibido no clube.
+                        </li>
+                    </ol>
+
+                    <div class="checkbox float-right">
+                        <label><input type="checkbox" id="aceito"> Ciente dos termos</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-block" id="btn-reservar">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#btn-reservar').hide();
+
+            $('#aceito').change(function () {
+                if ($(this).is(':checked')) {
+                    $('#btn-reservar').show();
+                } else {
+                    $('#btn-reservar').hide();
+                }
+            });
+        });
+    </script>
+
+</div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/jquery-ui-autocomplete.min.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>CONTROLE DE PAGAMENTO</b></h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="alert alert-success" th:if="${msg}">
+                                <span th:utext="${msg}"></span>
+                            </div>
+                        </div>
+                    </div>  
+
+                    <div class="mt-4 mb-4">
+                        <h5><u>Instruções</u></h5>
+                        <p class="ml-3 mb-0"># Digite qualquer parte do nome do sócio que automaticamente o nome completo será visualizado.</p>
+                        <p class="ml-3 mb-0"># Para inserir mensalidades atrasadas, selecione os meses e não insira nenhuma data de pagamento.</p>
+                        <p class="ml-3 mb-0"># Não registre pagamentos com meses selecionados alternadamente. Isso não faz sentido para o controle de pagamento.</p>
+                        <p class="ml-3 mb-0"># Para tornar inadimplente os sócios que não pagaram a mensalidade do mês anterior,
+                            clique no botão <strong>ATUALIZAR INADIMPLÊNCIA</strong> localizado em Lista de adimplência. A ação somente será efetiva se tiver decorrido o prazo de 30 dias.</p>
+                    </div>
+
+                    <br>
+                    <form th:action="@{/admin/registrar-pagamento}" th:method="POST">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nomeSocio">Nome do sócio</label>
+                                    <input class="form-control form-custom" name="nomeSocio" type="text" id="nomeSocio" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="data">Data do pagamento</label>
+                                    <input class="form-control form-custom" name="data_pagamento" type="date" placeholder="dd/MM/yyyy">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group">
+                                    <label for="ano">Ano</label>
+                                    <input class="form-control form-custom" name="ano" id="ano" type="text" placeholder="yyyy" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 ml-4">
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="1" name="mes_pago" value="01"> JANEIRO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="2" name="mes_pago" value="02"> FEVEREIRO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="3" name="mes_pago" value="03"> MARÇO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="4" name="mes_pago" value="04"> ABRIL
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="5" name="mes_pago" value="05"> MAIO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="6" name="mes_pago" value="06"> JUNHO
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 ml-4">
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="7" name="mes_pago" value="07"> JULHO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="8" name="mes_pago" value="08"> AGOSTO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="9" name="mes_pago" valuel="09"> SETEMBRO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="10" name="mes_pago" value="10"> OUTUBRO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="11" name="mes_pago" value="11"> NOVEMBRO
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="12" name="mes_pago" value="12"> DEZEMBRO
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-block btn-sis">REGISTRAR</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <script th:src="@{/js/jquery-ui-autocomplete.min.js}"></script>
+        <script th:inline="javascript">
+            
+            /*<![CDATA[*/
+            $( function(){
+                var todosSocios = /*[[${todosSocios}]]*/ "d";
+    
+                $("#nomeSocio").autocomplete({
+                    source: todosSocios
+                });
+            });
+
+            $( function(){
+                var date = new Date();
+                var ano_current = date.getFullYear();
+                var num_month = date.getMonth()+1;
+
+                if(num_month == 0){ //janeiro
+                    $("#ano").val(ano_current-1);
+                    $("#ano").text(ano_current-1);
+                    $("#"+12).prop('checked', true); //dezembro
+                }
+                else{
+                    $("#ano").val(ano_current);
+                    $("#ano").text(ano_current);
+                    $("#"+num_month).prop('checked', true);
+                }
+            });
+            /*]]*/
+        </script>
+    </main>
+</body>
+</html>

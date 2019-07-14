@@ -1,0 +1,21 @@
+input[type="radio"] {
+    transform: scale(1.5);
+}
+
+.form-custom:focus{
+    box-shadow: 0px 0px 0px white !important;
+}
+
+.color-obrigatorio{
+    color: red;
+}
+
+#label-civil {
+    position: relative;
+    bottom: -4px;
+}
+
+.is-invalid {
+    color: #dc3545;
+    font-size: .8em;
+}

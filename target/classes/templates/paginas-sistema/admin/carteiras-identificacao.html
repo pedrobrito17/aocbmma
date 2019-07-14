@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>CARTEIRAS DE IDENTIFICAÇÃO</b></h4>
+                    <hr>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
+
+                    <table class="table table-sm table-striped table-responsive-sm">
+                        <thead class="">
+                            <th>Código</th>
+                            <th>Nome</th>
+                            <th>Data da solicitação</th>
+                            <th>Foto</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            <tr th:each="carteira,id : ${carteiras}">
+                                <td class="align-middle" th:text="${id.count}"></td>
+                                <td class="align-middle"><a
+                                    th:href="@{/admin/dados-socio/{id}(id=${carteira.socio.id})}"
+                                    th:text="${carteira.socio.nome}"></a>
+                                </td>
+                                <td class="align-middle" th:text="${#dates.format(carteira.data_solicitacao, 'dd MMM yyyy')}"></td>
+                                <td class="align-middle">
+                                    <a target="_blank" th:href="@{ ${carteira.foto} }">
+                                        <img style="max-width: 50px;" class="img-thumbnail" th:src="@{ ${carteira.foto} }">
+                                    </a>
+                                </td>
+                                <td class="align-middle" th:text="${carteira.status}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+                $(document).ready(function(){
+                    $('.table').DataTable({
+                        pageLength: 5,
+                        paging: true,
+                        ordering: true,
+                        searching: true,
+                        info: false,
+                        lengthChange: true,
+                        lengthMenu: [10,20,40,60,80,100,150,200],
+                        language: {
+                            lengthMenu: "Exibir _MENU_ linhas",
+                            search: "Pesquisar",
+                            paginate: {
+                                next: "Próximo",
+                                previous: "Anterior"
+                            }
+                        }
+                    });
+                })
+            </script>
+    </main>
+
+</body>
+
+</html>

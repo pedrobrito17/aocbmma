@@ -1,0 +1,25 @@
+<div th:fragment="chales-disponiveis">
+    <div class="row mt-4" th:each="chale : ${chalesDisponiveis}">
+        <div class="col-12">
+            <div class="chale-disp">
+                <p class="ml-3 d-lg-inline-block">Chalé nº <span th:utext="${chale.getCod_chale()}"></span> disponível</p>
+                <div class="d-lg-inline-block ml-lg-4">
+                    <form th:action="@{/sisaocbmma/salvar-reserva-chale}" th:method="post" th:object="${reserva}" onsubmit="exibirTermoChale(this); return false;">
+                        <input type="text" name="data_entrada" value="" th:field="*{data_entrada}" hidden>
+                        <input type="text" name="data_saida" value="" th:field="*{data_saida}" hidden>
+                        <input type="text" name="chale" id="chale" th:value="${chale.getCod_chale()}" hidden>
+                        <button type="submit" class="btn btn-sm btn-secondary">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4" th:if="${chalesDisponiveis.empty}">
+        <div class="col-12">
+            <div class="chale-disp">
+                <span class="ml-3">Não há chalé disponível para o período pesquisado.</span>
+            </div>
+        </div>
+    </div>
+</div>

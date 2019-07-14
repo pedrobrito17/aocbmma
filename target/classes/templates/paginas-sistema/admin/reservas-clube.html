@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>RESERVAS DO CLUBE</b></h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
+
+                    <div class="mt-4">
+                        <h4 th:if="${eventCampo.empty and eventCajueiro.empty and eventChale.empty}">Nenhuma reserva
+                            realizada.</h4>
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-success" th:if="${msgSuccess}">
+                                    <span th:utext="${msgSuccess}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" th:if="${not eventCampo.empty}">
+                            <div class="col-sm-12 col-lg-12">
+                                <h6><b>Campo de futebol</b></h6>
+                                <table class="table table-sm table-striped table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Sócio</th>
+                                            <th>Data</th>
+                                            <th>Horário inicio</th>
+                                            <th>Horário término</th>
+                                            <th>Valor da reserva</th>
+                                            <th>Pagamento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="evento : ${eventCampo}">
+                                            <td class="align-middle"><a
+                                                    th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                    th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${evento.hora_inicio}"></td>
+                                            <td class="align-middle" th:text="${evento.hora_termino}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" title="Deletar reserva"
+                                                th:href="@{/admin/deletar-reserva/campo/{id}(id=${evento.id})}">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" title="Pagamento realizado"
+                                                th:href="@{/admin/atualizar-status-reserva/campo/{id}(id=${evento.id})}">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        
+                        <div class="row mt-4" th:if="${not eventCajueiro.empty}">
+                            <div class="col-sm-12 col-lg-12">
+                                <h6><b>Espaço Cajueiro</b></h6>
+                                <table class="table table-sm table-striped table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Sócio</th>
+                                            <th>Data</th>
+                                            <th>Período</th>
+                                            <th>Valor da reserva</th>
+                                            <th>Pagamento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="evento : ${eventCajueiro}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_reserva, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${evento.periodo}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" 
+                                                th:href="@{/admin/deletar-reserva/cajueiro/{id}(id=${evento.id})}" title="Deletar reserva">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" 
+                                                th:href="@{/admin/atualizar-status-reserva/cajueiro/{id}(id=${evento.id})}" title="Pagamento realizado">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        
+                        <div class="row mt-4 mb-5" th:if="${not eventChale.empty}">
+                            <div class="col-sm-12 col-lg-12">
+                                <h6><b>Chalé</b></h6>
+                                <table class="table table-sm table-striped table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Sócio</th>
+                                            <th>Nº do chalé</th>
+                                            <th>Data entrada</th>
+                                            <th>Data saída</th>
+                                            <th>Valor da reserva</th>
+                                            <th>Pagamento</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="evento : ${eventChale}">
+                                            <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${evento.socio.id})}"
+                                                th:text="${#strings.isEmpty(evento.socio.dadosOficial.posto)} ? ${evento.socio.nome} : 
+                                                        ${evento.socio.dadosOficial.posto + ' '+ evento.socio.dadosOficial.nome_guerra}"></a>
+                                            </td>
+                                            <td class="align-middle" th:text="${evento.chale.getCod_chale()}"></td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_entrada, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle" th:text="${#dates.format(evento.data_saida, 'dd/MM/yyyy')}"></td>
+                                            <td class="align-middle">R$ <span th:text="${#numbers.formatDecimal(evento.valor_reserva,0,2)}"></span></td>
+                                            <td class="align-middle" th:text="${evento.pagamento}"></td>
+                                            <td class="align-middle text-center">
+                                                <a class="btn btn-danger btn-sm text-white" 
+                                                th:href="@{/admin/deletar-reserva/chale/{id}(id=${evento.id})}" title="Deletar reserva">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </a>
+                                                <a class="btn btn-success btn-sm text-white" 
+                                                th:href="@{/admin/atualizar-status-reserva/chale/{id}(id=${evento.id})}" title="Pagamento realizado">
+                                                    <i class="far fa-check-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 5,
+                    paging: true,
+                    ordering: false,
+                    searching: false,
+                    info: false,
+                    lengthChange: false,
+                    // lengthMenu: [2,5,6,10],
+                    language: {
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
+        </script>
+    </main>
+
+</body>
+
+</html>

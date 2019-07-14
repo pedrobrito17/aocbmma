@@ -1,0 +1,49 @@
+input:hover {
+    cursor: pointer;
+}
+
+.nav-tabs>.active>a,
+.nav-tabs>.active>a:hover,
+.nav-tabs>.active>a:focus {
+    border-color: #dee2e6;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.tab-content {
+    border: 1px solid #dee2e6;
+    border-top: 0px;
+}
+
+.navbar a:hover,
+.active {
+    background-color: #fff !important;
+    border-radius: 0px !important;
+}
+
+.nav-link {
+    color: #495057;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+option:disabled {
+    background-color: #dee2e6;
+}
+
+.chale-disp{
+    background-color: #FFBF00;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+.chale-disp p {
+    margin: 0px;
+}

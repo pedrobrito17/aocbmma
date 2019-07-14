@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="Página da Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão">
+    <meta name="keywords" content="associação, cbmma">
+    <title>AOCBMMA | Associação dos Oficiais do Corpo de Bombeiros Militar do Maranhão</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/brasao.ico}">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-socio.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/padrao-sistema.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="row mt-2">
+                <div class="col-12">
+                    <br>
+                    <div>
+                        <h5>TAXAS COBRADAS</h5>
+                        <p>JÓIA: R$ 998,00 <br> MENSALIDADE: R$ 85,00</p>
+                        <p>De acordo com o Estatuto, o pagamento da jóia poderá ser feito em até 4 vezes. Neste período
+                            o sócio não efetuará o
+                            pagamento da mensalidade.</p>
+                    </div>
+                    <br>
+
+                    <h5 class="text-center">OFICIAL BM/PM, PREENCHA O FORMULÁRIO ABAIXO PARA SOLICITAR SUA ADESÃO A
+                        AOCBMMA.</h5><br>
+
+                    <p class="text-danger">Dados obrigatórios *</p>
+                    <form th:action="@{/cadastrar-novo-socio}" th:method="POST" th:object="${socio}" name="form-cadastro" id="form-cadastro">
+
+                        <fieldset>
+                            <legend>Dados pessoais <span class="text-danger">*</span></legend>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" class="form-control form-custom"
+                                        autofocus placeholder="Nome completo" th:field="*{nome}">
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom cpf" placeholder="CPF" type="text" th:field="*{cpf}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom data_nascimento" type="text" placeholder="Data de nascimento" th:field="*{data_nascimento}">
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <select class="form-control form-custom" th:field="*{tipoSocio}" data-toggle="categoria">
+                                        <option value="">Categoria</option>
+                                        <option value="fundador">Sócio fundador</option>
+                                        <option value="efetivo">Sócio efetivo</option>
+                                        <option value="contribuinte">Sócio contribuinte</option>
+                                        <option value="honorário">Sócio honorário</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset id="dados-oficial" class="mt-4">
+                            <div class="flex-row mb-2">
+                                <legend class="d-inline w-auto">Dados do oficialato <span class="text-danger">*</span></legend>
+                                <div class="d-md-inline form-check ml-3">
+                                    <input type="checkbox" class="form-check-input form-custom-check" id="civil">
+                                    <label class="form-check-label" for="civil" id="label-civil">Não sou militar</label>
+                                  </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="text"
+                                        placeholder="Nome de guerra" th:field="*{dadosOficial.nome_guerra}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <select class="form-control form-custom" th:field="*{dadosOficial.posto}">
+                                        <option value="" selected hidden>Posto</option>
+                                        <option value="CADETE">CADETE</option>
+                                        <option value="ASPIRANTE A OFICIAL">ASPIRANTE A OFICIAL</option>
+                                        <option value="2º TENENTE">2º TENENTE</option>
+                                        <option value="1º TENENTE">1º TENENTE</option>
+                                        <option value="CAPITÃO">CAPITÃO</option>
+                                        <option value="MAJOR">MAJOR</option>
+                                        <option value="TENENTE CORONEL">TENENTE CORONEL</option>
+                                        <option value="CORONEL">CORONEL</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6" id="quadro">
+                                    <h5>Quadro</h5>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                        th:field="*{dadosOficial.quadro}" value="QOC">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOC</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                        th:field="*{dadosOficial.quadro}" value="QOA">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                        th:field="*{dadosOficial.quadro}" value="QOE">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOE</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                        th:field="*{dadosOficial.quadro}" value="QOS">
+                                        <label class="form-check-label" for="dadosOficial.quadro">QOS</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0" id="corporacao">
+                                    <h5>Corporação</h5>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                            th:field="*{dadosOficial.corporacao}" value="CBMMA">
+                                        <label class="form-check-label" for="dadosOficial.corporacao">CBMMA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                            th:field="*{dadosOficial.corporacao}" value="PMMA">
+                                        <label class="form-check-label" for="dadosOficial.corporacao">PMMA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" 
+                                            th:field="*{dadosOficial.corporacao}" value="Forças Armadas">
+                                        <label class="form-check-label" for="dadosOficial.corporacao">Forças Armadas</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input class="form-control form-custom" type="text"
+                                        placeholder="Lotação" th:field="*{dadosOficial.lotacao}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom rg_militar" type="text"
+                                        placeholder="RG Militar" th:field="*{dadosOficial.rg_militar}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom matricula" type="text"
+                                        placeholder="Matrícula" th:field="*{dadosOficial.matricula}">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="mt-4">
+                            <legend>Dados bancários <span class="text-danger">*</span></legend>
+                            <div class="row">
+                                <div class="col-12">
+                                    <select class="form-control form-custom" th:field="*{dadosBancarios.banco}">
+                                        <option value="" selected hidden>Banco</option>
+                                        <option value="Banco do Brasil S.A.">001 - Banco do Brasil S.A.</option>
+                                        <option value="Banco Itaú S.A.">341 - Banco Itaú S.A.</option>
+                                        <option value="Banco Santander S.A.">003 - Banco Santander S.A.</option>
+                                        <option value="Banco Real S.A.">356 - Banco Real S.A.</option>
+                                        <option value="Banco Bradesco S.A.">237 - Banco Bradesco S.A.</option>
+                                        <option value="Caixa Econômica Federal">104 - Caixa Econômica Federal</option>
+                                        <option value="Banco Rural S.A.">453 - Banco Rural S.A.</option>
+                                        <option value="Banco Safra S.A.">422 - Banco Safra S.A.</option>
+                                        <option value="Banco Rendimento S.A.">633 - Banco Rendimento S.A.</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom agencia" type="text"
+                                        placeholder="Agência" th:field="*{dadosBancarios.agencia}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom conta_corrente" type="text"
+                                        placeholder="Conta corrente" th:field="*{dadosBancarios.conta_corrente}">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="mt-4">
+                            <legend>Endereço <span class="text-danger">*</span></legend>
+                            <div class="row">
+                                <div th:replace="padrao/elementos :: loading"></div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom cep" type="text"
+                                        placeholder="CEP" th:field="*{dadosContato.cep}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="form-control form-custom endereco" type="text"
+                                        placeholder="Endereço" th:field="*{dadosContato.endereco}" readonly>
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control form-custom numero" type="text"
+                                        placeholder="Número" th:field="*{dadosContato.numero}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="form-control form-custom" type="text"
+                                        placeholder="Complemento" th:field="*{dadosContato.complemento}">
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control form-custom bairro" type="text" 
+                                        placeholder="Bairro" th:field="*{dadosContato.bairro}" readonly>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom cidade" type="text"
+                                        placeholder="Cidade" th:field="*{dadosContato.cidade}" readonly>
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom uf" type="text" 
+                                        placeholder="UF" th:field="*{dadosContato.uf}" readonly>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="mt-4">
+                            <legend>Contato <span class="text-danger">*</span></legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel" 
+                                        placeholder="WhatsApp" th:field="*{dadosContato.whatsapp}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom phone_with_ddd" type="tel"
+                                        placeholder="Celular" th:field="*{dadosContato.celular}">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom email" type="email"
+                                        placeholder="E-mail" th:field="*{dadosContato.email}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom" type="email"
+                                        name="conf-email" id="conf-email" placeholder="Confirme seu e-mail">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="mt-4">
+                            <legend class="link">
+                                Dependentes
+                                <a class="text-muted" href="javascript:addDependente()" data-toggle="popover"
+                                    id="popover">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                                <a class="text-muted" href="javascript:removeDependente()" data-toggle="popover"
+                                    id="popover">
+                                    <i class="fas fa-minus-circle"></i>
+                                </a>
+                            </legend>
+                            <div id="dependente">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-8">
+                                        <input class="form-control form-custom dependente" type="text" name="dependente"
+                                            placeholder="Dependente" th:field="*{dependentes[0].nome}">
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4 mt-4 mt-lg-0">
+                                        <select class="form-control form-custom"
+                                            th:field="*{dependentes[0].parentesco}">
+                                            <option value="" selected hidden>Parentesco</option>
+                                            <option value="Cônjuge">Cônjuge</option>
+                                            <option value="Filho(a)">Filho(a)</option>
+                                            <option value="Pai">Pai</option>
+                                            <option value="Mãe">Mãe</option>
+                                            <option value="Sogro(a)">Sogro(a)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="mt-4">
+                            <legend>Acesso <span class="text-danger">*</span></legend>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <input class="form-control form-custom" type="password" 
+                                        placeholder="Senha" th:field="*{senha}">
+                                </div>
+                                <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
+                                    <input class="form-control form-custom" type="password" name="conf-senha"
+                                        id="conf-senha" placeholder="Confirmar senha">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="row mb-4 mt-4">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-sis btn-block mt-4 mb-4">ASSOCIAR</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+        <script th:src="@{/js/popper.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/jquery.mask.min.js}"></script>
+        <script th:src="@{/js/jquery.validate.min.js}"></script>
+        <script th:src="@{/js/additional-methods.min.js}"></script>
+        <script th:src="@{/js/form-validation.js}"></script>
+        <script th:src="@{/js/form-socio.js}"></script>
+
+        
+    </main>
+</body>
+
+</html>

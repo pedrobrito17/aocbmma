@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form-associese.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>MEUS DEPENDENTES</b></h4>
+                    <hr>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12 col-lg-8 offset-lg-2">
+
+                    <form th:action="@{/sisaocbmma/atualizar-meus-dependentes}" th:method="POST" th:object="${socio}"
+                        name="form1">
+
+                        <!-- FORM INVISÍVEL PARA ENVIAR O OBJETO COMPLETO -->
+                        <input name="id" th:field="*{id}" type="text" hidden>
+
+                        <fieldset>
+                            <legend class="link mb-n3">
+                                Dependentes
+                                <a class="text-muted" href="javascript:addDependente()" data-toggle="popover" id="popover">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                            </legend>
+                            <div id="dependente">
+                                <div th:each="dep, i : ${socio.getDependentes()}" class="row mt-4">
+                                    <div class="col-sm-12 col-lg-7">
+                                        <input type="text" th:field="*{dependentes[__${i.index}__].id}" hidden>
+                                        <input class="form-control form-custom dependente" type="text" name="dependente" 
+                                            placeholder="Dependente" th:value="${dep.getNome()}" th:field="*{dependentes[__${i.index}__].nome}">
+                                    </div>
+                                    <div class="col-sm-10 col-lg-3">
+                                        <select class="form-control form-custom" th:field="*{dependentes[__${i.index}__].parentesco}">
+                                            <option value="" selected hidden>Parentesco</option>
+                                            <option th:if="${dep.getParentesco()} == 'Cônjuge' ? selected" value="Cônjuge">Cônjuge</option>
+                                            <option th:if="${dep.getParentesco()} == 'Filho(a)'" value="Filho(a)">Filho(a)</option>
+                                            <option th:if="${dep.getParentesco()} == 'Pai'" value="Pai">Pai</option>
+                                            <option th:if="${dep.getParentesco()} == 'Mãe'" value="Mãe">Mãe</option>
+                                            <option th:if="${dep.getParentesco()} == 'Sogro(a)'" value="Sogro(a)">Sogro(a)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2 col-lg-2">
+                                        <button type="button" class="btn btn-sm btn-warning" th:onclick="'deletarDependente('+ ${dep.getId()} +');'" >Excluir</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+                        <br>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-danger btn-sis btn-block mt-4 mb-4">SALVAR</button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/form-socio.js}"></script>
+    </main>
+
+</body>
+
+</html>

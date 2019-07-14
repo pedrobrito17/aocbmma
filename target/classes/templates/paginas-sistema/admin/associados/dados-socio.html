@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <style th:inline="text">
+        .ficha p {
+            margin-bottom: 4px;
+        }
+        .avatar-ficha {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+        .foto-socio{
+            max-width: 300px;
+            max-height: 300px;
+            cursor: auto;
+        }
+        .foto-avatar{
+            max-width: 200px;
+            max-height: 200px;
+            cursor: auto;
+        }
+        .dados{
+            position: absolute;
+        }
+        @media screen and (max-width: 992px) {
+            .dados {
+                position: static;
+            }
+            .avatar{
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
+                    <br>
+                    <div class="avatar-ficha d-inline-block" th:if="${socioFind.path_foto_perfil != null}">
+                       <img class="foto-socio" th:src="@{${socioFind.path_foto_perfil}}">
+                    </div>
+                    <div class=" d-inline-block" th:if="${socioFind.path_foto_perfil == null}">
+                        <img class="foto-avatar" th:src="@{/img/avatar-user.png}">
+                    </div>
+                    <div class="d-inline-block ml-lg-5 mt-lg-4 dados">
+                        <h5><b th:text="${socioFind.nome}"></b></h5>
+                        <span th:text="${socioFind.dadosOficial} ? 
+                            ${socioFind.dadosOficial.posto + ' ' +socioFind.dadosOficial.quadro + ' '+socioFind.dadosOficial.nome_guerra} : 'Civil'"></span><br>
+                        <span>Sócio </span><span th:text="${socioFind.tipoSocio}"></span>
+                    </div>
+                </div>
+            </div><br>
+            <div class="ficha">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-10 offset-lg-1">
+                        <p>Situação: <span th:text="${socioFind.situacao}"></span></p>
+                        <p>CPF: <span th:text="${socioFind.cpf}"></span></p>
+                        <p>Data de nascimento: <span th:text="${#dates.format(socioFind.data_nascimento, 'dd/MM/yyyy')}"></span></p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-sm-12 col-lg-5 offset-lg-1">
+                        <p>Corporação: <span th:if="${socioFind.dadosOficial}" th:text="${socioFind.dadosOficial.corporacao}"></span></p>
+                        <p>Lotação: <span th:if="${socioFind.dadosOficial}" th:text="${socioFind.dadosOficial.lotacao}"></span></p>
+                        <p>RG Militar: <span th:if="${socioFind.dadosOficial}" th:text="${socioFind.dadosOficial.rg_militar}"></span></p>
+                        <p>Matrícula: <span th:if="${socioFind.dadosOficial}" th:text="${socioFind.dadosOficial.matricula}"></span></p>
+                    </div>
+                    <div class="col-sm-12 col-lg-5">
+                        <p>Banco: <span th:text="${socioFind.dadosBancarios.banco}"></span></p>
+                        <p>Agência: <span th:text="${socioFind.dadosBancarios.agencia}"></span></p>
+                        <p>Conta corrente: <span th:text="${socioFind.dadosBancarios.conta_corrente}"></span></p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-sm-12 col-lg-5 offset-lg-1">
+                        <p>Endereço: <span th:text="${socioFind.dadosContato.endereco}"></span></p>
+                        <p>Número: <span th:text="${socioFind.dadosContato.numero}"></span></p>
+                        <p>Complemento: <span th:text="${socioFind.dadosContato.complemento}"></span></p>
+                        <p>Cidade: <span th:text="${socioFind.dadosContato.cidade}"></span></p>
+                        <p>UF: <span th:text="${socioFind.dadosContato.uf}"></span></p>
+                    </div>
+                    <div class="col-sm-12 col-lg-5">
+                        <p>E-mail: <span th:text="${socioFind.dadosContato.email}"></span></p>
+                        <p>Whatsapp: <span th:text="${socioFind.dadosContato.whatsapp}"></span></p>
+                        <p>Celular: <span th:text="${socioFind.dadosContato.celular}"></span></p>
+                    </div>
+                </div>
+                <div class="row mt-4" th:if="${not socioFind.dependentes.empty}">
+                    <div class="col-sm-12 col-lg-10 offset-lg-1">
+                        <h6>Dependentes:</h6>
+                        <div th:each="dep : ${socioFind.dependentes}">
+                            <p><span th:text="${dep.nome}"></span> - <span th:text="${dep.parentesco}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

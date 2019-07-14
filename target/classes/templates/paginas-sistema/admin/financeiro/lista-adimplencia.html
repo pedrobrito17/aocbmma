@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{padrao/layout-sistema-base}">
+
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/animation-load.css}">
+</head>
+
+<body>
+    <main layout:fragment="conteudo">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <h4><b>LISTA DE ADIMPLÊNCIA</b></h4>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="alert alert-success" th:if="${msgSuccess}">
+                        <span th:utext="${msgSuccess}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-sm-12 col-md-8">
+
+                    <table class="table table-sm table-striped table-responsive-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>NOME</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="adimp, var : ${sociosAdimplencia}">
+                                <td class="align-middle" th:text="${var.count}"></td>
+                                <td class="align-middle" th:text="${adimp.socio.nome}"></td>
+                                <td class="align-middle" >
+                                    <a 
+                                        th:text="${adimp.status}" 
+                                        href="javascript:void(0)" 
+                                        th:onclick=" 'getDadosAdimplencia(' +${adimp.cod} + ');' "
+                                        th:class="${adimp.status}=='inadimplente' ? 'text-danger' : 'normal'">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-sm-12 col-md-4 mt-4 mt-md-0">
+                    <div class="div-info-system">
+
+                        <div th:replace="padrao/elementos :: loading"></div>
+
+                        <div class="dados-adimplencia">
+                            <p><b>Nome</b></p>
+                            <p id="nome" class="mt-n3"></p>
+    
+                            <p><b>Status</b></p>
+                            <p id="status" class="mt-n3"></p>
+    
+                            <p><b>Primeira mensalidade registrada</b></p>
+                            <p id="menIni" class="mt-n3"></p>
+                            
+                            <p><b>Mensalidade atrasada</b></p>
+                            <div id="menAtrasadas">
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="mt-4">
+                        <form th:action="@{/admin/atualizar-inadimplencia}" th:method="POST">
+                            <button type="submit" class="btn btn-sis btn-block">ATUALIZAR INADIMPLÊNCIA</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/adimplencia.js}"></script>
+        <script th:src="@{/js/datatables.min.js}"></script>
+        <script th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+        <script>
+            $(document).ready(function(){
+                $('.table').DataTable({
+                    pageLength: 10,
+                    paging: true,
+                    ordering: true,
+                    searching: true,
+                    info: false,
+                    lengthChange: true,
+                    lengthMenu: [10,20,40,60,80,100,150,200],
+                    language: {
+                        lengthMenu: "Exibir _MENU_ linhas",
+                        search: "Pesquisar",
+                        paginate: {
+                            next: "Próximo",
+                            previous: "Anterior"
+                        }
+                    }
+                });
+            })
+        </script>
+    </main>
+</body>
+</html>
