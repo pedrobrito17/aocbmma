@@ -25,7 +25,8 @@
                     <h5>Instruções</h5>
                     <ol class="" type="I">
                         <li>Somente os sócios adimplentes podem realizar a reserva do clube.</li>
-                        <li>Não é permitido a reserva do clube aos domingos.</li>
+                        <li>Não é permitido a reserva do clube aos domingos e feriados.</li>
+                        <li>Cada sócio tem direito a apenas uma reserva do Espaço Cajueiro por mês.</li>
                         <li>As datas e horários reservados estão desabilitados no formulário.</li>
                         <li>Período diurno: 08H às 18H.</li>
                         <li>Período noturno
@@ -200,22 +201,29 @@
             <!-- Recebendo dados thymeleaf -->
             <script th:inline="javascript">
                 var disableddates = [];
+                var datasBloqueadasPeloAdmin = [];
                 
                 /*<![CDATA[*/
                 var dt = /*[[${datasReservaCajueiro}]]*/ "d";
+                var datasBloqueadas = /*[[${datasBloqueadas}]]*/ "e";
                 var date_string;
                 
-                let tam = dt.length;
-                for (let i = 0; i < tam; i++) {
+                for (let i = 0 ; i < dt.length ; i++) {
                     disableddates.push( dt[i] );
                 }
+
+                for(let j = 0 ; j < datasBloqueadas.length ; j++){
+                    datasBloqueadasPeloAdmin.push(datasBloqueadas[j].data);
+                }
+
                 /*]]*/
-                </script>
+            </script>
 
             <script th:src="@{/js/jquery-ui.min.js}"></script>
             <script th:src="@{/js/datepicker-custom.js}"></script>
             <script th:src="@{/js/jquery.mask.min.js}"></script>
             <script th:src="@{/js/reserva.js}"></script>
+        </div>
     </main>
 
 </body>

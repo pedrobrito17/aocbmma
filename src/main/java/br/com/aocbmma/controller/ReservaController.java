@@ -81,10 +81,16 @@ public class ReservaController {
         if(socioLogadoEstaInadimplente()){
             return aoIndex("msgErro", msgErro);
         }
-        reservaCajueiroService.salvarReserva(reserva);
-        mensageiroEmail = new MensageiroEmail();
-        mensageiroEmail.reservaRealizadaEnviarEmail();
-        return aoIndex("msgSuccess", msgSuccess);
+        else if(reservaCajueiroService.socioPossuiReservaNesteMes(reserva)){
+            return aoIndex("msgErro", "Reserva não realizada. Você possui uma reserva no mês solicitado. Cada sócio possui direito "
+            +"a somente uma reserva por mês.");
+        }
+        else{
+            reservaCajueiroService.salvarReserva(reserva);
+            mensageiroEmail = new MensageiroEmail();
+            mensageiroEmail.reservaRealizadaEnviarEmail();
+            return aoIndex("msgSuccess", msgSuccess);
+        }
     }
 
     @GetMapping(value = "/sisaocbmma/horas-iniciais/{data}")

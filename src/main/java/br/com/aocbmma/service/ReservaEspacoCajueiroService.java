@@ -1,11 +1,13 @@
 package br.com.aocbmma.service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.aocbmma.model.EspacoCajueiro;
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
@@ -86,6 +88,21 @@ public class ReservaEspacoCajueiroService{
 
 	public void deletarReserva(int id_reserva) {
         reservaCajueiroRepository.deleteById(id_reserva);
+	}
+
+	public boolean socioPossuiReservaNesteMes(ReservaEspacoCajueiro reserva) {
+        Date dataReserva = reserva.getData_reserva();
+        int idSocioLogado =  socioService.getSocioByEmail().getId();
+
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(dataReserva);
+        int mesDaReserva = calendar.get(Calendar.MONTH)+1;
+
+        ReservaEspacoCajueiro temReserva = reservaCajueiroRepository.socioPossuiReservaCajueiroNoMesSolicitado(mesDaReserva, idSocioLogado);
+        if(temReserva == null){
+            return false;
+        }
+        return true;
 	}
 
 }

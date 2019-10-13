@@ -238,7 +238,11 @@ public class SocioService {
 
     public Socio findSocioByEmail(String email) {
         DadosContato dadosContato = contatoRepository.findByEmail(email);
-        return dadosContato.getSocio();
+        if(dadosContato!=null){
+            return dadosContato.getSocio();
+        }else{
+            return null;
+        }
     }
 
     // Cria um objeto do socioLogado na sessão ativa

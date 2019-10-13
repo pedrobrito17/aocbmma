@@ -25,6 +25,7 @@ import br.com.aocbmma.model.Socio;
 import br.com.aocbmma.service.AtaAssembleiaService;
 import br.com.aocbmma.service.CategoriaConvenioService;
 import br.com.aocbmma.service.ConvenioService;
+import br.com.aocbmma.service.DatasBloqueadasService;
 import br.com.aocbmma.service.MovimentacaoFinanceiraService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
@@ -63,6 +64,9 @@ public class SistemaController {
 
     @Autowired
     private SocioTransferenciaService socioTransferenciaService;
+
+    @Autowired
+    private DatasBloqueadasService datasBloqueadasService;
 
     @Autowired
     private SolicitacaoCarteiraIdentificacaoService solicitacaoCarteiraIdentificacaoService;
@@ -149,6 +153,7 @@ public class SistemaController {
         mv.addObject("reservaCampo", new ReservaCampoFutebol());
         mv.addObject("reservaCajueiro", new ReservaEspacoCajueiro());
         mv.addObject("datasReservaCajueiro", reservaCajueiroService.getDatasReservasRealizadas());
+        mv.addObject("datasBloqueadas", datasBloqueadasService.getTodasDatasBloqueadas());
         return mv;
     }
 

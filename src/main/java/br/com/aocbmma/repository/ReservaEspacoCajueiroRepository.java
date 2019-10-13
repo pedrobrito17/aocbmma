@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import br.com.aocbmma.model.ReservaEspacoCajueiro;
@@ -26,4 +27,8 @@ public interface ReservaEspacoCajueiroRepository extends JpaRepository<ReservaEs
 
     @Query(value="SELECT * FROM reserva_cajueiro WHERE pagamento='pendente' AND DATE_ADD(data_solicitacao, INTERVAL 3 DAY) <= CURDATE()", nativeQuery=true)
     List<ReservaEspacoCajueiro> findReservasPagamentoVencido();
+    
+    @Nullable
+    @Query(value="SELECT * FROM reserva_cajueiro WHERE socio_id=:idSocioLogado AND month(data_reserva)=:mesDaReserva AND pagamento!='vencido'", nativeQuery=true)
+	ReservaEspacoCajueiro socioPossuiReservaCajueiroNoMesSolicitado(@Param("mesDaReserva") int mesDaReserva, @Param("idSocioLogado") int idSocioLogado);
 }

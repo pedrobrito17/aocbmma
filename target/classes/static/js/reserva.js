@@ -93,10 +93,19 @@ function limparDatasEscolhidas() {
 }
 
 function exibirTermo(form){
-    $('#termo').modal();
-    $('#btn-reservar').click(function(){
-        form.submit();
-    });
+
+    var dataReserva = form['data_reserva'].value;
+    
+    if(dataReserva == ''){
+        alert('Preencha a data do evento antes de confirmar.');
+        return false;
+    }else{
+        $('#termo').modal();
+        $('#btn-reservar').click(function(){
+            form.submit();
+        });
+    }
+
 }
 
 function exibirTermoChale(form){

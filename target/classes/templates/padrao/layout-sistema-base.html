@@ -125,8 +125,16 @@
                     <div sec:authorize="hasAuthority('ADMIN')">
                         <hr>
                         <ul>
-                            <li class="">
-                                <a id="reservas" th:href="@{/admin/reservas-clube}"><i class="far fa-calendar-alt"></i><span> Reservas</span></a>
+                            <li class="menu-down">
+                                <a id="reservas" href="javascript:void(0);">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span> Reservas</span>
+                                    <i class="fas fa-caret-down"></i>
+                                </a>
+                                <ul class="">
+                                    <li class=""><a th:href="@{/admin/reservas-clube}">Reservas do clube</a></li>
+                                    <li class=""><a th:href="@{/admin/datas-bloqueadas}">Datas bloqueadas</a></li>
+                                </ul>
                             </li>
                             <li class="">
                                 <a id="reservas" th:href="@{/admin/download-files-doc-zip}"><i class="fas fa-file-download"></i></i><span> Documentação dos associados</span></a>
@@ -194,7 +202,7 @@
                 <div class="row">
                     <div class="col-12">
                         <br>
-                        <main layout:fragment="conteudo">
+                            <main layout:fragment="conteudo">
                         </main>
                     </div>
                 </div>      

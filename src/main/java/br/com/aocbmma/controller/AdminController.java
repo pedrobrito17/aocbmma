@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.aocbmma.model.DatasBloqueadas;
 import br.com.aocbmma.model.Socio;
+import br.com.aocbmma.service.DatasBloqueadasService;
 import br.com.aocbmma.service.ReservaCampoFutebolService;
 import br.com.aocbmma.service.ReservaChaleService;
 import br.com.aocbmma.service.ReservaEspacoCajueiroService;
@@ -22,6 +24,9 @@ public class AdminController{
 
     @Autowired
     private SocioService socioService;
+
+    @Autowired
+    private DatasBloqueadasService datasBloqueadasService;
 
     @Autowired
     private ReservaCampoFutebolService reservaCampoService;
@@ -52,13 +57,22 @@ public class AdminController{
     
     @GetMapping(value="/admin/reservas-clube")
     public ModelAndView pageReservasClube() {
-        mv = new ModelAndView("paginas-sistema/admin/reservas-clube");
+        mv = new ModelAndView("paginas-sistema/admin/reservas/reservas-clube");
         mv.addObject("eventCampo", reservaCampoService.getReservasDoClube());
         mv.addObject("eventCajueiro", reservaCajueiroService.getReservasDoClube());
         mv.addObject("eventChale", reservaChaleService.getReservasDoClube());
         mv.addObject("socio", socioSession);
         return mv;
     }    
+
+    @RequestMapping(value = "/admin/datas-bloqueadas", method = RequestMethod.GET)
+    public ModelAndView requestMethodName() {
+        ModelAndView mv = new ModelAndView("paginas-sistema/admin/reservas/datas-bloqueadas");
+        mv.addObject("dataBloqueada", new DatasBloqueadas());
+        mv.addObject("todasDatasBloqueadas", datasBloqueadasService.getTodasDatasBloqueadas());
+        mv.addObject("socio", socioSession);
+        return mv;
+    }
     
     @GetMapping(value="/admin/dados-socio/{id}")
     public ModelAndView pageDadosSocio(@PathVariable("id") int id) {
