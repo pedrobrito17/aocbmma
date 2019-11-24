@@ -43,6 +43,7 @@ public class FileSociosExcel {
         criarFolhaPorCategoriaDoSocio("fundador");
         criarFolhaPorCategoriaDoSocio("efetivo");
         criarFolhaPorCategoriaDoSocio("contribuinte");
+        criarFolhaPorCategoriaDoSocio("usuário");
         criarFolhaPorCategoriaDoSocio("honorário");
 
         planilha.write(fileOutputStream);
@@ -114,7 +115,7 @@ public class FileSociosExcel {
 
             rowDados.createCell(0).setCellValue( cont );
             rowDados.createCell(1).setCellValue( socio.getNome() );
-            rowDados.createCell(2).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getPosto() + " " + socio.getDadosOficial().getQuadro() : " - " );
+            rowDados.createCell(2).setCellValue( getPostoDoOficial(socio ));
             rowDados.createCell(3).setCellValue( socio.getDadosOficial()!=null ? socio.getDadosOficial().getNome_guerra() : " - " );
             rowDados.createCell(4).setCellValue( data_nascimento );
             rowDados.createCell(5).setCellValue( socio.getCpf() );
@@ -186,6 +187,17 @@ public class FileSociosExcel {
     public void apagarArquivoCriadoAnteriormente(File file){
         file.delete();
     }
-    
 
+    public String getPostoDoOficial(Socio socio){
+        if(socio.getDadosOficial()!=null && socio.getDadosOficial().getQuadro()!=null){
+            return socio.getDadosOficial().getPosto() + " " + socio.getDadosOficial().getQuadro();
+        }
+        else if(socio.getDadosOficial()!=null && socio.getDadosOficial().getQuadro()==null){
+            return socio.getDadosOficial().getPosto();
+        }
+        else{
+            return " - ";
+        }
+    }
+    
 }

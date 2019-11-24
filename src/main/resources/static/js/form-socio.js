@@ -82,7 +82,8 @@ $('#tipoSocio').popover({
         '<ol style="list-style-type: upper-roman; margin: 0px;">' +
         '<li>Fundadores: oficiais que assinaram a Ata de Fundação. </li>' +
         '<li>Efetivos: cadetes, aspirantes e oficiais do CBMMA.</li>' +
-        '<li>Contribuintes: oficiais das Forças Armadas ou Forças Auxiliares e também civis.</li>' +
+        '<li>Contribuintes: oficiais das Forças Armadas ou PMMA e também civis.</li>' +
+        '<li>Usuários: subtenentes das Forças Armadas ou Forças Auxiliares do Maranhão</li>' +
         '<li>Honorários: reconhecidos por Assembléia Geral.</li>' +
         '</ol>' +
         '</div>' +

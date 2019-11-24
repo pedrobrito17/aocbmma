@@ -21,8 +21,8 @@ public class MensageiroEmail {
 
     private SimpleMailMessage simpleMailMessage = null;
 
-    private String emailDoPresidente = "aocbmma@gmail.com";
-    // private String emailDoPresidente = "pedrobrito17@gmail.com";
+    // private String emailDoPresidente = "aocbmma@gmail.com";
+    private String emailDoPresidente = "pedrobrito17@gmail.com";
 
     public void reservaRealizadaEnviarEmail() {
 
@@ -103,7 +103,7 @@ public class MensageiroEmail {
 
         Authenticator auth = new Authenticator() {
             public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("contato@aocbmma.com.br", "FUSh3WTSn0Cy");
+                return new PasswordAuthentication("contato@aocbmma.com.br", "ENe#:2X:EHN9^35UBI");
             }
         };
 

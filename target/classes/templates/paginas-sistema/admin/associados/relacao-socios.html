@@ -16,6 +16,7 @@
                     <h4 th:if="${categoria == 'fundador'}"><b>SÓCIOS FUNDADORES</b></h4>
                     <h4 th:if="${categoria == 'contribuinte'}"><b>SÓCIOS CONTRIBUINTES</b></h4>
                     <h4 th:if="${categoria == 'honorário'}"><b>SÓCIOS HONORÁRIOS</b></h4>
+                    <h4 th:if="${categoria == 'usuário'}"><b>SÓCIOS USUÁRIOS</b></h4>
                     <hr>
                 </div>
             </div>
@@ -42,9 +43,13 @@
                                 <td class="align-middle"><a th:href="@{/admin/dados-socio/{id}(id=${socio.id})}"
                                         th:text="${socio.nome}"></a>
                                 </td>
-                                <td class="align-middle" th:text="
-                                ${socio.DadosOficial} ?
-                                ${socio.dadosOficial.posto + ' '+ socio.dadosOficial.quadro+ ' '+ socio.dadosOficial.nome_guerra} : '-'"></td>
+
+                                <td class="align-middle">
+                                    <span th:text="${socio.dadosOficial}!=null and !${#strings.isEmpty(socio.dadosOficial.quadro)} ? ${socio.dadosOficial.posto + ' ' + socio.DadosOficial.quadro + ' ' + socio.DadosOficial.nome_guerra}"></span>
+                                    <span th:text="${socio.dadosOficial}!=null and ${#strings.isEmpty(socio.dadosOficial.quadro)} ? ${socio.dadosOficial.posto + ' ' + socio.DadosOficial.nome_guerra}"></span>
+                                    <span th:text="${socio.dadosOficial}==null ? 'Civil'"></span>
+                                </td>
+                                
                                 <td class="align-middle" th:text="
                                 ${socio.DadosOficial} ?
                                 ${socio.dadosOficial.lotacao} : '-'"></td>

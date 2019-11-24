@@ -53,9 +53,9 @@
                     </div>
                     <div class="d-inline-block ml-lg-5 mt-lg-4 dados">
                         <h5><b th:text="${socioFind.nome}"></b></h5>
-                        <span th:text="${socioFind.dadosOficial} ? 
-                            ${socioFind.dadosOficial.posto + ' ' +socioFind.dadosOficial.quadro + ' '+socioFind.dadosOficial.nome_guerra} : 'Civil'"></span><br>
-                        <span>Sócio </span><span th:text="${socioFind.tipoSocio}"></span>
+                        <span th:text="${socioFind.dadosOficial}!=null and !${#strings.isEmpty(socioFind.dadosOficial.quadro)} ? ${socioFind.dadosOficial.posto + ' ' + socioFind.DadosOficial.quadro + ' ' + socioFind.DadosOficial.nome_guerra}"></span>
+                        <span th:text="${socioFind.dadosOficial}!=null and ${#strings.isEmpty(socioFind.dadosOficial.quadro)} ? ${socioFind.dadosOficial.posto + ' ' + socioFind.DadosOficial.nome_guerra}"></span>
+                        <span th:text="${socioFind.dadosOficial}==null ? 'Civil'"></span>
                     </div>
                 </div>
             </div><br>

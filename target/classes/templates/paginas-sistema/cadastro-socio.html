@@ -65,6 +65,7 @@
                                         <option value="fundador">Sócio fundador</option>
                                         <option value="efetivo">Sócio efetivo</option>
                                         <option value="contribuinte">Sócio contribuinte</option>
+                                        <option value="usuário">Sócio usuário</option>
                                         <option value="honorário">Sócio honorário</option>
                                     </select>
                                 </div>
@@ -83,11 +84,12 @@
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
                                     <input class="form-control form-custom" type="text"
-                                        placeholder="Nome de guerra" th:field="*{dadosOficial.nome_guerra}">
+                                        placeholder="Nome de guerra (exemplo: J. Henrique)" th:field="*{dadosOficial.nome_guerra}">
                                 </div>
                                 <div class="col-sm-12 col-lg-6 mt-4 mt-lg-0">
                                     <select class="form-control form-custom" th:field="*{dadosOficial.posto}">
-                                        <option value="" selected hidden>Posto</option>
+                                        <option value="" selected hidden>Grad/Posto</option>
+                                        <option value="SUBTENENTE">SUBTENENTE</option>
                                         <option value="CADETE">CADETE</option>
                                         <option value="ASPIRANTE A OFICIAL">ASPIRANTE A OFICIAL</option>
                                         <option value="2º TENENTE">2º TENENTE</option>
